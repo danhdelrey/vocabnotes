@@ -1,0 +1,18 @@
+part of 'word_information_bloc.dart';
+
+sealed class WordInformationState extends Equatable {
+  const WordInformationState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class WordInformationInitial extends WordInformationState {}
+
+final class WordInformationLoaded extends WordInformationState {
+  final List<EnglishWordModel> englishWordModelList;
+
+  const WordInformationLoaded({required this.englishWordModelList});
+}
+
+final class WordInformationError extends WordInformationState {}
