@@ -5,11 +5,12 @@ class SearchField extends StatelessWidget {
   const SearchField({
     super.key,
     required this.textEditingController,
-    required this.hintText,
+    required this.hintText, this.onSubmit,
   });
 
   final TextEditingController textEditingController;
   final String hintText;
+  final void Function(String value)? onSubmit;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +20,7 @@ class SearchField extends StatelessWidget {
       ),
       child: TextField(
         controller: textEditingController,
-        onSubmitted: (value) {},
+        onSubmitted: onSubmit,
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: const Icon(HugeIcons.strokeRoundedSearch02),
