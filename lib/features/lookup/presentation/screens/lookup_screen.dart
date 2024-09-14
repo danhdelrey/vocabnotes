@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
@@ -30,46 +32,46 @@ class _LookupScreenState extends State<LookupScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WordInformationBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: SearchField(
-            textEditingController: _textEditingController,
-            hintText: 'Look up word online',
-            
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: SearchField(
+              textEditingController: _textEditingController,
+              hintText: 'Look up word online',
+              onSubmit: (value) => context
+                  .read<WordInformationBloc>()
+                  .add(GetWordInformationEvent(word: value)),
+            ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: BlocBuilder<WordInformationBloc, WordInformationState>(
+          body: BlocBuilder<WordInformationBloc, WordInformationState>(
             builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildWordTitle(
-                      context: context, word: 'record', phonetic: '/ˈɹɛkɔːd/'),
-                  const Text('noun'),
-                  const Text(
-                      'A disk, usually made of a polymer, used to record sound for playback on a phonograph.'),
-                  const Text('E.g. This is the example'),
-                  const Text(
-                      'A disk, usually made of a polymer, used to record sound for playback on a phonograph.'),
-                  const Text('E.g. This is the example'),
-                  const Text(
-                      'A disk, usually made of a polymer, used to record sound for playback on a phonograph.'),
-                  const Text('E.g. This is the example'),
-                  const Text('synonyms'),
-                  _buildRelatedWords(
-                    title: 'synonyms',
-                    wordList: ['hello', 'hello'],
+              if (state is WordInformationInitial) {
+                return const Center(
+                  child: Text('look up a word'),
+                );
+              } else if (state is WordInformationLoaded) {
+                return ListView.builder(
+                  itemCount: state.englishWordModelList.length,
+                  itemBuilder: (context, index) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildWordTitle(
+                          context: context,
+                          word: state.englishWordModelList[index].name,
+                          phonetic: state.englishWordModelList[index].phonetic),
+                    ],
                   ),
-                  _buildRelatedWords(
-                    title: 'antonym',
-                  ),
-                ],
-              );
+                );
+              } else if (state is WordInformationloading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return const Center(child: Text('error'));
             },
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -104,6 +106,15 @@ class _LookupScreenState extends State<LookupScreen> {
               ),
             ],
           ),
+      ],
+    );
+  }
+
+  _buildDefinitionWithExample({required definition, example}) {
+    return Column(
+      children: [
+        Text(definition),
+        if (example != null) Text(example),
       ],
     );
   }

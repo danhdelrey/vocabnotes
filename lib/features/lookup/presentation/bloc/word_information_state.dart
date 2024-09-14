@@ -14,5 +14,8 @@ final class WordInformationLoaded extends WordInformationState {
 
   const WordInformationLoaded({required this.englishWordModelList});
 }
+final class WordInformationloading extends WordInformationState{
+
+}
 
 final class WordInformationError extends WordInformationState {}

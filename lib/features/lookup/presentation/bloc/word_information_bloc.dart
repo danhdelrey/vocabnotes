@@ -16,6 +16,7 @@ class WordInformationBloc
     );
 
     on<GetWordInformationEvent>((event, emit) async {
+      emit(WordInformationloading());
       List<EnglishWordModel> englishWordModelList;
       try {
         englishWordModelList =
