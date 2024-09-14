@@ -1,4 +1,4 @@
-import 'package:vocabnotes/api_service/english_dictionary.dart';
+import 'package:vocabnotes/common/api_service/english_dictionary.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
 
 class WordLookupService {

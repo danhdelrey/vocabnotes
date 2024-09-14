@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vocabnotes/api_service/english_dictionary.dart';
-import 'package:vocabnotes/api_service/word_lookup_service.dart';
+import 'package:vocabnotes/common/api_service/english_dictionary.dart';
+import 'package:vocabnotes/common/api_service/word_lookup_service.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
 
 part 'word_information_event.dart';
