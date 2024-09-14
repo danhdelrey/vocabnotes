@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/screens_demo/learning_screen.dart';
-import 'package:vocabnotes/screens_demo/library_screen.dart';
+import 'package:vocabnotes/features/library/presentation/screens/library_screen.dart';
 import 'package:vocabnotes/features/lookup/presentation/screens/lookup_screen.dart';
 
 class BottomNavigation extends StatefulWidget {

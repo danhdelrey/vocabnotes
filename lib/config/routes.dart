@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:vocabnotes/screens_demo/splash_screen.dart';
+import 'package:vocabnotes/common/screens/splash_screen.dart';
 import 'package:vocabnotes/common/widgets/bottom_navigation.dart';
 
 final routes = {
