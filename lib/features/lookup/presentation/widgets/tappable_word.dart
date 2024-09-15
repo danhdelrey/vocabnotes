@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocabnotes/config/theme.dart';
+import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/screens/lookup_screen.dart';
 
 class TappableWord extends StatelessWidget {
   const TappableWord({
@@ -15,7 +18,9 @@ class TappableWord extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       child: InkWell(
         onTap: () {
-          
+          context
+              .read<WordInformationBloc>()
+              .add((GetWordInformationEvent(word: word)));
         },
         borderRadius: BorderRadius.circular(7),
         child: Container(

@@ -74,7 +74,8 @@ class GeminiDictionary implements EnglishDictionary {
         generationConfig: GenerationConfig(
             responseMimeType: 'application/json', responseSchema: schema));
 
-    final prompt = 'Find the meaning of this english word/phrase: $word';
+    final prompt =
+        'Find the meaning of this english word/phrase, correct it if it is mispelled or incorrect: $word';
     final response = await model.generateContent([Content.text(prompt)]);
 
     List<EnglishWordModel> englishWordModelList = [];
