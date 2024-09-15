@@ -56,32 +56,57 @@ class _LookupScreenState extends State<LookupScreen> {
                   child: Text('look up a word'),
                 );
               } else if (state is WordInformationLoaded) {
-                _searchedWords.addLast(state.searchedWord);
+                _searchedWords.addLast(state.englishWordModelList[0].name);
                 return Scaffold(
                   appBar: AppBar(
-                      automaticallyImplyLeading: false,
-                      title: Text(state.searchedWord),
-                      leading: _searchedWords.length > 1
-                          ? IconButton(
-                              onPressed: () {
-                                _searchedWords.removeLast();
-                                String previousWord =
-                                    _searchedWords.removeLast();
-                                context.read<WordInformationBloc>().add(
-                                    GetWordInformationEvent(
-                                        word: previousWord));
-                              },
-                              icon: const Icon(
-                                  HugeIcons.strokeRoundedArrowLeft01))
-                          : Container()),
+                    automaticallyImplyLeading: false,
+                    title: Text(state.englishWordModelList[0].name),
+                    leading: _searchedWords.length > 1
+                        ? IconButton(
+                            onPressed: () {
+                              _searchedWords.removeLast();
+                              String previousWord = _searchedWords.removeLast();
+                              context.read<WordInformationBloc>().add(
+                                  GetWordInformationEvent(word: previousWord));
+                            },
+                            icon:
+                                const Icon(HugeIcons.strokeRoundedArrowLeft01),
+                          )
+                        : Container(),
+                    actions: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+                      ),
+                    ],
+                  ),
                   body: _buildWordInformation(state),
                 );
               } else if (state is WordInformationloading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
+              } else if (state is WordInformationError) {
+                return Scaffold(
+                  appBar: AppBar(
+                    leading: _searchedWords.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              String previousWord = _searchedWords.removeLast();
+                              context.read<WordInformationBloc>().add(
+                                  GetWordInformationEvent(word: previousWord));
+                            },
+                            icon:
+                                const Icon(HugeIcons.strokeRoundedArrowLeft01),
+                          )
+                        : Container(),
+                  ),
+                  body: const Center(
+                    child: Text('something went wrong'),
+                  ),
+                );
               }
-              return const Center(child: Text('error'));
+              return Container();
             },
           ),
         );
