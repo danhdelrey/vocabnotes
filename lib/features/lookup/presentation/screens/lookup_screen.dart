@@ -51,34 +51,39 @@ class _LookupScreenState extends State<LookupScreen> {
                   child: Text('look up a word'),
                 );
               } else if (state is WordInformationLoaded) {
-                return ListView.builder(
-                  itemCount: state.englishWordModelList.length,
-                  itemBuilder: (context, index) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildWordTitle(
-                        context: context,
-                        word: state.englishWordModelList[index].name,
-                        phonetic: state.englishWordModelList[index].phonetic,
-                      ),
-                      ...state.englishWordModelList[index].decodedMeanings.map(
-                        (meanings) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildDefinitions(
-                              definitions: meanings['definitions'],
-                              partOfSpeech: meanings['partOfSpeech'],
-                            ),
-                            _buildRelatedWords(
-                                title: 'synonyms',
-                                wordList: meanings['synonyms']),
-                            _buildRelatedWords(
-                                title: 'antonyms',
-                                wordList: meanings['antonyms']),
-                          ],
+                return Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                  child: ListView.builder(
+                    itemCount: state.englishWordModelList.length,
+                    itemBuilder: (context, index) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildWordTitle(
+                          context: context,
+                          word: state.englishWordModelList[index].name,
+                          phonetic: state.englishWordModelList[index].phonetic,
                         ),
-                      ),
-                    ],
+                        ...state.englishWordModelList[index].decodedMeanings
+                            .map(
+                          (meanings) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildDefinitions(
+                                definitions: meanings['definitions'],
+                                partOfSpeech: meanings['partOfSpeech'],
+                              ),
+                              _buildRelatedWords(
+                                  title: 'synonyms:',
+                                  wordList: meanings['synonyms']),
+                              _buildRelatedWords(
+                                  title: 'antonyms:',
+                                  wordList: meanings['antonyms']),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               } else if (state is WordInformationloading) {
@@ -106,9 +111,6 @@ class _LookupScreenState extends State<LookupScreen> {
         ),
         if (phonetic != null)
           Text(phonetic!, style: Theme.of(context).textTheme.bodyLarge),
-        const SizedBox(
-          height: 10,
-        ),
       ],
     );
   }
@@ -117,7 +119,11 @@ class _LookupScreenState extends State<LookupScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (wordList != null && wordList.isNotEmpty) Text(title),
+        if (wordList != null && wordList.isNotEmpty)
+          Text(
+            title,
+            style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+          ),
         if (wordList != null && wordList.isNotEmpty)
           Wrap(
             children: [
@@ -135,13 +141,43 @@ class _LookupScreenState extends State<LookupScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(partOfSpeech),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: ThemeData().colorScheme.outlineVariant,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 1, bottom: 1, left: 4, right: 4),
+            child: Text(
+              partOfSpeech,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
         ...definitions.map(
           (definition) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(definition['definition']),
-              if (definition['example'] != null) Text(definition['example']),
+              Text(
+                '‣ ${definition['definition']}',
+                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+              ),
+              if (definition['example'] != null)
+                Text(
+                  'E.g. ${definition['example']}',
+                  style: const TextStyle().copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              const SizedBox(
+                height: 15,
+              )
             ],
           ),
         ),
