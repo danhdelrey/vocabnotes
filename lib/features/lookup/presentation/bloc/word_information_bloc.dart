@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vocabnotes/common/api_service/english_dictionary.dart';
@@ -14,6 +16,7 @@ class WordInformationBloc
       englishDictionary: FreeEnglishDictionary(),
       geminiDictionary: GeminiDictionary(),
     );
+    
 
     on<GetWordInformationEvent>((event, emit) async {
       emit(WordInformationloading());
@@ -21,13 +24,13 @@ class WordInformationBloc
       try {
         englishWordModelList =
             await wordLookupService.lookupWordFromDictionary(event.word);
-        emit(WordInformationLoaded(englishWordModelList: englishWordModelList));
+        emit(WordInformationLoaded(englishWordModelList: englishWordModelList, searchedWord: event.word));
       } catch (e) {
         try {
           englishWordModelList =
               await wordLookupService.lookupWordFromGemini(event.word);
           emit(WordInformationLoaded(
-              englishWordModelList: englishWordModelList));
+              englishWordModelList: englishWordModelList,searchedWord: event.word));
         } catch (e) {
           emit(WordInformationError());
         }

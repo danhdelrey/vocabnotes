@@ -1,6 +1,8 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
@@ -16,6 +18,7 @@ class LookupScreen extends StatefulWidget {
 
 class _LookupScreenState extends State<LookupScreen> {
   late TextEditingController _textEditingController;
+  final _searchedWords = Queue<String>();
 
   @override
   void initState() {
@@ -39,9 +42,11 @@ class _LookupScreenState extends State<LookupScreen> {
             title: SearchField(
               textEditingController: _textEditingController,
               hintText: 'Look up word online',
-              onSubmit: (value) => context
-                  .read<WordInformationBloc>()
-                  .add(GetWordInformationEvent(word: value)),
+              onSubmit: (value) {
+                context
+                    .read<WordInformationBloc>()
+                    .add(GetWordInformationEvent(word: value));
+              },
             ),
           ),
           body: BlocBuilder<WordInformationBloc, WordInformationState>(
@@ -51,40 +56,25 @@ class _LookupScreenState extends State<LookupScreen> {
                   child: Text('look up a word'),
                 );
               } else if (state is WordInformationLoaded) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-                  child: ListView.builder(
-                    itemCount: state.englishWordModelList.length,
-                    itemBuilder: (context, index) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildWordTitle(
-                          context: context,
-                          word: state.englishWordModelList[index].name,
-                          phonetic: state.englishWordModelList[index].phonetic,
-                        ),
-                        ...state.englishWordModelList[index].decodedMeanings
-                            .map(
-                          (meanings) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildDefinitions(
-                                definitions: meanings['definitions'],
-                                partOfSpeech: meanings['partOfSpeech'],
-                              ),
-                              _buildRelatedWords(
-                                  title: 'synonyms:',
-                                  wordList: meanings['synonyms']),
-                              _buildRelatedWords(
-                                  title: 'antonyms:',
-                                  wordList: meanings['antonyms']),
-                              const Divider(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                _searchedWords.addLast(state.searchedWord);
+                return Scaffold(
+                  appBar: AppBar(
+                      automaticallyImplyLeading: false,
+                      title: Text(state.searchedWord),
+                      leading: _searchedWords.length > 1
+                          ? IconButton(
+                              onPressed: () {
+                                _searchedWords.removeLast();
+                                String previousWord =
+                                    _searchedWords.removeLast();
+                                context.read<WordInformationBloc>().add(
+                                    GetWordInformationEvent(
+                                        word: previousWord));
+                              },
+                              icon: const Icon(
+                                  HugeIcons.strokeRoundedArrowLeft01))
+                          : Container()),
+                  body: _buildWordInformation(state),
                 );
               } else if (state is WordInformationloading) {
                 return const Center(
@@ -96,6 +86,41 @@ class _LookupScreenState extends State<LookupScreen> {
           ),
         );
       }),
+    );
+  }
+
+  Padding _buildWordInformation(WordInformationLoaded state) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+      child: ListView.builder(
+        itemCount: state.englishWordModelList.length,
+        itemBuilder: (context, index) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildWordTitle(
+              context: context,
+              word: state.englishWordModelList[index].name,
+              phonetic: state.englishWordModelList[index].phonetic,
+            ),
+            ...state.englishWordModelList[index].decodedMeanings.map(
+              (meanings) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildDefinitions(
+                    definitions: meanings['definitions'],
+                    partOfSpeech: meanings['partOfSpeech'],
+                  ),
+                  _buildRelatedWords(
+                      title: 'synonyms:', wordList: meanings['synonyms']),
+                  _buildRelatedWords(
+                      title: 'antonyms:', wordList: meanings['antonyms']),
+                  const Divider(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

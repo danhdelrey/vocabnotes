@@ -11,11 +11,11 @@ final class WordInformationInitial extends WordInformationState {}
 
 final class WordInformationLoaded extends WordInformationState {
   final List<EnglishWordModel> englishWordModelList;
+  final String searchedWord;
 
-  const WordInformationLoaded({required this.englishWordModelList});
+  const WordInformationLoaded({required this.searchedWord,required this.englishWordModelList});
 }
-final class WordInformationloading extends WordInformationState{
 
-}
+final class WordInformationloading extends WordInformationState {}
 
 final class WordInformationError extends WordInformationState {}
