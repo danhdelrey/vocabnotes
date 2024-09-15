@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
+import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,9 +57,27 @@ class _LookupScreenState extends State<LookupScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildWordTitle(
-                          context: context,
-                          word: state.englishWordModelList[index].name,
-                          phonetic: state.englishWordModelList[index].phonetic),
+                        context: context,
+                        word: state.englishWordModelList[index].name,
+                        phonetic: state.englishWordModelList[index].phonetic,
+                      ),
+                      ...state.englishWordModelList[index].decodedMeanings.map(
+                        (meanings) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildDefinitions(
+                              definitions: meanings['definitions'],
+                              partOfSpeech: meanings['partOfSpeech'],
+                            ),
+                            _buildRelatedWords(
+                                title: 'synonyms',
+                                wordList: meanings['synonyms']),
+                            _buildRelatedWords(
+                                title: 'antonyms',
+                                wordList: meanings['antonyms']),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -94,11 +113,12 @@ class _LookupScreenState extends State<LookupScreen> {
     );
   }
 
-  _buildRelatedWords({List<String>? wordList, required title}) {
+  Column _buildRelatedWords({List<dynamic>? wordList, required title}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (wordList != null) Text(title),
-        if (wordList != null)
+        if (wordList != null && wordList.isNotEmpty) Text(title),
+        if (wordList != null && wordList.isNotEmpty)
           Wrap(
             children: [
               ...wordList.map(
@@ -110,11 +130,21 @@ class _LookupScreenState extends State<LookupScreen> {
     );
   }
 
-  _buildDefinitionWithExample({required definition, example}) {
+  Column _buildDefinitions(
+      {required List<dynamic> definitions, required partOfSpeech}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(definition),
-        if (example != null) Text(example),
+        Text(partOfSpeech),
+        ...definitions.map(
+          (definition) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(definition['definition']),
+              if (definition['example'] != null) Text(definition['example']),
+            ],
+          ),
+        ),
       ],
     );
   }
