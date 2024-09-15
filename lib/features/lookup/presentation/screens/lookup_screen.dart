@@ -136,27 +136,27 @@ class _LookupScreenState extends State<LookupScreen> {
     );
   }
 
-  Column _buildDefinitions(
-      {required List<dynamic> definitions, required partOfSpeech}) {
+  Column _buildDefinitions({required List<dynamic> definitions, partOfSpeech}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: 10,
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: ThemeData().colorScheme.outlineVariant,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 1, bottom: 1, left: 4, right: 4),
-            child: Text(
-              partOfSpeech,
+        if (partOfSpeech != null)
+          Container(
+            decoration: BoxDecoration(
+              color: ThemeData().colorScheme.outlineVariant,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(top: 1, bottom: 1, left: 4, right: 4),
+              child: Text(
+                partOfSpeech,
+              ),
             ),
           ),
-        ),
         const SizedBox(
           height: 15,
         ),
@@ -164,10 +164,12 @@ class _LookupScreenState extends State<LookupScreen> {
           (definition) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '‣ ${definition['definition']}',
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-              ),
+              if (definition['definition'] != null)
+                Text(
+                  '‣ ${definition['definition']}',
+                  style:
+                      const TextStyle().copyWith(fontWeight: FontWeight.bold),
+                ),
               if (definition['example'] != null)
                 Text(
                   'E.g. ${definition['example']}',

@@ -45,22 +45,24 @@ class GeminiDictionary implements EnglishDictionary {
         requiredProperties: ['word', 'meanings'],
         properties: {
           'word': Schema.string(nullable: false),
-          'meanings': Schema.object(
-            requiredProperties: ['definitions'],
-            properties: {
-              'definitions': Schema.array(
-                items: Schema.object(properties: {
-                  'definition': Schema.string(nullable: false),
-                  'example': Schema.string(nullable: false),
-                }),
-              ),
-              'synonyms': Schema.array(
-                items: Schema.string(nullable: true),
-              ),
-              'antonyms': Schema.array(
-                items: Schema.string(nullable: true),
-              ),
-            },
+          'meanings': Schema.array(
+            items: Schema.object(
+              requiredProperties: ['definitions'],
+              properties: {
+                'definitions': Schema.array(
+                  items: Schema.object(properties: {
+                    'definition': Schema.string(nullable: false),
+                    'example': Schema.string(nullable: false),
+                  }),
+                ),
+                'synonyms': Schema.array(
+                  items: Schema.string(nullable: true),
+                ),
+                'antonyms': Schema.array(
+                  items: Schema.string(nullable: true),
+                ),
+              },
+            ),
           ),
         },
       ),
