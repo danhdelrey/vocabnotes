@@ -50,7 +50,10 @@ class GeminiDictionary implements EnglishDictionary {
               requiredProperties: ['definitions'],
               properties: {
                 'definitions': Schema.array(
-                  items: Schema.object(properties: {
+                  items: Schema.object(requiredProperties: [
+                    'definition',
+                    'example'
+                  ], properties: {
                     'definition': Schema.string(nullable: false),
                     'example': Schema.string(nullable: false),
                   }),

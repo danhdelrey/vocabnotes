@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
-import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocabnotes/config/theme.dart';
-import 'package:vocabnotes/features/lookup/presentation/bloc/word_information_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/screens/lookup_screen.dart';
 
 class TappableWord extends StatelessWidget {
