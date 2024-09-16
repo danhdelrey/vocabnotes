@@ -14,9 +14,9 @@ abstract class WordDao {
   Future<List<EnglishWordModel>?> findWordInDatabase(String word);
 
   @Query(
-      "SELECT COUNT(*) FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
+      "SELECT COUNT(*) FROM EnglishWordModel WHERE name = :word ")
   Future<int?> countWord(String word);
 
-  @Query("DELETE FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
-  Future<void> deleteWord(String word);
+  @Query("DELETE FROM EnglishWordModel WHERE name = :wordName and meanings = :firstMeaning")
+  Future<void> deleteWord(String wordName, String firstMeaning);
 }

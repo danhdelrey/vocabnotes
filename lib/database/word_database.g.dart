@@ -156,16 +156,19 @@ class _$WordDao extends WordDao {
   @override
   Future<int?> countWord(String word) async {
     return _queryAdapter.query(
-        'SELECT COUNT(*) FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',
+        'SELECT COUNT(*) FROM EnglishWordModel WHERE name = ?1',
         mapper: (Map<String, Object?> row) => row.values.first as int,
         arguments: [word]);
   }
 
   @override
-  Future<void> deleteWord(String word) async {
+  Future<void> deleteWord(
+    String wordName,
+    String firstMeaning,
+  ) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',
-        arguments: [word]);
+        'DELETE FROM EnglishWordModel WHERE name = ?1 and meanings = ?2',
+        arguments: [wordName, firstMeaning]);
   }
 
   @override
