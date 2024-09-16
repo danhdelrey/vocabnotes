@@ -47,27 +47,47 @@ class _LookupScreenState extends State<LookupScreen> {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: _buildAppBar(context),
-          body: BlocBuilder<WordInformationBloc, WordInformationState>(
-            builder: (context, state) {
-              if (state is WordInformationInitial) {
-                return const Center(
-                  child: Text('look up a word'),
+          body: BlocListener<SaveToLibraryBloc, SaveToLibraryState>(
+            listener: (context, state) {
+              if (state is SaveToLibraryLoading) {
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: CircularProgressIndicator()),
                 );
-              } else if (state is WordInformationLoaded) {
-                _searchedWords.addLast(state.englishWordModelList[0].name);
-                return Scaffold(
-                  appBar: _buildTopBar(state, context),
-                  body: _buildWordInformation(state),
+              } else if (state is SaveToLibrarySuccess) {
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
                 );
-              } else if (state is WordInformationloading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+              } else if (state is SaveToLibraryFailure) {
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
                 );
-              } else if (state is WordInformationError) {
-                return _buildSearchWordInformationError(context);
               }
-              return Container();
             },
+            child: BlocBuilder<WordInformationBloc, WordInformationState>(
+              builder: (context, state) {
+                if (state is WordInformationInitial) {
+                  return const Center(
+                    child: Text('look up a word'),
+                  );
+                } else if (state is WordInformationLoaded) {
+                  _searchedWords.addLast(state.englishWordModelList[0].name);
+                  return Scaffold(
+                    appBar: _buildTopBar(state, context),
+                    body: _buildWordInformation(state),
+                  );
+                } else if (state is WordInformationloading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is WordInformationError) {
+                  return _buildSearchWordInformationError(context);
+                }
+                return Container();
+              },
+            ),
           ),
         );
       }),
