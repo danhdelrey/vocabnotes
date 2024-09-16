@@ -24,7 +24,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
           for (var word in listOfWords) {
             WordListTile wordListTile = WordListTile(
               word: word.name,
-              firstMeaning: word.decodedMeanings[0]['definitions']
+              firstMeaning: word.decodedMeanings[0]['definitions'][0]
                   ['definition'],
               phonetic: word.phonetic,
             );
