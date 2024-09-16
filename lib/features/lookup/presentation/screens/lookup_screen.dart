@@ -38,17 +38,7 @@ class _LookupScreenState extends State<LookupScreen> {
       create: (context) => WordInformationBloc(),
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: AppBar(
-            title: SearchField(
-              textEditingController: _textEditingController,
-              hintText: 'Look up word online',
-              onSubmit: (value) {
-                context
-                    .read<WordInformationBloc>()
-                    .add(GetWordInformationEvent(word: value));
-              },
-            ),
-          ),
+          appBar: _buildAppBar(context),
           body: BlocBuilder<WordInformationBloc, WordInformationState>(
             builder: (context, state) {
               if (state is WordInformationInitial) {
@@ -58,44 +48,7 @@ class _LookupScreenState extends State<LookupScreen> {
               } else if (state is WordInformationLoaded) {
                 _searchedWords.addLast(state.englishWordModelList[0].name);
                 return Scaffold(
-                  appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    title: Text(state.englishWordModelList[0].name),
-                    leading: _searchedWords.length > 1
-                        ? IconButton(
-                            onPressed: () {
-                              _searchedWords.removeLast();
-                              String previousWord = _searchedWords.removeLast();
-                              context.read<WordInformationBloc>().add(
-                                  GetWordInformationEvent(word: previousWord));
-                            },
-                            icon:
-                                const Icon(HugeIcons.strokeRoundedArrowLeft01),
-                          )
-                        : Container(),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Add to library?'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Cancel')),
-                                FilledButton(
-                                    onPressed: () {}, child: const Text('Yes'))
-                              ],
-                            ),
-                          );
-                        },
-                        icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
-                      ),
-                    ],
-                  ),
+                  appBar: _buildTopBar(state, context),
                   body: _buildWordInformation(state),
                 );
               } else if (state is WordInformationloading) {
@@ -103,30 +56,88 @@ class _LookupScreenState extends State<LookupScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is WordInformationError) {
-                return Scaffold(
-                  appBar: AppBar(
-                    leading: _searchedWords.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              String previousWord = _searchedWords.removeLast();
-                              context.read<WordInformationBloc>().add(
-                                  GetWordInformationEvent(word: previousWord));
-                            },
-                            icon:
-                                const Icon(HugeIcons.strokeRoundedArrowLeft01),
-                          )
-                        : Container(),
-                  ),
-                  body: const Center(
-                    child: Text('something went wrong'),
-                  ),
-                );
+                return _buildSearchWordInformationError(context);
               }
               return Container();
             },
           ),
         );
       }),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: SearchField(
+        textEditingController: _textEditingController,
+        hintText: 'Look up word online',
+        onSubmit: (value) {
+          context
+              .read<WordInformationBloc>()
+              .add(GetWordInformationEvent(word: value));
+        },
+      ),
+    );
+  }
+
+  Scaffold _buildSearchWordInformationError(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: _searchedWords.isNotEmpty
+            ? IconButton(
+                onPressed: () {
+                  String previousWord = _searchedWords.removeLast();
+                  context
+                      .read<WordInformationBloc>()
+                      .add(GetWordInformationEvent(word: previousWord));
+                },
+                icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
+              )
+            : Container(),
+      ),
+      body: const Center(
+        child: Text('something went wrong'),
+      ),
+    );
+  }
+
+  AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Text(state.englishWordModelList[0].name),
+      leading: _searchedWords.length > 1
+          ? IconButton(
+              onPressed: () {
+                _searchedWords.removeLast();
+                String previousWord = _searchedWords.removeLast();
+                context
+                    .read<WordInformationBloc>()
+                    .add(GetWordInformationEvent(word: previousWord));
+              },
+              icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
+            )
+          : Container(),
+      actions: [
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Add to library?'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel')),
+                  FilledButton(onPressed: () {}, child: const Text('Yes'))
+                ],
+              ),
+            );
+          },
+          icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+        ),
+      ],
     );
   }
 
