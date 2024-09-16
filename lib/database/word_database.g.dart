@@ -134,9 +134,9 @@ class _$WordDao extends WordDao {
   final InsertionAdapter<EnglishWordModel> _englishWordModelInsertionAdapter;
 
   @override
-  Future<List<EnglishWordModel>?> findWords(String word) async {
+  Future<List<EnglishWordModel>?> findWordInDatabase(String word) async {
     return _queryAdapter.queryList(
-        'select * from EnglishWordModel where name = ?1',
+        'SELECT * FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',
         mapper: (Map<String, Object?> row) => EnglishWordModel(
             name: row['name'] as String,
             meanings: row['meanings'] as String,
@@ -145,8 +145,23 @@ class _$WordDao extends WordDao {
   }
 
   @override
-  Future<void> insertWord(EnglishWordModel word) async {
-    await _englishWordModelInsertionAdapter.insert(
+  Future<int?> countWord(String word) async {
+    return _queryAdapter.query(
+        'SELECT COUNT(*) FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [word]);
+  }
+
+  @override
+  Future<void> deleteWord(String word) async {
+    await _queryAdapter.queryNoReturn(
+        'DELETE FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',
+        arguments: [word]);
+  }
+
+  @override
+  Future<void> insertWord(List<EnglishWordModel> word) async {
+    await _englishWordModelInsertionAdapter.insertList(
         word, OnConflictStrategy.abort);
   }
 }
