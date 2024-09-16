@@ -34,8 +34,8 @@ class WordListTile extends StatelessWidget {
                 FilledButton(
                     onPressed: () {
                       Navigator.of(context).pop(true);
-                      context.read<LibraryBloc>().add(DeleteWordFromDatabase(
-                          wordName: word, firstMeaning: firstMeaning));
+                      context.read<LibraryBloc>().add(
+                          DeleteWordFromDatabase(firstMeaning: firstMeaning));
                     },
                     child: const Text('Yes'))
               ],

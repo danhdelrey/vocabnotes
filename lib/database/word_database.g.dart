@@ -168,13 +168,10 @@ class _$WordDao extends WordDao {
   }
 
   @override
-  Future<void> deleteWord(
-    String wordName,
-    String firstMeaning,
-  ) async {
+  Future<void> deleteWord(String firstMeaning) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM EnglishWordModel WHERE name = ?1 and meanings = ?2',
-        arguments: [wordName, firstMeaning]);
+        'DELETE FROM EnglishWordModel WHERE meanings LIKE \'%\' || ?1 || \'%\'',
+        arguments: [firstMeaning]);
   }
 
   @override
