@@ -36,6 +36,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
           title: SearchField(
             textEditingController: _textEditingController,
             hintText: 'Search in library',
+            onChanged: (value) {
+              context.read<LibraryBloc>().add(SearchInLibrary(word: value));
+            },
           ),
         ),
         body: BlocListener<LibraryBloc, LibraryState>(

@@ -12,6 +12,11 @@ final class GetAllWordsFromDatabaseEvent extends LibraryEvent {}
 final class DeleteWordFromDatabase extends LibraryEvent {
   final String firstMeaning;
 
-  const DeleteWordFromDatabase(
-      { required this.firstMeaning});
+  const DeleteWordFromDatabase({required this.firstMeaning});
+}
+
+final class SearchInLibrary extends LibraryEvent {
+  final String word;
+
+  const SearchInLibrary({required this.word});
 }

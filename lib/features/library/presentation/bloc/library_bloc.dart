@@ -58,5 +58,37 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
         emit(WordDeleteFailure());
       }
     });
+
+    on<SearchInLibrary>((event, emit) async {
+      emit(LibraryLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        List<WordListTile> wordListTiles = [];
+
+        final listOfWords = await wordDao.findWordInDatabase(event.word);
+        if (listOfWords!.isNotEmpty) {
+          for (var word in listOfWords) {
+            WordListTile wordListTile = WordListTile(
+              word: word.name,
+              firstMeaning: word.decodedMeanings[0]['definitions'][0]
+                  ['definition'],
+              phonetic: word.phonetic,
+            );
+            wordListTiles.add(wordListTile);
+          }
+
+          emit(Libraryloaded(wordListTiles: wordListTiles));
+        } else {
+          emit(LibraryEmpty());
+        }
+      } catch (e) {
+        emit(LibraryError());
+      }
+    });
   }
 }
