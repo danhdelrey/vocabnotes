@@ -48,7 +48,9 @@ class WordListTile extends StatelessWidget {
           child: const Center(child: Icon(HugeIcons.strokeRoundedRemove01)),
         ),
         child: ListTile(
-          onTap: () {},
+          onTap: () {
+            
+          },
           title: RichText(
             text: TextSpan(
               style: DefaultTextStyle.of(context).style,
