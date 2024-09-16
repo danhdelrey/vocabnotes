@@ -9,6 +9,7 @@ part 'library_state.dart';
 class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
   LibraryBloc() : super(LibraryInitial()) {
     on<GetAllWordsFromDatabaseEvent>((event, emit) async {
+      emit(LibraryLoading());
       try {
         final database = await $FloorWordDatabase
             .databaseBuilder('word_database.db')
