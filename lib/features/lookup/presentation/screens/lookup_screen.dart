@@ -75,7 +75,23 @@ class _LookupScreenState extends State<LookupScreen> {
                         : Container(),
                     actions: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Add to library?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Cancel')),
+                                FilledButton(
+                                    onPressed: () {}, child: const Text('Yes'))
+                              ],
+                            ),
+                          );
+                        },
                         icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
                       ),
                     ],
