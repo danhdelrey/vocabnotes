@@ -23,3 +23,13 @@ final class Libraryloaded extends LibraryState {
 final class WordDeleteSuccess extends LibraryState {}
 
 final class WordDeleteFailure extends LibraryState {}
+
+final class GetWordLoading extends LibraryState {}
+
+final class GetWordSucess extends LibraryState {
+  final EnglishWordModel englishWordModel;
+
+  const GetWordSucess({required this.englishWordModel});
+}
+
+final class GetWordFailure extends LibraryState {}

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/database/word_database.dart';
 import 'package:vocabnotes/features/library/presentation/widgets/word_list_tile.dart';
 
@@ -40,6 +41,23 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
       }
     });
 
+    on<GetWordFromDatabaseEvent>((event, emit) async {
+      emit(GetWordLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        EnglishWordModel? englishWordModel = await wordDao.getWordInformation(event.wordName,event.firstMeaning);
+        
+        emit(GetWordSucess(englishWordModel: englishWordModel!));
+      } catch (e) {
+        emit(GetWordFailure());
+      }
+    });
+
     on<DeleteWordFromDatabase>((event, emit) async {
       try {
         final database = await $FloorWordDatabase
@@ -48,7 +66,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        await wordDao.deleteWord(event.firstMeaning);
+        await wordDao.deleteWord(event.wordName,event.firstMeaning);
         final wordCount = await wordDao.countAllWords();
         if (wordCount == 0) {
           emit(LibraryEmpty());

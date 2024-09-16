@@ -154,6 +154,17 @@ class _$WordDao extends WordDao {
   }
 
   @override
+  Future<EnglishWordModel?> getWordInformation(
+    String wordName,
+    String firstMeaning,
+  ) async {
+    return _queryAdapter.query(
+        'SELECT * FROM EnglishWordModel WHERE name = ?1 and meanings LIKE \'%\' || ?2 || \'%\'',
+        mapper: (Map<String, Object?> row) => EnglishWordModel(name: row['name'] as String, meanings: row['meanings'] as String, phonetic: row['phonetic'] as String?),
+        arguments: [wordName, firstMeaning]);
+  }
+
+  @override
   Future<int?> countWord(String word) async {
     return _queryAdapter.query(
         'SELECT COUNT(*) FROM EnglishWordModel WHERE name = ?1',
@@ -168,10 +179,13 @@ class _$WordDao extends WordDao {
   }
 
   @override
-  Future<void> deleteWord(String firstMeaning) async {
+  Future<void> deleteWord(
+    String wordName,
+    String firstMeaning,
+  ) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM EnglishWordModel WHERE meanings LIKE \'%\' || ?1 || \'%\'',
-        arguments: [firstMeaning]);
+        'DELETE FROM EnglishWordModel WHERE name = ?1 and meanings LIKE \'%\' || ?2 || \'%\'',
+        arguments: [wordName, firstMeaning]);
   }
 
   @override
