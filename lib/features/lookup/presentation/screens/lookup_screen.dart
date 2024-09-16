@@ -35,8 +35,15 @@ class _LookupScreenState extends State<LookupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WordInformationBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => WordInformationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SaveToLibraryBloc(),
+        ),
+      ],
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: _buildAppBar(context),
@@ -123,7 +130,7 @@ class _LookupScreenState extends State<LookupScreen> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) => AlertDialog(
+              builder: (_) => AlertDialog(
                 title: const Text('Add to library?'),
                 actions: [
                   TextButton(
