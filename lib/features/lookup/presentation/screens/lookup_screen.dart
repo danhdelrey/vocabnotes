@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
+import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +131,13 @@ class _LookupScreenState extends State<LookupScreen> {
                         Navigator.pop(context);
                       },
                       child: const Text('Cancel')),
-                  FilledButton(onPressed: () {}, child: const Text('Yes'))
+                  FilledButton(
+                      onPressed: () {
+                        context.read<SaveToLibraryBloc>().add(
+                            SaveWordToLibraryEvent(
+                                wordList: state.englishWordModelList));
+                      },
+                      child: const Text('Yes'))
                 ],
               ),
             );
