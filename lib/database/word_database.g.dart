@@ -96,7 +96,7 @@ class _$WordDatabase extends WordDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `EnglishWordModel` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `phonetic` TEXT, `meanings` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `EnglishWordModel` (`id` TEXT PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `phonetic` TEXT, `meanings` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -168,13 +168,10 @@ class _$WordDao extends WordDao {
   }
 
   @override
-  Future<void> deleteWord(
-    String wordName,
-    String firstMeaning,
-  ) async {
+  Future<void> deleteWord(String id) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM EnglishWordModel WHERE name = ?1 and meanings = ?2',
-        arguments: [wordName, firstMeaning]);
+        'DELETE FROM EnglishWordModel WHERE id = ?1',
+        arguments: [id]);
   }
 
   @override

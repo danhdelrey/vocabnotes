@@ -48,7 +48,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        await wordDao.deleteWord(event.wordName, event.firstMeaning);
+        await wordDao.deleteWord(event.id);
         final wordCount = await wordDao.countAllWords();
         if (wordCount == 0) {
           emit(LibraryEmpty());
