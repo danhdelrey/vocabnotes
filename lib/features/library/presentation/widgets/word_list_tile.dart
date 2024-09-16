@@ -53,7 +53,8 @@ class WordListTile extends StatelessWidget {
             navigateTo(
                 appRoute: AppRoute.wordInformation,
                 context: context,
-                replacement: false);
+                replacement: false,
+                data: {'word' : word,'firstMeaning' : firstMeaning});
           },
           title: RichText(
             text: TextSpan(
