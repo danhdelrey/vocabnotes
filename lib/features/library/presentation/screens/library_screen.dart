@@ -38,32 +38,49 @@ class _LibraryScreenState extends State<LibraryScreen> {
             hintText: 'Search in library',
           ),
         ),
-        body: BlocBuilder<LibraryBloc, LibraryState>(
-          builder: (context, state) {
-            if (state is LibraryLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+        body: BlocListener<LibraryBloc, LibraryState>(
+          listener: (context, state) {
+            if (state is WordDeleteSuccess) {
+              context.read<LibraryBloc>().add(GetAllWordsFromDatabaseEvent());
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Deleted')),
               );
-            } else if (state is Libraryloaded) {
-              return ListView.builder(
-                itemCount: state.wordListTiles.length,
-                itemBuilder: (context, index) => WordListTile(
-                  word: state.wordListTiles[index].word,
-                  firstMeaning: state.wordListTiles[index].firstMeaning,
-                  phonetic: state.wordListTiles[index].phonetic,
-                ),
-              );
-            } else if (state is LibraryEmpty) {
-              return const Center(
-                child: Text('no words found'),
-              );
-            } else if (state is LibraryError) {
-              return const Center(
-                child: Text('something went wrong'),
+            } else if (state is WordDeleteFailure) {
+              context.read<LibraryBloc>().add(GetAllWordsFromDatabaseEvent());
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Something went wrong')),
               );
             }
-            return Container();
           },
+          child: BlocBuilder<LibraryBloc, LibraryState>(
+            builder: (context, state) {
+              if (state is LibraryLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is Libraryloaded) {
+                return ListView.builder(
+                  itemCount: state.wordListTiles.length,
+                  itemBuilder: (context, index) => WordListTile(
+                    word: state.wordListTiles[index].word,
+                    firstMeaning: state.wordListTiles[index].firstMeaning,
+                    phonetic: state.wordListTiles[index].phonetic,
+                  ),
+                );
+              } else if (state is LibraryEmpty) {
+                return const Center(
+                  child: Text('no words found'),
+                );
+              } else if (state is LibraryError) {
+                return const Center(
+                  child: Text('something went wrong'),
+                );
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );

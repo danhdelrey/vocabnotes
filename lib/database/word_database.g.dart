@@ -162,6 +162,12 @@ class _$WordDao extends WordDao {
   }
 
   @override
+  Future<int?> countAllWords() async {
+    return _queryAdapter.query('SELECT COUNT(*) FROM EnglishWordModel',
+        mapper: (Map<String, Object?> row) => row.values.first as int);
+  }
+
+  @override
   Future<void> deleteWord(
     String wordName,
     String firstMeaning,

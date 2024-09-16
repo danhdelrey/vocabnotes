@@ -39,5 +39,24 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
         emit(LibraryError());
       }
     });
+
+    on<DeleteWordFromDatabase>((event, emit) async {
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        await wordDao.deleteWord(event.wordName, event.firstMeaning);
+        final wordCount = await wordDao.countAllWords();
+        if (wordCount == 0) {
+          emit(LibraryEmpty());
+        }
+        emit(WordDeleteSuccess());
+      } catch (e) {
+        emit(WordDeleteFailure());
+      }
+    });
   }
 }

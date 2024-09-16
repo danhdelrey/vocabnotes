@@ -17,6 +17,9 @@ abstract class WordDao {
       "SELECT COUNT(*) FROM EnglishWordModel WHERE name = :word ")
   Future<int?> countWord(String word);
 
+  @Query("SELECT COUNT(*) FROM EnglishWordModel")
+  Future<int?> countAllWords();
+
   @Query("DELETE FROM EnglishWordModel WHERE name = :wordName and meanings = :firstMeaning")
   Future<void> deleteWord(String wordName, String firstMeaning);
 }
