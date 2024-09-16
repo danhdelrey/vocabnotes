@@ -30,7 +30,8 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
             );
             wordListTiles.add(wordListTile);
           }
-          emit(Libraryloaded(wordListTiles: wordListTiles));
+          final reversedList = wordListTiles.reversed.toList();
+          emit(Libraryloaded(wordListTiles: reversedList));
         } else {
           emit(LibraryEmpty());
         }
