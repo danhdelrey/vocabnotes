@@ -22,12 +22,25 @@ class WordListTile extends StatelessWidget {
       ),
       child: ListTile(
         onTap: () {},
-        title: Text(
-          '$word $phonetic',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+        title: RichText(
+          text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: [
+              TextSpan(
+                text: '$word ',
+                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+              ),
+              if (phonetic != null) TextSpan(text: phonetic),
+            ],
+          ),
         ),
+
+        //  Text(
+        //   '$word $phonetic',
+        //   maxLines: 1,
+        //   overflow: TextOverflow.ellipsis,
+        //   style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+        // ),
         subtitle: Text(
           firstMeaning,
           maxLines: 2,
