@@ -134,6 +134,15 @@ class _$WordDao extends WordDao {
   final InsertionAdapter<EnglishWordModel> _englishWordModelInsertionAdapter;
 
   @override
+  Future<List<EnglishWordModel>?> getAllWordsInDatabase() async {
+    return _queryAdapter.queryList('SELECT * FROM EnglishWordModel',
+        mapper: (Map<String, Object?> row) => EnglishWordModel(
+            name: row['name'] as String,
+            meanings: row['meanings'] as String,
+            phonetic: row['phonetic'] as String?));
+  }
+
+  @override
   Future<List<EnglishWordModel>?> findWordInDatabase(String word) async {
     return _queryAdapter.queryList(
         'SELECT * FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',

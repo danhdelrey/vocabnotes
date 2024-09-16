@@ -7,6 +7,9 @@ abstract class WordDao {
   @insert
   Future<void> insertWord(List<EnglishWordModel> word);
 
+  @Query("SELECT * FROM EnglishWordModel")
+  Future<List<EnglishWordModel>?> getAllWordsInDatabase();
+
   @Query("SELECT * FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
   Future<List<EnglishWordModel>?> findWordInDatabase(String word);
 
