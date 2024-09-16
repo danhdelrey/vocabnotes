@@ -34,13 +34,6 @@ class WordListTile extends StatelessWidget {
             ],
           ),
         ),
-
-        //  Text(
-        //   '$word $phonetic',
-        //   maxLines: 1,
-        //   overflow: TextOverflow.ellipsis,
-        //   style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-        // ),
         subtitle: Text(
           firstMeaning,
           maxLines: 2,
