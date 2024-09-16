@@ -1,14 +1,12 @@
 import 'dart:collection';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
-import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
-import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/widgets/word_information.dart';
 
 class LookupScreen extends StatefulWidget {
   const LookupScreen({super.key});
@@ -60,7 +58,8 @@ class _LookupScreenState extends State<LookupScreen> {
               } else if (state is SaveToLibraryFailure) {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message),
+                  SnackBar(
+                    content: Text(state.message),
                     duration: const Duration(seconds: 1),
                   ),
                 );
@@ -76,7 +75,8 @@ class _LookupScreenState extends State<LookupScreen> {
                   _searchedWords.addLast(state.englishWordModelList[0].name);
                   return Scaffold(
                     appBar: _buildTopBar(state, context),
-                    body: _buildWordInformation(state),
+                    body: WordInformation(
+                        englishWordModelList: state.englishWordModelList),
                   );
                 } else if (state is WordInformationloading) {
                   return const Center(
@@ -171,129 +171,6 @@ class _LookupScreenState extends State<LookupScreen> {
             );
           },
           icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
-        ),
-      ],
-    );
-  }
-
-  Padding _buildWordInformation(WordInformationLoaded state) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-      child: ListView.builder(
-        itemCount: state.englishWordModelList.length,
-        itemBuilder: (context, index) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildWordTitle(
-              context: context,
-              word: state.englishWordModelList[index].name,
-              phonetic: state.englishWordModelList[index].phonetic,
-            ),
-            ...state.englishWordModelList[index].decodedMeanings.map(
-              (meanings) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildDefinitions(
-                    definitions: meanings['definitions'],
-                    partOfSpeech: meanings['partOfSpeech'],
-                  ),
-                  _buildRelatedWords(
-                      title: 'synonyms:', wordList: meanings['synonyms']),
-                  _buildRelatedWords(
-                      title: 'antonyms:', wordList: meanings['antonyms']),
-                  const Divider(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Column _buildWordTitle({required context, required word, phonetic}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          word,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        if (phonetic != null)
-          Text(phonetic!, style: Theme.of(context).textTheme.bodyLarge),
-      ],
-    );
-  }
-
-  Column _buildRelatedWords({List<dynamic>? wordList, required title}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (wordList != null && wordList.isNotEmpty)
-          Text(
-            title,
-            style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-          ),
-        if (wordList != null && wordList.isNotEmpty)
-          Wrap(
-            children: [
-              ...wordList.map(
-                (word) => TappableWord(word: word),
-              ),
-            ],
-          ),
-      ],
-    );
-  }
-
-  Column _buildDefinitions({required List<dynamic> definitions, partOfSpeech}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        if (partOfSpeech != null)
-          Container(
-            decoration: BoxDecoration(
-              color: ThemeData().colorScheme.outlineVariant,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 1, bottom: 1, left: 4, right: 4),
-              child: Text(
-                partOfSpeech,
-              ),
-            ),
-          ),
-        const SizedBox(
-          height: 15,
-        ),
-        ...definitions.map(
-          (definition) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (definition['definition'] != null)
-                Text(
-                  '‣ ${definition['definition']}',
-                  style:
-                      const TextStyle().copyWith(fontWeight: FontWeight.bold),
-                ),
-              if (definition['example'] != null)
-                Text(
-                  'E.g. ${definition['example']}',
-                  style: const TextStyle().copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              const SizedBox(
-                height: 15,
-              )
-            ],
-          ),
         ),
       ],
     );
