@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 1), () {
       navigateTo(
-        appRoute: AppRoute.library,
+        appRoute: AppRoute.lookup,
         context: context,
         replacement: true,
       );

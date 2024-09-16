@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/features/library/presentation/bloc/library_bloc.dart';
 
 class WordListTile extends StatelessWidget {
@@ -34,8 +35,8 @@ class WordListTile extends StatelessWidget {
                 FilledButton(
                     onPressed: () {
                       Navigator.of(context).pop(true);
-                      context.read<LibraryBloc>().add(
-                          DeleteWordFromDatabase(firstMeaning: firstMeaning));
+                      context.read<LibraryBloc>().add(DeleteWordFromDatabase(
+                          wordName: word, firstMeaning: firstMeaning));
                     },
                     child: const Text('Yes'))
               ],
@@ -49,7 +50,10 @@ class WordListTile extends StatelessWidget {
         ),
         child: ListTile(
           onTap: () {
-            
+            navigateTo(
+                appRoute: AppRoute.wordInformation,
+                context: context,
+                replacement: false);
           },
           title: RichText(
             text: TextSpan(
