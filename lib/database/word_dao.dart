@@ -3,6 +3,7 @@ import 'package:vocabnotes/data_models/english_word_model.dart';
 
 @dao
 abstract class WordDao {
+
   @insert
   Future<void> insertWord(List<EnglishWordModel> word);
 
@@ -12,12 +13,13 @@ abstract class WordDao {
   @Query("SELECT * FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
   Future<List<EnglishWordModel>?> findWordInDatabase(String word);
 
-  @Query("SELECT COUNT(*) FROM EnglishWordModel WHERE name = :word ")
+  @Query(
+      "SELECT COUNT(*) FROM EnglishWordModel WHERE name = :word ")
   Future<int?> countWord(String word);
 
   @Query("SELECT COUNT(*) FROM EnglishWordModel")
   Future<int?> countAllWords();
 
-  @Query("DELETE FROM EnglishWordModel WHERE id = :id")
-  Future<void> deleteWord(String id);
+  @Query("DELETE FROM EnglishWordModel WHERE name = :wordName and meanings = :firstMeaning")
+  Future<void> deleteWord(String wordName, String firstMeaning);
 }

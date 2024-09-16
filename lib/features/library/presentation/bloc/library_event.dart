@@ -10,8 +10,9 @@ sealed class LibraryEvent extends Equatable {
 final class GetAllWordsFromDatabaseEvent extends LibraryEvent {}
 
 final class DeleteWordFromDatabase extends LibraryEvent {
-  final String id;
+  final String wordName;
+  final String firstMeaning;
 
   const DeleteWordFromDatabase(
-      {required this.id});
+      {required this.wordName, required this.firstMeaning});
 }
