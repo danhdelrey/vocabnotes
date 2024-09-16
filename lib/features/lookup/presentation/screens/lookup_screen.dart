@@ -140,6 +140,7 @@ class _LookupScreenState extends State<LookupScreen> {
                       child: const Text('Cancel')),
                   FilledButton(
                       onPressed: () {
+                        Navigator.pop(context);
                         context.read<SaveToLibraryBloc>().add(
                             SaveWordToLibraryEvent(
                                 wordList: state.englishWordModelList));
