@@ -44,13 +44,19 @@ class _LibraryScreenState extends State<LibraryScreen> {
               context.read<LibraryBloc>().add(GetAllWordsFromDatabaseEvent());
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Deleted')),
+                const SnackBar(
+                  content: Text('Deleted'),
+                  duration: Duration(seconds: 1),
+                ),
               );
             } else if (state is WordDeleteFailure) {
               context.read<LibraryBloc>().add(GetAllWordsFromDatabaseEvent());
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Something went wrong')),
+                const SnackBar(
+                  content: Text('Something went wrong'),
+                  duration: Duration(seconds: 1),
+                ),
               );
             }
           },

@@ -10,7 +10,6 @@ class SaveToLibraryBloc extends Bloc<SaveToLibraryEvent, SaveToLibraryState> {
   SaveToLibraryBloc() : super(SaveToLibraryInitial()) {
     on<SaveWordToLibraryEvent>((event, emit) async {
       try {
-        emit(SaveToLibraryLoading());
         final database = await $FloorWordDatabase
             .databaseBuilder('word_database.db')
             .build();

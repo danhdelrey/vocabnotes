@@ -9,7 +9,6 @@ sealed class SaveToLibraryState extends Equatable {
 
 final class SaveToLibraryInitial extends SaveToLibraryState {}
 
-class SaveToLibraryLoading extends SaveToLibraryState {}
 
 class SaveToLibrarySuccess extends SaveToLibraryState {
   final String message;

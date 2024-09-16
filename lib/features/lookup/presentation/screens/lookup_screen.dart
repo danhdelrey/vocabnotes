@@ -49,20 +49,20 @@ class _LookupScreenState extends State<LookupScreen> {
           appBar: _buildAppBar(context),
           body: BlocListener<SaveToLibraryBloc, SaveToLibraryState>(
             listener: (context, state) {
-              if (state is SaveToLibraryLoading) {
+              if (state is SaveToLibrarySuccess) {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: CircularProgressIndicator()),
-                );
-              } else if (state is SaveToLibrarySuccess) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
+                  SnackBar(
+                    content: Text(state.message),
+                    duration: const Duration(seconds: 1),
+                  ),
                 );
               } else if (state is SaveToLibraryFailure) {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
+                  SnackBar(content: Text(state.message),
+                    duration: const Duration(seconds: 1),
+                  ),
                 );
               }
             },
