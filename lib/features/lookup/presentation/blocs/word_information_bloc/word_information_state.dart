@@ -19,6 +19,10 @@ final class WordInformationLoaded extends WordInformationState {
 
 final class WordInformationloading extends WordInformationState {}
 
-final class WordInformationError extends WordInformationState {
-  
+final class WordInformationError extends WordInformationState {}
+
+final class WordInformationLookup extends WordInformationState {
+  final String word;
+
+  const WordInformationLookup({required this.word});
 }

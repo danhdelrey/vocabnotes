@@ -46,24 +46,13 @@ class _LookupScreenState extends State<LookupScreen> {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: _buildAppBar(context),
-          body: BlocListener<SaveToLibraryBloc, SaveToLibraryState>(
+          body: BlocListener<WordInformationBloc, WordInformationState>(
             listener: (context, state) {
-              if (state is SaveToLibrarySuccess) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
-              } else if (state is SaveToLibraryFailure) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
+              if (state is WordInformationLookup) {
+                navigateTo(
+                    appRoute: AppRoute.lookupWordInformation,
+                    context: context,
+                    replacement: false,data: state.word,);
               }
             },
             child: BlocBuilder<WordInformationBloc, WordInformationState>(
@@ -101,10 +90,9 @@ class _LookupScreenState extends State<LookupScreen> {
         textEditingController: _textEditingController,
         hintText: 'Look up word online',
         onSubmit: (value) {
-          navigateTo(appRoute: appRoute, context: context, replacement: replacement)
-          // context
-          //     .read<WordInformationBloc>()
-          //     .add(GetWordInformationEvent(word: value));  
+          context
+              .read<WordInformationBloc>()
+              .add(LookupWordEvent(word: value));
         },
       ),
     );
