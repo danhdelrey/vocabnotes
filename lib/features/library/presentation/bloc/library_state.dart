@@ -19,7 +19,6 @@ final class Libraryloaded extends LibraryState {
   final List<WordListTile> wordListTiles;
   const Libraryloaded({required this.wordListTiles});
 }
-
 final class WordDeleteSuccess extends LibraryState {}
 
 final class WordDeleteFailure extends LibraryState {}

@@ -60,6 +60,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     });
 
     on<DeleteWordFromDatabase>((event, emit) async {
+      emit(LibraryLoading());
       try {
         final database = await $FloorWordDatabase
             .databaseBuilder('word_database.db')
