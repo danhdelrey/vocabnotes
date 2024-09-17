@@ -206,26 +206,7 @@ class _LookupWordInformationScreenState
     );
   }
 
-  // Scaffold _buildSearchWordInformationError(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       leading: _searchedWords.isNotEmpty
-  //           ? IconButton(
-  //               onPressed: () {
-  //                 String previousWord = _searchedWords.removeLast();
-  //                 context
-  //                     .read<WordInformationBloc>()
-  //                     .add(GetWordInformationEvent(word: previousWord));
-  //               },
-  //               icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
-  //             )
-  //           : Container(),
-  //     ),
-  //     body: const Center(
-  //       child: Text('something went wrong'),
-  //     ),
-  //   );
-  // }
+  
 
   AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
     return AppBar(

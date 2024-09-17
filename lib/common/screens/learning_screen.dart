@@ -15,64 +15,13 @@ class LearningScreen extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                'Learning mode',
+                'Short stories',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
               ),
               subtitle: const Text(
-                'Learning mode 1 description',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: FilledButton(
-                onPressed: () {},
-                child: const Text('Start'),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Learning mode',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Learning mode 1 description',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: FilledButton(
-                onPressed: () {},
-                child: const Text('Start'),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Learning mode',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Learning mode 1 description',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: FilledButton(
-                onPressed: () {},
-                child: const Text('Start'),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Learning mode',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Learning mode 1 description',
+                'Learning vocabulary by AI-generated short stories.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
