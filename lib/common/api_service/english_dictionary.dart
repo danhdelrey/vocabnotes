@@ -102,9 +102,11 @@ class GeminiDictionary implements EnglishDictionary {
     final schema = Schema.array(
       nullable: false,
       items: Schema.object(
-        requiredProperties: ['sentence', 'translation'],
+        requiredProperties: ['sentence', 'wordsInSentence', 'translation'],
         properties: {
           'sentence': Schema.string(nullable: false),
+          'wordsInSentence':
+              Schema.array(items: Schema.string(nullable: false)),
           'translation': Schema.string(nullable: false),
         },
       ),
