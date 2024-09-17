@@ -35,10 +35,17 @@ class _LookupWordInformationScreenState
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => WordInformationBloc()
-        ..add(GetWordInformationEvent(
-            word: ModalRoute.of(context)!.settings.arguments as String)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => WordInformationBloc()
+            ..add(GetWordInformationEvent(
+                word: ModalRoute.of(context)!.settings.arguments as String)),
+        ),
+        BlocProvider(
+          create: (_) => SaveToLibraryBloc(),
+        )
+      ],
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -53,8 +60,10 @@ class _LookupWordInformationScreenState
             ),
             actions: [
               IconButton(
-                onPressed: () {},
-                icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+                onPressed: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
+                icon: const Icon(HugeIcons.strokeRoundedHome09),
               )
             ],
           ),
