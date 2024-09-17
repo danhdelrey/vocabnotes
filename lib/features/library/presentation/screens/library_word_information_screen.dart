@@ -5,8 +5,8 @@ import 'package:vocabnotes/features/library/presentation/bloc/library_bloc.dart'
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/word_information.dart';
 
-class WordInformationScreen extends StatelessWidget {
-  const WordInformationScreen({super.key});
+class LibraryWordInformationScreen extends StatelessWidget {
+  const LibraryWordInformationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

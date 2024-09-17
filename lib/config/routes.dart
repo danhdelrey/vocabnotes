@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:vocabnotes/common/screens/splash_screen.dart';
 import 'package:vocabnotes/common/widgets/bottom_navigation.dart';
-import 'package:vocabnotes/features/library/presentation/screens/word_information_screen.dart';
+import 'package:vocabnotes/features/library/presentation/screens/library_word_information_screen.dart';
+import 'package:vocabnotes/features/lookup/presentation/screens/lookup_word_information_screen.dart';
 
 final routes = {
   AppRoute.splash.routeName: (context) => const SplashScreen(),
   AppRoute.lookup.routeName: (context) => const BottomNavigation(),
-  AppRoute.wordInformation.routeName: (context) =>
-      const WordInformationScreen(),
+  AppRoute.lookupWordInformation.routeName: (context) =>
+      const LookupWordInformationScreen(),
+     AppRoute.libraryWordInformation.routeName: (context) =>
+      const LibraryWordInformationScreen(),
 };
 
 enum AppRoute {
   splash,
   lookup,
-  wordInformation,
+  lookupWordInformation,
+  libraryWordInformation,
 }
 
 extension AppRouteExtension on AppRoute {
@@ -23,8 +27,10 @@ extension AppRouteExtension on AppRoute {
         return '/';
       case AppRoute.lookup:
         return '/lookup';
-      case AppRoute.wordInformation:
-        return '/library/word_information';
+      case AppRoute.lookupWordInformation:
+        return '/lookup/lookup_word_information';
+        
+        default: return '/library/library_word_information';
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
+import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,9 +101,10 @@ class _LookupScreenState extends State<LookupScreen> {
         textEditingController: _textEditingController,
         hintText: 'Look up word online',
         onSubmit: (value) {
-          context
-              .read<WordInformationBloc>()
-              .add(GetWordInformationEvent(word: value));
+          navigateTo(appRoute: appRoute, context: context, replacement: replacement)
+          // context
+          //     .read<WordInformationBloc>()
+          //     .add(GetWordInformationEvent(word: value));  
         },
       ),
     );
