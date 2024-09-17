@@ -52,7 +52,7 @@ class _LookupWordInformationScreenState
           appBar: AppBar(
             title: SearchField(
               textEditingController: _textEditingController,
-              hintText: 'Look up online',
+              hintText: '',
               onSubmit: (value) {
                 context
                     .read<WordInformationBloc>()
