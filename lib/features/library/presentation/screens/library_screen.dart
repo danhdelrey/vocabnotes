@@ -79,7 +79,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     return Skeletonizer(
                       enabled: true,
                       child: ListView.builder(
-                        itemCount: 10, // Số lượng item placeholder
+                        itemCount: (MediaQuery.of(context).size.height / 80)
+                            .ceil(), // Số lượng item placeholder
                         itemBuilder: (context, index) => const WordListTile(
                           word: 'Lorem ipsum dolor',
                           firstMeaning:
