@@ -18,7 +18,6 @@ class LookupScreen extends StatefulWidget {
 
 class _LookupScreenState extends State<LookupScreen> {
   late TextEditingController _textEditingController;
-  final _searchedWords = Queue<String>();
 
   @override
   void initState() {
@@ -35,11 +34,7 @@ class _LookupScreenState extends State<LookupScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      
-        
-          create: (context) => WordInformationBloc(),
-        
-        
+      create: (context) => WordInformationBloc(),
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -73,6 +68,4 @@ class _LookupScreenState extends State<LookupScreen> {
       ),
     );
   }
-
-  
 }
