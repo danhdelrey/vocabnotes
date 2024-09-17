@@ -50,8 +50,9 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        EnglishWordModel? englishWordModel = await wordDao.getWordInformation(event.wordName,event.firstMeaning);
-        
+        EnglishWordModel? englishWordModel = await wordDao.getWordInformation(
+            event.wordName, event.firstMeaning);
+
         emit(GetWordSucess(englishWordModel: englishWordModel!));
       } catch (e) {
         emit(GetWordFailure());
@@ -66,7 +67,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        await wordDao.deleteWord(event.wordName,event.firstMeaning);
+        await wordDao.deleteWord(event.wordName, event.firstMeaning);
         final wordCount = await wordDao.countAllWords();
         if (wordCount == 0) {
           emit(LibraryEmpty());
