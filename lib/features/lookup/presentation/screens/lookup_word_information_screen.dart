@@ -137,7 +137,7 @@ class _LookupWordInformationScreenState
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: const Text('Lorem ipsum dolor'),
+          title: const Text('recordrecord'),
           actions: [
             IconButton(
                 onPressed: () {},
@@ -145,68 +145,51 @@ class _LookupWordInformationScreenState
           ],
         ),
         body: WordInformation(englishWordModelList: [
-          EnglishWordModel(phonetic: 'record', name: 'record', meanings: """[
-          {
-              "partOfSpeech": "noun",
-              "definitions": [
-                  {
-                      "definition": "A disk, usually made of a polymer, used to record sound for playback on a phonograph.",
-                      "synonyms": [
-                          "gramophone record",
-                          "record",
-                          "vinyl"
-                      ],
-                      "antonyms": []
-                  }
-              ],
-              "synonyms": [
-                  "gramophone record",
-                  "record",
-                  "vinyl"
-              ],
-              "antonyms": []
-          },
-          {
-              "partOfSpeech": "noun",
-              "definitions": [
-                  {
-                      "definition": "An item of information put into a temporary or permanent physical medium.",
-                      "synonyms": [],
-                      "antonyms": [],
-                      "example": "The person had a record of the interview so she could review her notes."
-                  },
-                  {
-                      "definition": "Any instance of a physical medium on which information was put for the purpose of preserving it and making it available for future reference.",
-                      "synonyms": [
-                          "log"
-                      ],
-                      "antonyms": [],
-                      "example": "We have no record of you making this payment to us."
-                  },
-                  {
-                      "definition": "A set of data relating to a single individual or item.",
-                      "synonyms": [],
-                      "antonyms": []
-                  },
-                  {
-                      "definition": "The most extreme known value of some variable, particularly that of an achievement in competitive events.",
-                      "synonyms": [],
-                      "antonyms": [],
-                      "example": "The heat and humidity were both new records."
-                  }
-              ],
-              "synonyms": [
-                  "log"
-              ],
-              "antonyms": []
-          }
-      ]""")
+          EnglishWordModel(
+              phonetic: 'recordrecord', name: 'recordrecord', meanings: """[
+            {
+                "partOfSpeech": "noun",
+                "definitions": [
+                    {
+                        "definition": "A musical instrument producing a sound when struck, similar to a bell (e.g. a tubular metal bar) or actually a bell. Often used in the plural to refer to the set: the chimes.",
+                        "synonyms": [],
+                        "antonyms": [],
+                        "example": "Hugo was a chime player in the school orchestra."
+                    },
+                    {
+                        "definition": "An individual ringing component of such a set.",
+                        "synonyms": [],
+                        "antonyms": [],
+                        "example": "Peter removed the C♯ chime from its mounting so that he could get at the dust that had accumulated underneath."
+                    },
+                    {
+                        "definition": "A small bell or other ringing or tone-making device as a component of some other device.",
+                        "synonyms": [],
+                        "antonyms": [],
+                        "example": "The professor had stuffed a wad of gum into the chime of his doorbell so that he wouldn't be bothered."
+                    },
+                    {
+                        "definition": "The sound of such an instrument or device.",
+                        "synonyms": [],
+                        "antonyms": [],
+                        "example": "The copier gave a chime to indicate that it had finished printing."
+                    },
+                    {
+                        "definition": "A small hammer or other device used to strike a bell.",
+                        "synonyms": [],
+                        "antonyms": [],
+                        "example": "Strike the bell with the brass chime hanging on the chain next to it."
+                    }
+                ],
+                "synonyms": [
+                ],
+                "antonyms": []
+            }
+        ]""")
         ]),
       ),
     );
   }
-
-  
 
   AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
     return AppBar(
