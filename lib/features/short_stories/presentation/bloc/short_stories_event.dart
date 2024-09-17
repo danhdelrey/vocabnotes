@@ -11,7 +11,7 @@ final class GenerateShortStory extends ShortStoriesEvent {
   final String genre;
   final String level;
   final String length;
-  final List<EnglishWordModel> wordList;
+  final List<String> wordList;
 
   const GenerateShortStory(
       {required this.genre,
