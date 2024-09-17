@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
+import 'package:vocabnotes/features/library/presentation/bloc/library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/word_information.dart';
@@ -51,7 +52,7 @@ class _LookupWordInformationScreenState
           appBar: AppBar(
             title: SearchField(
               textEditingController: _textEditingController,
-              hintText: ModalRoute.of(context)!.settings.arguments as String,
+              hintText: 'Look up online',
               onSubmit: (value) {
                 context
                     .read<WordInformationBloc>()

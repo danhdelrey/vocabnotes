@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
+  SearchField({
     super.key,
     required this.textEditingController,
     required this.hintText,
@@ -13,6 +13,8 @@ class SearchField extends StatelessWidget {
   final TextEditingController textEditingController;
   final String hintText;
   final void Function(String value)? onSubmit;
+
+  final FocusNode _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +23,10 @@ class SearchField extends StatelessWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: TextField(
+        onTapOutside: (event) {
+          FocusScope.of(context).unfocus();
+        },
+        focusNode: _focusNode,
         controller: textEditingController,
         onSubmitted: onSubmit,
         onChanged: onChanged,
