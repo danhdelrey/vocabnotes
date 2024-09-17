@@ -43,44 +43,25 @@ class _LookupScreenState extends State<LookupScreen> {
           create: (context) => SaveToLibraryBloc(),
         ),
       ],
-      child: Builder(builder: (context) {
-        return Scaffold(
-          appBar: _buildAppBar(context),
-          body: BlocListener<WordInformationBloc, WordInformationState>(
-            listener: (context, state) {
-              if (state is WordInformationLookup) {
-                navigateTo(
-                    appRoute: AppRoute.lookupWordInformation,
-                    context: context,
-                    replacement: false,data: state.word,);
-              }
-            },
-            child: BlocBuilder<WordInformationBloc, WordInformationState>(
-              builder: (context, state) {
-                if (state is WordInformationInitial) {
-                  return const Center(
-                    child: Text('look up a word'),
-                  );
-                } else if (state is WordInformationLoaded) {
-                  _searchedWords.addLast(state.englishWordModelList[0].name);
-                  return Scaffold(
-                    appBar: _buildTopBar(state, context),
-                    body: WordInformation(
-                        englishWordModelList: state.englishWordModelList),
-                  );
-                } else if (state is WordInformationloading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is WordInformationError) {
-                  return _buildSearchWordInformationError(context);
-                }
-                return Container();
-              },
-            ),
-          ),
-        );
-      }),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: _buildAppBar(context),
+            body: BlocListener<WordInformationBloc, WordInformationState>(
+                listener: (context, state) {
+                  if (state is WordInformationLookup) {
+                    navigateTo(
+                      appRoute: AppRoute.lookupWordInformation,
+                      context: context,
+                      replacement: false,
+                      data: state.word,
+                    );
+                  }
+                },
+                child: const Placeholder()),
+          );
+        },
+      ),
     );
   }
 
@@ -90,9 +71,7 @@ class _LookupScreenState extends State<LookupScreen> {
         textEditingController: _textEditingController,
         hintText: 'Look up word online',
         onSubmit: (value) {
-          context
-              .read<WordInformationBloc>()
-              .add(LookupWordEvent(word: value));
+          context.read<WordInformationBloc>().add(LookupWordEvent(word: value));
         },
       ),
     );

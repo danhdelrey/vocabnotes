@@ -51,10 +51,10 @@ class WordListTile extends StatelessWidget {
         child: ListTile(
           onTap: () {
             navigateTo(
-                appRoute: AppRoute.wordInformation,
+                appRoute: AppRoute.libraryWordInformation,
                 context: context,
                 replacement: false,
-                data: {'word' : word,'firstMeaning' : firstMeaning});
+                data: {'word': word, 'firstMeaning': firstMeaning});
           },
           title: RichText(
             text: TextSpan(
