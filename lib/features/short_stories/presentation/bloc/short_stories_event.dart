@@ -6,3 +6,18 @@ sealed class ShortStoriesEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+final class GenerateShortStory extends ShortStoriesEvent {
+  final String genre;
+  final String level;
+  final String length;
+  final List<EnglishWordModel> wordList;
+
+  const GenerateShortStory(
+      {required this.genre,
+      required this.level,
+      required this.length,
+      required this.wordList});
+}
+
+final class TranslateStoryIntoVietnamese extends ShortStoriesEvent {}

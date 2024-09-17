@@ -93,4 +93,8 @@ class GeminiDictionary implements EnglishDictionary {
 
     return englishWordModelList;
   }
+
+  generateShortStory(String genre, String length, String level) async {
+    
+  }
 }

@@ -8,3 +8,11 @@ sealed class ShortStoriesState extends Equatable {
 }
 
 final class ShortStoriesInitial extends ShortStoriesState {}
+
+final class ShortStoriesGenerating extends ShortStoriesState {}
+
+final class ShortStoriesGeneratedSuccess extends ShortStoriesState {}
+
+final class ShortStoriesGeneratedFailure extends ShortStoriesState {}
+
+
