@@ -39,12 +39,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
           },
           child: Scaffold(
             appBar: AppBar(
-              title: SearchField(
-                textEditingController: _textEditingController,
-                hintText: 'Search in library',
-                onChanged: (value) {
-                  context.read<LibraryBloc>().add(SearchInLibrary(word: value));
-                },
+              title: const Text('Library'),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(kToolbarHeight),
+                child: SearchField(
+                  textEditingController: _textEditingController,
+                  hintText: 'Search in library',
+                  onChanged: (value) {
+                    context
+                        .read<LibraryBloc>()
+                        .add(SearchInLibrary(word: value));
+                  },
+                ),
               ),
             ),
             body: BlocListener<LibraryBloc, LibraryState>(
