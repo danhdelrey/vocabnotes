@@ -3,14 +3,16 @@ import 'package:vocabnotes/common/screens/splash_screen.dart';
 import 'package:vocabnotes/common/widgets/bottom_navigation.dart';
 import 'package:vocabnotes/features/library/presentation/screens/library_word_information_screen.dart';
 import 'package:vocabnotes/features/lookup/presentation/screens/lookup_word_information_screen.dart';
+import 'package:vocabnotes/features/short_stories/presentation/screens/short_stories_screen.dart';
 
 final routes = {
   AppRoute.splash.routeName: (context) => const SplashScreen(),
   AppRoute.lookup.routeName: (context) => const BottomNavigation(),
   AppRoute.lookupWordInformation.routeName: (context) =>
       const LookupWordInformationScreen(),
-     AppRoute.libraryWordInformation.routeName: (context) =>
+  AppRoute.libraryWordInformation.routeName: (context) =>
       const LibraryWordInformationScreen(),
+  AppRoute.shortStories.routeName: (context) => const ShortStoriesScreen(),
 };
 
 enum AppRoute {
@@ -18,6 +20,7 @@ enum AppRoute {
   lookup,
   lookupWordInformation,
   libraryWordInformation,
+  shortStories
 }
 
 extension AppRouteExtension on AppRoute {
@@ -29,8 +32,11 @@ extension AppRouteExtension on AppRoute {
         return '/lookup';
       case AppRoute.lookupWordInformation:
         return '/lookup/lookup_word_information';
-        
-        default: return '/library/library_word_information';
+      case AppRoute.libraryWordInformation:
+        return '/library/library_word_information';
+
+      default:
+        return '/learning/short_stories';
     }
   }
 }

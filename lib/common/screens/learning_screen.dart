@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:vocabnotes/config/routes.dart';
 
 class LearningScreen extends StatelessWidget {
   const LearningScreen({super.key});
@@ -26,7 +27,12 @@ class LearningScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  navigateTo(
+                      appRoute: AppRoute.shortStories,
+                      context: context,
+                      replacement: false);
+                },
                 child: const Text('Start'),
               ),
             ),
