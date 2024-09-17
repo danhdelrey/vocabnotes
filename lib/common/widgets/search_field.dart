@@ -26,6 +26,7 @@ class SearchField extends StatelessWidget {
         onTapOutside: (event) {
           FocusScope.of(context).unfocus();
         },
+        style: Theme.of(context).textTheme.bodyMedium,
         focusNode: _focusNode,
         controller: textEditingController,
         onSubmitted: onSubmit,
