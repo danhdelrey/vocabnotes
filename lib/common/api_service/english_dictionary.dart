@@ -94,7 +94,11 @@ class GeminiDictionary implements EnglishDictionary {
     return englishWordModelList;
   }
 
-  generateShortStory(String genre, String length, String level, List<String> wordList) async {
+  Future<List<dynamic>> generateShortStory(
+      {String genre = 'humorous',
+      String length = '50 words',
+      String level = 'B1',
+      required List<String> wordList}) async {
     final schema = Schema.array(
       nullable: false,
       items: Schema.object(
@@ -113,8 +117,10 @@ class GeminiDictionary implements EnglishDictionary {
             responseMimeType: 'application/json', responseSchema: schema));
 
     final prompt =
-        'Write a $genre short story in English, approximately $length long. The story must use the following words if available: $wordList. Ensure the vocabulary used is appropriate for a $level English level learner. Finally, please provide a Vietnamese translation after each sentence.';
-        
+        'Write a $genre short story in English with a $level vocabulary level, about $length long. The story should be broken down into multiple sentences. Each sentence should be followed by a complete list of the words in that sentence, and a Vietnamese translation of that sentence. The story must include the following words: $wordList';
     final response = await model.generateContent([Content.text(prompt)]);
+
+    List<dynamic> data = jsonDecode(response.text!);
+    return data;
   }
 }
