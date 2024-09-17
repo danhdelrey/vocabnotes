@@ -31,20 +31,7 @@ class SearchField extends StatelessWidget {
             borderRadius: BorderRadius.circular(28.0),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          suffixIcon: _buildSuffixIcon(),
         ),
-      ),
-    );
-  }
-
-  Padding _buildSuffixIcon() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5),
-      child: IconButton(
-        onPressed: () {
-          textEditingController.clear();
-        },
-        icon: const Icon(HugeIcons.strokeRoundedCancelCircle),
       ),
     );
   }

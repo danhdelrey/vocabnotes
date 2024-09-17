@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
@@ -50,6 +51,12 @@ class _LookupWordInformationScreenState
                     .add(LookupWordEvent(word: value));
               },
             ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+              )
+            ],
           ),
           body: BlocListener<WordInformationBloc, WordInformationState>(
             listener: (context, state) {
@@ -70,8 +77,11 @@ class _LookupWordInformationScreenState
                   );
                 } else if (state is WordInformationLoaded) {
                   englishWordModelList = state.englishWordModelList;
-                  return WordInformation(
-                      englishWordModelList: englishWordModelList);
+                  return Scaffold(
+                    appBar: _buildTopBar(state, context),
+                    body: WordInformation(
+                        englishWordModelList: englishWordModelList),
+                  );
                 } else if (state is WordInformationError) {
                   return const Center(
                     child: Text('something went wrong'),
@@ -108,50 +118,39 @@ class _LookupWordInformationScreenState
   //   );
   // }
 
-  // AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
-  //   return AppBar(
-  //     automaticallyImplyLeading: false,
-  //     title: Text(state.englishWordModelList[0].name),
-  //     leading: _searchedWords.length > 1
-  //         ? IconButton(
-  //             onPressed: () {
-  //               _searchedWords.removeLast();
-  //               String previousWord = _searchedWords.removeLast();
-  //               context
-  //                   .read<WordInformationBloc>()
-  //                   .add(GetWordInformationEvent(word: previousWord));
-  //             },
-  //             icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
-  //           )
-  //         : Container(),
-  //     actions: [
-  //       IconButton(
-  //         onPressed: () {
-  //           showDialog(
-  //             context: context,
-  //             builder: (_) => AlertDialog(
-  //               title: const Text('Add to library?'),
-  //               actions: [
-  //                 TextButton(
-  //                     onPressed: () {
-  //                       Navigator.pop(context);
-  //                     },
-  //                     child: const Text('Cancel')),
-  //                 FilledButton(
-  //                     onPressed: () {
-  //                       Navigator.pop(context);
-  //                       context.read<SaveToLibraryBloc>().add(
-  //                           SaveWordToLibraryEvent(
-  //                               wordList: state.englishWordModelList));
-  //                     },
-  //                     child: const Text('Yes'))
-  //               ],
-  //             ),
-  //           );
-  //         },
-  //         icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
-  //       ),
-  //     ],
-  //   );
-  // }
+  AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      centerTitle: false,
+      title: Text(state.englishWordModelList[0].name),
+      actions: [
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: const Text('Add to library?'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel')),
+                  FilledButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        context.read<SaveToLibraryBloc>().add(
+                            SaveWordToLibraryEvent(
+                                wordList: state.englishWordModelList));
+                      },
+                      child: const Text('Yes'))
+                ],
+              ),
+            );
+          },
+          icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+        ),
+      ],
+    );
+  }
 }
