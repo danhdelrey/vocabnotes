@@ -4,6 +4,7 @@ import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/widgets/word_information.dart';
 
 class LookupWordInformationScreen extends StatefulWidget {
   const LookupWordInformationScreen({super.key});
@@ -35,53 +36,50 @@ class _LookupWordInformationScreenState
       create: (_) => WordInformationBloc()
         ..add(GetWordInformationEvent(
             word: ModalRoute.of(context)!.settings.arguments as String)),
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: SearchField(
-                textEditingController: _textEditingController,
-                hintText: ModalRoute.of(context)!.settings.arguments as String,
-                onSubmit: (value) {
-                  context
-                      .read<WordInformationBloc>()
-                      .add(LookupWordEvent(word: value));
-                },
-              ),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: SearchField(
+              textEditingController: _textEditingController,
+              hintText: ModalRoute.of(context)!.settings.arguments as String,
+              onSubmit: (value) {
+                context
+                    .read<WordInformationBloc>()
+                    .add(LookupWordEvent(word: value));
+              },
             ),
-            body: BlocListener<WordInformationBloc, WordInformationState>(
-              listener: (context, state) {
-                if (state is WordInformationLookup) {
-                  navigateTo(
-                    appRoute: AppRoute.lookupWordInformation,
-                    context: context,
-                    replacement: false,
-                    data: state.word,
+          ),
+          body: BlocListener<WordInformationBloc, WordInformationState>(
+            listener: (context, state) {
+              if (state is WordInformationLookup) {
+                navigateTo(
+                  appRoute: AppRoute.lookupWordInformation,
+                  context: context,
+                  replacement: false,
+                  data: state.word,
+                );
+              }
+            },
+            child: BlocBuilder<WordInformationBloc, WordInformationState>(
+              builder: (context, state) {
+                if (state is WordInformationloading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is WordInformationLoaded) {
+                  return WordInformation(
+                      englishWordModelList: state.englishWordModelList);
+                } else if (state is WordInformationError) {
+                  return const Center(
+                    child: Text('something went wrong'),
                   );
                 }
+                return Container();
               },
-              child: BlocBuilder<WordInformationBloc, WordInformationState>(
-                builder: (context, state) {
-                  if (state is WordInformationloading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is WordInformationLoaded) {
-                    return const Center(
-                      child: Text('loaded'),
-                    );
-                  } else if (state is WordInformationError) {
-                    return const Center(
-                      child: Text('something went wrong'),
-                    );
-                  }
-                  return Container();
-                },
-              ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 
