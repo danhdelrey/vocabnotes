@@ -94,7 +94,27 @@ class GeminiDictionary implements EnglishDictionary {
     return englishWordModelList;
   }
 
-  generateShortStory(String genre, String length, String level) async {
-    
+  generateShortStory(String genre, String length, String level, List<String> wordList) async {
+    final schema = Schema.array(
+      nullable: false,
+      items: Schema.object(
+        requiredProperties: ['sentence', 'translation'],
+        properties: {
+          'sentence': Schema.string(nullable: false),
+          'translation': Schema.string(nullable: false),
+        },
+      ),
+    );
+
+    final model = GenerativeModel(
+        model: 'gemini-1.5-flash',
+        apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        generationConfig: GenerationConfig(
+            responseMimeType: 'application/json', responseSchema: schema));
+
+    final prompt =
+        'Write a $genre short story in English, approximately $length long. The story must use the following words if available: $wordList. Ensure the vocabulary used is appropriate for a $level English level learner. Finally, please provide a Vietnamese translation after each sentence.';
+        
+    final response = await model.generateContent([Content.text(prompt)]);
   }
 }

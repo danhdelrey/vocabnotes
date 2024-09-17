@@ -7,7 +7,7 @@ part 'short_stories_state.dart';
 
 class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
   ShortStoriesBloc() : super(ShortStoriesInitial()) {
-    on<ShortStoriesEvent>((event, emit) {
+    on<GenerateShortStory>((event, emit) {
       // TODO: implement event handler
     });
   }
