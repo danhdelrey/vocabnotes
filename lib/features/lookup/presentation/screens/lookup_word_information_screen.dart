@@ -31,7 +31,9 @@ class _LookupWordInformationScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WordInformationBloc(),
+      create: (_) => WordInformationBloc()
+        ..add(GetWordInformationEvent(
+            word: ModalRoute.of(context)!.settings.arguments as String)),
       child: Scaffold(
         appBar: AppBar(
           title: SearchField(
@@ -44,7 +46,24 @@ class _LookupWordInformationScreenState
             },
           ),
         ),
-        body: const Placeholder(),
+        body: BlocBuilder<WordInformationBloc, WordInformationState>(
+          builder: (context, state) {
+            if (state is WordInformationloading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is WordInformationLoaded) {
+              return const Center(
+                child: Text('loaded'),
+              );
+            } else if (state is WordInformationError) {
+              return const Center(
+                child: Text('something went wrong'),
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
