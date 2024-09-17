@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/config/routes.dart';
+import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/save_to_library/save_to_library_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/word_information_bloc/word_information_bloc.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/word_information.dart';
@@ -17,6 +18,7 @@ class LookupWordInformationScreen extends StatefulWidget {
 class _LookupWordInformationScreenState
     extends State<LookupWordInformationScreen> {
   late TextEditingController _textEditingController;
+  List<EnglishWordModel> englishWordModelList = [];
 
   @override
   void initState() {
@@ -67,14 +69,16 @@ class _LookupWordInformationScreenState
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is WordInformationLoaded) {
+                  englishWordModelList = state.englishWordModelList;
                   return WordInformation(
-                      englishWordModelList: state.englishWordModelList);
+                      englishWordModelList: englishWordModelList);
                 } else if (state is WordInformationError) {
                   return const Center(
                     child: Text('something went wrong'),
                   );
                 }
-                return Container();
+                return WordInformation(
+                    englishWordModelList: englishWordModelList);
               },
             ),
           ),
