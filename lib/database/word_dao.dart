@@ -9,6 +9,9 @@ abstract class WordDao {
   @Query("SELECT * FROM EnglishWordModel")
   Future<List<EnglishWordModel>?> getAllWordsInDatabase();
 
+  @Query("SELECT name FROM EnglishWordModel")
+  Future<List<String>?> getAllWordNamesInDatabase();
+
   @Query("SELECT * FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
   Future<List<EnglishWordModel>?> findWordInDatabase(String word);
 

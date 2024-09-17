@@ -143,6 +143,12 @@ class _$WordDao extends WordDao {
   }
 
   @override
+  Future<List<String>?> getAllWordNamesInDatabase() async {
+    return _queryAdapter.queryList('SELECT name FROM EnglishWordModel',
+        mapper: (Map<String, Object?> row) => row.values.first as String);
+  }
+
+  @override
   Future<List<EnglishWordModel>?> findWordInDatabase(String word) async {
     return _queryAdapter.queryList(
         'SELECT * FROM EnglishWordModel WHERE name LIKE \'%\' || ?1 || \'%\'',

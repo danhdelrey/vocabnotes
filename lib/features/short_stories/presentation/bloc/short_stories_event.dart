@@ -12,9 +12,11 @@ final class GenerateShortStory extends ShortStoriesEvent {
   final String level;
   final String length;
   final List<String> wordList;
+  final int numberOfWordsInUse;
 
-  const GenerateShortStory(
-      {required this.genre,
+  const GenerateShortStory( 
+      {required this.numberOfWordsInUse,
+      required this.genre,
       required this.level,
       required this.length,
       required this.wordList});
