@@ -67,17 +67,42 @@ class _LookupWordInformationScreenState
               )
             ],
           ),
-          body: BlocListener<WordInformationBloc, WordInformationState>(
-            listener: (context, state) {
-              if (state is WordInformationLookup) {
-                navigateTo(
-                  appRoute: AppRoute.lookupWordInformation,
-                  context: context,
-                  replacement: false,
-                  data: state.word,
-                );
-              }
-            },
+          body: MultiBlocListener(
+            listeners: [
+              BlocListener<WordInformationBloc, WordInformationState>(
+                listener: (context, state) {
+                  if (state is WordInformationLookup) {
+                    navigateTo(
+                      appRoute: AppRoute.lookupWordInformation,
+                      context: context,
+                      replacement: false,
+                      data: state.word,
+                    );
+                  }
+                },
+              ),
+              BlocListener<SaveToLibraryBloc, SaveToLibraryState>(
+                listener: (context, state) {
+                  if (state is SaveToLibrarySuccess) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                  } else if (state is SaveToLibraryFailure) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
             child: BlocBuilder<WordInformationBloc, WordInformationState>(
               builder: (context, state) {
                 if (state is WordInformationloading) {
