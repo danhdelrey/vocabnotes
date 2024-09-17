@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/common/widgets/search_field.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
@@ -107,9 +108,7 @@ class _LookupWordInformationScreenState
             child: BlocBuilder<WordInformationBloc, WordInformationState>(
               builder: (context, state) {
                 if (state is WordInformationloading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return _buildPlaceholder();
                 } else if (state is WordInformationLoaded) {
                   englishWordModelList = state.englishWordModelList;
                   return Scaffold(
@@ -129,6 +128,81 @@ class _LookupWordInformationScreenState
           ),
         );
       }),
+    );
+  }
+
+  Skeletonizer _buildPlaceholder() {
+    return Skeletonizer(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: false,
+          title: const Text('Lorem ipsum dolor'),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(HugeIcons.strokeRoundedHome01)),
+          ],
+        ),
+        body: WordInformation(englishWordModelList: [
+          EnglishWordModel(phonetic: 'record', name: 'record', meanings: """[
+          {
+              "partOfSpeech": "noun",
+              "definitions": [
+                  {
+                      "definition": "A disk, usually made of a polymer, used to record sound for playback on a phonograph.",
+                      "synonyms": [
+                          "gramophone record",
+                          "record",
+                          "vinyl"
+                      ],
+                      "antonyms": []
+                  }
+              ],
+              "synonyms": [
+                  "gramophone record",
+                  "record",
+                  "vinyl"
+              ],
+              "antonyms": []
+          },
+          {
+              "partOfSpeech": "noun",
+              "definitions": [
+                  {
+                      "definition": "An item of information put into a temporary or permanent physical medium.",
+                      "synonyms": [],
+                      "antonyms": [],
+                      "example": "The person had a record of the interview so she could review her notes."
+                  },
+                  {
+                      "definition": "Any instance of a physical medium on which information was put for the purpose of preserving it and making it available for future reference.",
+                      "synonyms": [
+                          "log"
+                      ],
+                      "antonyms": [],
+                      "example": "We have no record of you making this payment to us."
+                  },
+                  {
+                      "definition": "A set of data relating to a single individual or item.",
+                      "synonyms": [],
+                      "antonyms": []
+                  },
+                  {
+                      "definition": "The most extreme known value of some variable, particularly that of an achievement in competitive events.",
+                      "synonyms": [],
+                      "antonyms": [],
+                      "example": "The heat and humidity were both new records."
+                  }
+              ],
+              "synonyms": [
+                  "log"
+              ],
+              "antonyms": []
+          }
+      ]""")
+        ]),
+      ),
     );
   }
 
