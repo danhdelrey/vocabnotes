@@ -45,7 +45,7 @@ class ShortStoriesScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Text(
@@ -59,35 +59,7 @@ class ShortStoriesScreen extends StatelessWidget {
                                   height: 15,
                                 ),
                                 Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Text(
                                   'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontFamily: 'Roboto'),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Text(
-                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontFamily: 'Roboto'),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Text(
@@ -171,12 +143,23 @@ class ShortStoriesScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(4),
                         onTap: () {
-                          navigateTo(
-                              appRoute: AppRoute.lookupWordInformation,
-                              context: context,
-                              replacement: false,
-                              data:
-                                  word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''));
+                          wordListFromLibrary.contains(
+                                  word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''))
+                              ? navigateTo(
+                                  appRoute: AppRoute.libraryWordInformation,
+                                  context: context,
+                                  replacement: false,
+                                  data: {
+                                      'word': word.replaceAll(
+                                          RegExp(r'[^a-zA-Z0-9]'), ''),
+                                      'firstMeaning': ' '
+                                    })
+                              : navigateTo(
+                                  appRoute: AppRoute.lookupWordInformation,
+                                  context: context,
+                                  replacement: false,
+                                  data: word.replaceAll(
+                                      RegExp(r'[^a-zA-Z0-9]'), ''));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4, right: 4),
