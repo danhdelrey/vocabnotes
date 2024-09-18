@@ -1,83 +1,101 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/config/theme.dart';
+import 'package:vocabnotes/features/short_stories/presentation/bloc/short_stories_bloc.dart';
 
 class ShortStoriesScreen extends StatelessWidget {
   const ShortStoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ThemeData().scaffoldBackgroundColor,
-        elevation: 0,
-        surfaceTintColor: ThemeData().scaffoldBackgroundColor,
-        title: const Text('Short stories'),
-        actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(HugeIcons.strokeRoundedEdit02))
-        ],
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 25, right: 25, top: 30, bottom: 90),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                          _buildTappableWord(context),
-                        ],
-                      ),
-                    ),
-                    _buildTranslation(context),
-                  ],
+    return BlocProvider(
+      create: (context) => ShortStoriesBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: ThemeData().scaffoldBackgroundColor,
+          elevation: 0,
+          surfaceTintColor: ThemeData().scaffoldBackgroundColor,
+          title: const Text('Short stories'),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(HugeIcons.strokeRoundedEdit02))
+          ],
+        ),
+        body: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 25, right: 25, top: 30, bottom: 90),
+                child: SingleChildScrollView(
+                  child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
+                    builder: (context, state) {
+                      if (state is ShortStoriesGenerating) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is ShortStoriesGeneratedSuccess) {
+                        return Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                  _buildTappableWord(context),
+                                ],
+                              ),
+                            ),
+                            _buildTranslation(context),
+                          ],
+                        );
+                      } else if (state is ShortStoriesGeneratedFailure) {
+                        return Text('Something went wrong');
+                      } else
+                        return Container();
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15, left: 10),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(HugeIcons.strokeRoundedTranslation)),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: FilledButton.icon(
-                onPressed: () {},
-                label: const Text('Generate'),
-                icon: const Icon(HugeIcons.strokeRoundedReload),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15, left: 10),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(HugeIcons.strokeRoundedTranslation)),
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: FilledButton.icon(
+                  onPressed: () {},
+                  label: const Text('Generate'),
+                  icon: const Icon(HugeIcons.strokeRoundedReload),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

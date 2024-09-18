@@ -13,8 +13,11 @@ final class ShortStoriesGenerating extends ShortStoriesState {}
 
 final class ShortStoriesGeneratedSuccess extends ShortStoriesState {
   final List<dynamic> shortStory;
+  final List<String> wordList;
 
-  const ShortStoriesGeneratedSuccess({required this.shortStory});
+  const ShortStoriesGeneratedSuccess({required this.shortStory,required this.wordList});
 }
 
 final class ShortStoriesGeneratedFailure extends ShortStoriesState {}
+
+final class ShortStoriesTranslated extends ShortStoriesState {}
