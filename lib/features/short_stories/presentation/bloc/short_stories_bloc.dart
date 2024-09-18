@@ -27,9 +27,13 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
         //lay ra n tu khac nhau trong database
         final allWordsFromDatabase = await wordDao.getAllWordNamesInDatabase();
         Random random = Random();
-        allWordsFromDatabase!.shuffle(random);
+
+        Set<String> uniqueWordSet = allWordsFromDatabase!.toSet();
+        List<String> uniqueWordList = uniqueWordSet.toList();
+
+        uniqueWordList.shuffle(random);
         final randomWordList =
-            allWordsFromDatabase.take(event.numberOfWordsInUse).toList();
+            uniqueWordList.take(event.numberOfWordsInUse).toList();
 
         final shortStory = await wordLookupService.geminiDictionary
             .generateShortStory(
@@ -39,7 +43,7 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
                 level: event.level);
 
         emit(ShortStoriesGeneratedSuccess(
-            shortStory: shortStory, wordList: allWordsFromDatabase));
+            shortStory: shortStory, wordList: uniqueWordList));
       } catch (e) {
         emit(ShortStoriesGeneratedFailure());
       }

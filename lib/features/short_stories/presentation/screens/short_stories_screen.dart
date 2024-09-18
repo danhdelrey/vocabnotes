@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/config/theme.dart';
 import 'package:vocabnotes/features/short_stories/presentation/bloc/short_stories_bloc.dart';
 
@@ -66,9 +67,9 @@ class ShortStoriesScreen extends StatelessWidget {
                       context.read<ShortStoriesBloc>().add(
                             const GenerateShortStory(
                                 numberOfWordsInUse: 5,
-                                genre: 'funny',
+                                genre: 'scary',
                                 level: 'C2',
-                                length: '50 words'),
+                                length: '100 words'),
                           );
                     },
                     label: const Text('Generate'),
@@ -96,7 +97,15 @@ class ShortStoriesScreen extends StatelessWidget {
                     (word) => WidgetSpan(
                       child: InkWell(
                         borderRadius: BorderRadius.circular(4),
-                        onTap: () {},
+                        onTap: () {
+                          final cleanWord =
+                              word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
+                          navigateTo(
+                              appRoute: AppRoute.lookupWordInformation,
+                              context: context,
+                              replacement: false,
+                              data: cleanWord);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4, right: 4),
                           child: Text(
@@ -115,13 +124,19 @@ class ShortStoriesScreen extends StatelessWidget {
             ],
           ),
         ),
-        Text(
-          translation,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontFamily: 'Roboto'),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, right: 4),
+          child: Text(
+            translation,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontFamily: 'Roboto'),
+          ),
         ),
+        const SizedBox(
+          height: 15,
+        )
       ],
     );
   }

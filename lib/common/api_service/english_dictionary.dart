@@ -119,7 +119,7 @@ class GeminiDictionary implements EnglishDictionary {
             responseMimeType: 'application/json', responseSchema: schema));
 
     final prompt =
-        'Write a $genre short story in English with $level vocabulary level, about $length long. The story should be broken down into multiple sentences. Each sentence should be followed by a Vietnamese translation of that sentence. The story must include the following words: $wordList';
+        'Write a $genre short story in English using $level-level vocabulary, about $length long. The story should be broken down into multiple sentences. Each sentence should be followed by a Vietnamese translation of that sentence. The story must include the following words: $wordList';
     final response = await model.generateContent([Content.text(prompt)]);
 
     List<dynamic> data = jsonDecode(response.text!);
