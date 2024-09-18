@@ -11,92 +11,104 @@ class ShortStoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ShortStoriesBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: ThemeData().scaffoldBackgroundColor,
-          elevation: 0,
-          surfaceTintColor: ThemeData().scaffoldBackgroundColor,
-          title: const Text('Short stories'),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(HugeIcons.strokeRoundedEdit02))
-          ],
-        ),
-        body: Stack(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 25, right: 25, top: 30, bottom: 90),
-                child: SingleChildScrollView(
-                  child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
-                    builder: (context, state) {
-                      if (state is ShortStoriesGenerating) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (state is ShortStoriesGeneratedSuccess) {
-                        return Column(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                  _buildTappableWord(context),
-                                ],
-                              ),
-                            ),
-                            _buildTranslation(context),
-                          ],
-                        );
-                      } else if (state is ShortStoriesGeneratedFailure) {
-                        return Text('Something went wrong');
-                      } else
-                        return Container();
-                    },
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: ThemeData().scaffoldBackgroundColor,
+            elevation: 0,
+            surfaceTintColor: ThemeData().scaffoldBackgroundColor,
+            title: const Text('Short stories'),
+            actions: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(HugeIcons.strokeRoundedEdit02))
+            ],
+          ),
+          body: Stack(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 25, right: 25, top: 30, bottom: 90),
+                  child: SingleChildScrollView(
+                    child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
+                      builder: (context, state) {
+                        if (state is ShortStoriesGenerating) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (state is ShortStoriesGeneratedSuccess) {
+                          return const Text('hello');
+                        } else if (state is ShortStoriesGeneratedFailure) {
+                          return const Text('Something went wrong');
+                        } else
+                          return Container();
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(HugeIcons.strokeRoundedTranslation)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: FilledButton.icon(
-                  onPressed: () {},
-                  label: const Text('Generate'),
-                  icon: const Icon(HugeIcons.strokeRoundedReload),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15, left: 10),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(HugeIcons.strokeRoundedTranslation)),
                 ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FilledButton.icon(
+                    onPressed: () {
+                      context.read<ShortStoriesBloc>().add(
+                            const GenerateShortStory(
+                                numberOfWordsInUse: 5,
+                                genre: 'humourous',
+                                level: 'C1',
+                                length: '50 words'),
+                          );
+                    },
+                    label: const Text('Generate'),
+                    icon: const Icon(HugeIcons.strokeRoundedReload),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      }),
+    );
+  }
+
+  Column _buildSentenceAndTranslation(BuildContext context) {
+    return Column(
+      children: [
+        RichText(
+          text: TextSpan(
+            children: [
+              WidgetSpan(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(4),
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4, right: 4),
+                    child: Text(
+                      'word',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: kColorScheme.primary,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+        _buildTranslation(context),
+      ],
     );
   }
 
@@ -107,24 +119,6 @@ class ShortStoriesScreen extends StatelessWidget {
           .textTheme
           .bodyMedium!
           .copyWith(fontFamily: 'Roboto'),
-    );
-  }
-
-  WidgetSpan _buildTappableWord(BuildContext context) {
-    return WidgetSpan(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(4),
-        onTap: () {},
-        child: Padding(
-          padding: const EdgeInsets.only(left: 4, right: 4),
-          child: Text(
-            'word',
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: kColorScheme.primary,
-                ),
-          ),
-        ),
-      ),
     );
   }
 }

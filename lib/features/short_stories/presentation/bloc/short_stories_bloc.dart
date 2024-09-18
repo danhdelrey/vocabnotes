@@ -34,7 +34,8 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
         final shortStory = await wordLookupService.geminiDictionary
             .generateShortStory(wordList: randomWordList);
 
-        emit(ShortStoriesGeneratedSuccess(shortStory: shortStory, wordList: allWordsFromDatabase));
+        emit(ShortStoriesGeneratedSuccess(
+            shortStory: shortStory, wordList: allWordsFromDatabase));
       } catch (e) {
         emit(ShortStoriesGeneratedFailure());
       }
