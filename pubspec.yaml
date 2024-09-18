@@ -46,6 +46,7 @@ dependencies:
   google_generative_ai: ^0.4.6
   hugeicons: ^0.0.7
   skeletonizer: ^1.4.2
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

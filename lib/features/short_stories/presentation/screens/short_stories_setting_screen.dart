@@ -1,21 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShortStoriesSettingScreen extends StatelessWidget {
   const ShortStoriesSettingScreen({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         title: const Text('Customize'),
-        leading: IconButton(
-            onPressed: () {
-              
-            },
-            icon: const Icon(HugeIcons.strokeRoundedArrowLeft01)),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -30,8 +26,9 @@ class ShortStoriesSettingScreen extends StatelessWidget {
                 const Spacer(),
                 DropdownMenu(
                   initialSelection: 'Comedy',
-                  onSelected: (value) {
-                    genre = value!;
+                  onSelected: (value) async {
+                    
+
                   },
                   dropdownMenuEntries: const [
                     DropdownMenuEntry(value: 'Comedy', label: 'Comedy'),

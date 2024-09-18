@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/config/theme.dart';
-import 'package:vocabnotes/features/short_stories/presentation/bloc/short_stories_bloc.dart';
+import 'package:vocabnotes/features/short_stories/presentation/short_stories_bloc/short_stories_bloc.dart';
 
 class ShortStoriesScreen extends StatelessWidget {
   const ShortStoriesScreen({super.key});
