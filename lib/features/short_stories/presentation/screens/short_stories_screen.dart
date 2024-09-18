@@ -66,8 +66,8 @@ class ShortStoriesScreen extends StatelessWidget {
                       context.read<ShortStoriesBloc>().add(
                             const GenerateShortStory(
                                 numberOfWordsInUse: 5,
-                                genre: 'humourous',
-                                level: 'C1',
+                                genre: 'funny',
+                                level: 'C2',
                                 length: '50 words'),
                           );
                     },
