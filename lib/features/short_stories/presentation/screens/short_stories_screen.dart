@@ -40,8 +40,37 @@ class ShortStoriesScreen extends StatelessWidget {
                     child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
                       builder: (context, state) {
                         if (state is ShortStoriesGenerating) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Column(
+                            children: [
+                              Text(
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontFamily: 'Roboto'),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontFamily: 'Roboto'),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
                           );
                         } else if (state is ShortStoriesGeneratedSuccess) {
                           return Column(
@@ -85,7 +114,11 @@ class ShortStoriesScreen extends StatelessWidget {
                           icon: const Icon(HugeIcons.strokeRoundedReload),
                         );
                       } else {
-                        return Container();
+                        return FilledButton.icon(
+                          onPressed: null,
+                          label: const Text('Generate'),
+                          icon: const Icon(HugeIcons.strokeRoundedReload),
+                        );
                       }
                     },
                   ),
