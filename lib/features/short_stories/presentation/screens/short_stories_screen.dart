@@ -45,7 +45,8 @@ class ShortStoriesScreen extends StatelessWidget {
                                 (data) => _buildSentenceAndTranslation(
                                     context: context,
                                     sentence: data['sentence'],
-                                    translation: data['translation']),
+                                    translation: data['translation'],
+                                    wordListFromLibrary: state.wordList),
                               )
                             ],
                           );
@@ -67,7 +68,7 @@ class ShortStoriesScreen extends StatelessWidget {
                       context.read<ShortStoriesBloc>().add(
                             const GenerateShortStory(
                                 numberOfWordsInUse: 5,
-                                genre: 'scary',
+                                genre: 'happy',
                                 level: 'C2',
                                 length: '100 words'),
                           );
@@ -87,7 +88,8 @@ class ShortStoriesScreen extends StatelessWidget {
   Column _buildSentenceAndTranslation(
       {required BuildContext context,
       required String sentence,
-      required String translation}) {
+      required String translation,
+      required List<String> wordListFromLibrary}) {
     return Column(
       children: [
         RichText(
@@ -98,25 +100,30 @@ class ShortStoriesScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(4),
                         onTap: () {
-                          final cleanWord =
-                              word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
                           navigateTo(
                               appRoute: AppRoute.lookupWordInformation,
                               context: context,
                               replacement: false,
-                              data: cleanWord);
+                              data:
+                                  word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4, right: 4),
-                          child: Text(
-                            word,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  color: kColorScheme.primary,
+                          child: wordListFromLibrary.contains(
+                                  word.replaceAll(RegExp(r'[^a-zA-Z0-9]'), ''))
+                              ? Text(
+                                  word,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: kColorScheme.primary,
+                                      ),
+                                )
+                              : Text(
+                                  word,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
-                          ),
                         ),
                       ),
                     ),
