@@ -116,13 +116,25 @@ class _LookupWordInformationScreenState
     return Skeletonizer(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           centerTitle: false,
-          title: const Text('recordrecord'),
+          title: const Text('vocabulary'),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight),
+            child: SearchField(
+              textEditingController: _textEditingController,
+              hintText: '',
+              onSubmit: (value) {},
+            ),
+          ),
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: const Icon(HugeIcons.strokeRoundedHome01)),
+              onPressed: () {},
+              icon: const Icon(HugeIcons.strokeRoundedHome09),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+            ),
           ],
         ),
         body: WordInformation(englishWordModelList: [
