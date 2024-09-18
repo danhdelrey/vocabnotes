@@ -38,7 +38,16 @@ class ShortStoriesScreen extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           );
                         } else if (state is ShortStoriesGeneratedSuccess) {
-                          return const Text('hello');
+                          return Column(
+                            children: [
+                              ...state.shortStory.map(
+                                (data) => _buildSentenceAndTranslation(
+                                    context: context,
+                                    sentence: data['sentence'],
+                                    translation: data['translation']),
+                              )
+                            ],
+                          );
                         } else if (state is ShortStoriesGeneratedFailure) {
                           return const Text('Something went wrong');
                         } else
@@ -83,42 +92,46 @@ class ShortStoriesScreen extends StatelessWidget {
     );
   }
 
-  Column _buildSentenceAndTranslation(BuildContext context) {
+  Column _buildSentenceAndTranslation(
+      {required BuildContext context,
+      required String sentence,
+      required String translation}) {
     return Column(
       children: [
         RichText(
           text: TextSpan(
             children: [
-              WidgetSpan(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(4),
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4, right: 4),
-                    child: Text(
-                      'word',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: kColorScheme.primary,
+              ...sentence.split(" ").map(
+                    (word) => WidgetSpan(
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(4),
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4, right: 4),
+                          child: Text(
+                            word,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: kColorScheme.primary,
+                                ),
                           ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
+                  )
             ],
           ),
         ),
-        _buildTranslation(context),
+        Text(
+          translation,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontFamily: 'Roboto'),
+        ),
       ],
-    );
-  }
-
-  Text _buildTranslation(BuildContext context) {
-    return Text(
-      'Một người đàn ông bước vào thư viện và vui vẻ hỏi thủ thư về những cuốn sách về chứng hoang tưởng.',
-      style: Theme.of(context)
-          .textTheme
-          .bodyMedium!
-          .copyWith(fontFamily: 'Roboto'),
     );
   }
 }
