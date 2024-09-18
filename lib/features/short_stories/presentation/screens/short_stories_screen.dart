@@ -58,15 +58,6 @@ class ShortStoriesScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 15, left: 10),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(HugeIcons.strokeRoundedTranslation)),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.only(bottom: 15),
                 child: Align(
                   alignment: Alignment.bottomCenter,
