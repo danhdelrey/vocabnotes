@@ -21,7 +21,12 @@ class ShortStoriesScreen extends StatelessWidget {
             title: const Text('Short stories'),
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigateTo(
+                        appRoute: AppRoute.shortStoriesSetting,
+                        context: context,
+                        replacement: false);
+                  },
                   icon: const Icon(HugeIcons.strokeRoundedEdit02))
             ],
           ),
@@ -63,18 +68,26 @@ class ShortStoriesScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 15),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: FilledButton.icon(
-                    onPressed: () {
-                      context.read<ShortStoriesBloc>().add(
-                            const GenerateShortStory(
-                                numberOfWordsInUse: 5,
-                                genre: 'happy',
-                                level: 'C2',
-                                length: '100 words'),
-                          );
+                  child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
+                    builder: (context, state) {
+                      if (state is ShortStoriesGeneratedSuccess) {
+                        return FilledButton.icon(
+                          onPressed: () {
+                            context.read<ShortStoriesBloc>().add(
+                                  const GenerateShortStory(
+                                      numberOfWordsInUse: 5,
+                                      genre: 'happy',
+                                      level: 'C2',
+                                      length: '100 words'),
+                                );
+                          },
+                          label: const Text('Generate'),
+                          icon: const Icon(HugeIcons.strokeRoundedReload),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
-                    label: const Text('Generate'),
-                    icon: const Icon(HugeIcons.strokeRoundedReload),
                   ),
                 ),
               )
