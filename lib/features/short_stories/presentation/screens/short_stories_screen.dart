@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/config/theme.dart';
 import 'package:vocabnotes/features/short_stories/presentation/short_stories_bloc/short_stories_bloc.dart';
@@ -11,7 +12,7 @@ class ShortStoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShortStoriesBloc(),
+      create: (context) => ShortStoriesBloc()..add(GenerateShortStory()),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -40,37 +41,64 @@ class ShortStoriesScreen extends StatelessWidget {
                     child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
                       builder: (context, state) {
                         if (state is ShortStoriesGenerating) {
-                          return Column(
-                            children: [
-                              Text(
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              Text(
-                                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontFamily: 'Roboto'),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              Text(
-                                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontFamily: 'Roboto'),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                            ],
+                          return Skeletonizer(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(fontFamily: 'Roboto'),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(fontFamily: 'Roboto'),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(fontFamily: 'Roboto'),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(fontFamily: 'Roboto'),
+                                ),
+                              ],
+                            ),
                           );
                         } else if (state is ShortStoriesGeneratedSuccess) {
                           return Column(
@@ -86,8 +114,9 @@ class ShortStoriesScreen extends StatelessWidget {
                           );
                         } else if (state is ShortStoriesGeneratedFailure) {
                           return const Text('Something went wrong');
-                        } else
+                        } else {
                           return Container();
+                        }
                       },
                     ),
                   ),
@@ -102,13 +131,9 @@ class ShortStoriesScreen extends StatelessWidget {
                       if (state is ShortStoriesGeneratedSuccess) {
                         return FilledButton.icon(
                           onPressed: () {
-                            context.read<ShortStoriesBloc>().add(
-                                  const GenerateShortStory(
-                                      numberOfWordsInUse: 5,
-                                      genre: 'happy',
-                                      level: 'C2',
-                                      length: '100 words'),
-                                );
+                            context
+                                .read<ShortStoriesBloc>()
+                                .add(GenerateShortStory());
                           },
                           label: const Text('Generate'),
                           icon: const Icon(HugeIcons.strokeRoundedReload),

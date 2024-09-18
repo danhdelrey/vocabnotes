@@ -135,8 +135,11 @@ class ShortStoriesSettingScreen extends StatelessWidget {
                       ),
                     ],
                   );
-                } else
-                  return Container();
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
               },
             ),
           ),
