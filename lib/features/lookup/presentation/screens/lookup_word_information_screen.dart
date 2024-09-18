@@ -50,25 +50,6 @@ class _LookupWordInformationScreenState
       ],
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: AppBar(
-            title: SearchField(
-              textEditingController: _textEditingController,
-              hintText: '',
-              onSubmit: (value) {
-                context
-                    .read<WordInformationBloc>()
-                    .add(LookupWordEvent(word: value));
-              },
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                },
-                icon: const Icon(HugeIcons.strokeRoundedHome09),
-              )
-            ],
-          ),
           body: MultiBlocListener(
             listeners: [
               BlocListener<WordInformationBloc, WordInformationState>(
@@ -193,10 +174,27 @@ class _LookupWordInformationScreenState
 
   AppBar _buildTopBar(WordInformationLoaded state, BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
       centerTitle: false,
       title: Text(state.englishWordModelList[0].name),
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: SearchField(
+          textEditingController: _textEditingController,
+          hintText: '',
+          onSubmit: (value) {
+            context
+                .read<WordInformationBloc>()
+                .add(LookupWordEvent(word: value));
+          },
+        ),
+      ),
       actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+          icon: const Icon(HugeIcons.strokeRoundedHome09),
+        ),
         IconButton(
           onPressed: () {
             showDialog(
