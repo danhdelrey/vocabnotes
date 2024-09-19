@@ -134,6 +134,7 @@ class ShortStoriesScreen extends StatelessWidget {
       required String translation,
       required List<String> wordListFromLibrary}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
           text: TextSpan(
