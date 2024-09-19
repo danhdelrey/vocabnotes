@@ -112,32 +112,32 @@ class _LookupWordInformationScreenState
     );
   }
 
-  Skeletonizer _buildPlaceholder() {
-    return Skeletonizer(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: const Text('vocabulary'),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: SearchField(
-              textEditingController: _textEditingController,
-              hintText: '',
-              onSubmit: (value) {},
-            ),
+  _buildPlaceholder() {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text(ModalRoute.of(context)!.settings.arguments as String),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: SearchField(
+            textEditingController: _textEditingController,
+            hintText: '',
+            onSubmit: (value) {},
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(HugeIcons.strokeRoundedHome09),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
-            ),
-          ],
         ),
-        body: WordInformation(englishWordModelList: [
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(HugeIcons.strokeRoundedHome09),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+          ),
+        ],
+      ),
+      body: Skeletonizer(
+        child: WordInformation(englishWordModelList: [
           EnglishWordModel(
               phonetic: 'recordrecord', name: 'recordrecord', meanings: """[
             {
