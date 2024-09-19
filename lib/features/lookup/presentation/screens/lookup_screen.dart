@@ -39,21 +39,11 @@ class _LookupScreenState extends State<LookupScreen> {
         builder: (context) {
           return Scaffold(
             appBar: _buildAppBar(context),
-            body: BlocListener<WordInformationBloc, WordInformationState>(
-              listener: (context, state) {
-                if (state is WordInformationLookup) {
-                  navigateTo(
-                    appRoute: AppRoute.lookupWordInformation,
-                    context: context,
-                    replacement: false,
-                    data: state.word,
-                  );
-                }
-              },
-              child: const Center(
+            body: 
+              const Center(
                 child: Text('Look up word online'),
               ),
-            ),
+            
           );
         },
       ),
@@ -69,9 +59,12 @@ class _LookupScreenState extends State<LookupScreen> {
           textEditingController: _textEditingController,
           hintText: 'Look up word online',
           onSubmit: (value) {
-            context
-                .read<WordInformationBloc>()
-                .add(LookupWordEvent(word: value));
+            navigateTo(
+              appRoute: AppRoute.lookupWordInformation,
+              context: context,
+              replacement: false,
+              data: value,
+            );
           },
         ),
       ),

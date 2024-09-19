@@ -15,8 +15,10 @@ abstract class WordDao {
   @Query("SELECT * FROM EnglishWordModel WHERE name LIKE '%' || :word || '%'")
   Future<List<EnglishWordModel>?> findWordInDatabase(String word);
 
-  @Query("SELECT * FROM EnglishWordModel WHERE name = :wordName and meanings LIKE '%' || :firstMeaning || '%'")
-  Future<EnglishWordModel?> getWordInformation(String wordName, String firstMeaning);
+  @Query(
+      "SELECT * FROM EnglishWordModel WHERE name = :wordName and meanings LIKE '%' || :firstMeaning || '%' LIMIT 1")
+  Future<EnglishWordModel?> getWordInformation(
+      String wordName, String firstMeaning);
 
   @Query("SELECT COUNT(*) FROM EnglishWordModel WHERE name = :word ")
   Future<int?> countWord(String word);
@@ -26,5 +28,5 @@ abstract class WordDao {
 
   @Query(
       "DELETE FROM EnglishWordModel WHERE name = :wordName and meanings LIKE '%' || :firstMeaning || '%'")
-  Future<void> deleteWord(String wordName,String firstMeaning);
+  Future<void> deleteWord(String wordName, String firstMeaning);
 }

@@ -52,18 +52,6 @@ class _LookupWordInformationScreenState
         return Scaffold(
           body: MultiBlocListener(
             listeners: [
-              BlocListener<WordInformationBloc, WordInformationState>(
-                listener: (context, state) {
-                  if (state is WordInformationLookup) {
-                    navigateTo(
-                      appRoute: AppRoute.lookupWordInformation,
-                      context: context,
-                      replacement: false,
-                      data: state.word,
-                    );
-                  }
-                },
-              ),
               BlocListener<SaveToLibraryBloc, SaveToLibraryState>(
                 listener: (context, state) {
                   if (state is SaveToLibrarySuccess) {
@@ -194,9 +182,12 @@ class _LookupWordInformationScreenState
           textEditingController: _textEditingController,
           hintText: '',
           onSubmit: (value) {
-            context
-                .read<WordInformationBloc>()
-                .add(LookupWordEvent(word: value));
+            navigateTo(
+              appRoute: AppRoute.lookupWordInformation,
+              context: context,
+              replacement: false,
+              data: value,
+            );
           },
         ),
       ),

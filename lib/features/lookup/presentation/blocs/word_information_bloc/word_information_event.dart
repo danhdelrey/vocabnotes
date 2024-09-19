@@ -13,8 +13,4 @@ final class GetWordInformationEvent extends WordInformationEvent {
   const GetWordInformationEvent({required this.word});
 }
 
-final class LookupWordEvent extends WordInformationEvent {
-  final String word;
 
-  const LookupWordEvent({required this.word});
-}

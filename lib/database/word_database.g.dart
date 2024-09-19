@@ -165,7 +165,7 @@ class _$WordDao extends WordDao {
     String firstMeaning,
   ) async {
     return _queryAdapter.query(
-        'SELECT * FROM EnglishWordModel WHERE name = ?1 and meanings LIKE \'%\' || ?2 || \'%\'',
+        'SELECT * FROM EnglishWordModel WHERE name = ?1 and meanings LIKE \'%\' || ?2 || \'%\' LIMIT 1',
         mapper: (Map<String, Object?> row) => EnglishWordModel(name: row['name'] as String, meanings: row['meanings'] as String, phonetic: row['phonetic'] as String?),
         arguments: [wordName, firstMeaning]);
   }

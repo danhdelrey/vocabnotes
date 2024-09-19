@@ -39,9 +39,6 @@ class WordInformationBloc
       }
     });
 
-    on<LookupWordEvent>((event, emit) {
-      emit(WordInformationLookup(word: event.word));
-      emit(WordInformationInitial());
-    });
+    
   }
 }
