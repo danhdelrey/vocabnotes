@@ -36,6 +36,28 @@ class LearningScreen extends StatelessWidget {
                 child: const Text('Start'),
               ),
             ),
+            ListTile(
+              title: Text(
+                'Multiple choice',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text(
+                'Choose the correct definition of a word',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              trailing: FilledButton(
+                onPressed: () {
+                  navigateTo(
+                      appRoute: AppRoute.multipleChoice,
+                      context: context,
+                      replacement: false);
+                },
+                child: const Text('Start'),
+              ),
+            ),
           ],
         ),
       ),
