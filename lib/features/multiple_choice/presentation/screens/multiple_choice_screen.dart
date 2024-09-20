@@ -12,10 +12,6 @@ class MultipleChoiceScreen extends StatelessWidget {
         elevation: 0,
         surfaceTintColor: ThemeData().scaffoldBackgroundColor,
         title: const Text('Multiple choice'),
-        actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(HugeIcons.strokeRoundedEdit02))
-        ],
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -25,7 +21,6 @@ class MultipleChoiceScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('1/15'),
                 Text(
                   'in the nick of time',
                   style: Theme.of(context)

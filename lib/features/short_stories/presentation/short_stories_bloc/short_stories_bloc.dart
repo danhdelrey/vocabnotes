@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -27,12 +26,11 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
 
         //lay ra n tu khac nhau trong database
         final allWordsFromDatabase = await wordDao.getAllWordNamesInDatabase();
-        Random random = Random();
 
         Set<String> uniqueWordSet = allWordsFromDatabase!.toSet();
         List<String> uniqueWordList = uniqueWordSet.toList();
 
-        uniqueWordList.shuffle(random);
+        uniqueWordList.shuffle();
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         final genreFetched = prefs.getString('genre');
