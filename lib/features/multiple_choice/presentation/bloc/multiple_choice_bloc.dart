@@ -30,7 +30,7 @@ class MultipleChoiceBloc
         answers.add(_getRandomDefinition(fourRandomWords[0]));
         answers.add(_getRandomDefinition(fourRandomWords[1]));
         answers.add(_getRandomDefinition(fourRandomWords[2]));
-        answers.add(_getRandomDefinition(fourRandomWords[4]));
+        answers.add(_getRandomDefinition(fourRandomWords[3]));
         answers.shuffle();
 
         emit(QuestionsLoaded(
