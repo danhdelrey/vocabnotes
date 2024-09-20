@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class MultipleChoiceScreen extends StatelessWidget {
   const MultipleChoiceScreen({super.key});
@@ -7,7 +8,14 @@ class MultipleChoiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ThemeData().scaffoldBackgroundColor,
+        elevation: 0,
+        surfaceTintColor: ThemeData().scaffoldBackgroundColor,
         title: const Text('Multiple choice'),
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: const Icon(HugeIcons.strokeRoundedEdit02))
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -20,15 +28,25 @@ class MultipleChoiceScreen extends StatelessWidget {
                 const Text('1/15'),
                 Text(
                   'in the nick of time',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
+                Text(
+                  'Choose the correct definition:',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 _buildChoice(context),
                 _buildChoice(context),
                 _buildChoice(context),
-                _buildChoice(context)
+                _buildChoice(context),
               ],
             ),
           ),
