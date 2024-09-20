@@ -68,8 +68,14 @@ class MultipleChoiceScreen extends StatelessWidget {
                               state: state),
                         ],
                       );
-                    } else {
+                    } else if (state is CorrectAnswer) {
+                      return const Text('correct');
+                    } else if (state is IncorrectAnswer) {
+                      return const Text('incorrect');
+                    } else if (state is QuestionsFailure) {
                       return const Text('something went wrong');
+                    } else {
+                      return Container();
                     }
                   },
                 ),

@@ -22,6 +22,7 @@ class MultipleChoiceBloc
 
         final englishWordModelList = await wordDao.getAllWordsInDatabase();
         englishWordModelList!.shuffle();
+        
 
         final fourRandomWords = englishWordModelList.take(4).toList();
 
