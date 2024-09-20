@@ -10,7 +10,8 @@ sealed class MultipleChoiceEvent extends Equatable {
 final class GetQuestionsEvent extends MultipleChoiceEvent {}
 
 final class ChooseAnswerEvent extends MultipleChoiceEvent {
-  final int anwserNumber;
+  final String answer;
+  final String correctAnswer;
 
-  const ChooseAnswerEvent({required this.anwserNumber});
+  const ChooseAnswerEvent({required this.answer, required this.correctAnswer});
 }

@@ -1,3 +1,4 @@
+
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
@@ -28,19 +29,31 @@ class MultipleChoiceBloc
 
         List<String> answers = [];
         answers.add(_getRandomDefinition(fourRandomWords[0]));
+        String correctAnswer = answers[0];
+
         answers.add(_getRandomDefinition(fourRandomWords[1]));
         answers.add(_getRandomDefinition(fourRandomWords[2]));
         answers.add(_getRandomDefinition(fourRandomWords[3]));
+
         answers.shuffle();
 
         emit(QuestionsLoaded(
             word: word,
+            correctAnswer: correctAnswer,
             a: answers[0],
             b: answers[1],
             c: answers[2],
             d: answers[3]));
       } catch (e) {
         emit(QuestionsFailure());
+      }
+    });
+
+    on<ChooseAnswerEvent>((event, emit) {
+      if (event.answer == event.correctAnswer) {
+        emit(CorrectAnswer());
+      } else {
+        emit(IncorrectAnswer());
       }
     });
   }

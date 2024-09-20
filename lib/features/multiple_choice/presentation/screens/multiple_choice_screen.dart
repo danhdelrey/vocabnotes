@@ -50,10 +50,22 @@ class MultipleChoiceScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          _buildChoice(context: context, definition: state.a),
-                          _buildChoice(context: context, definition: state.b),
-                          _buildChoice(context: context, definition: state.c),
-                          _buildChoice(context: context, definition: state.d),
+                          _buildChoice(
+                              context: context,
+                              definition: state.a,
+                              state: state),
+                          _buildChoice(
+                              context: context,
+                              definition: state.b,
+                              state: state),
+                          _buildChoice(
+                              context: context,
+                              definition: state.c,
+                              state: state),
+                          _buildChoice(
+                              context: context,
+                              definition: state.d,
+                              state: state),
                         ],
                       );
                     } else {
@@ -69,11 +81,17 @@ class MultipleChoiceScreen extends StatelessWidget {
     );
   }
 
-  _buildChoice({required BuildContext context, required String definition}) {
+  _buildChoice(
+      {required BuildContext context,
+      required String definition,
+      required QuestionsLoaded state}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
+              answer: definition, correctAnswer: state.correctAnswer));
+        },
         borderRadius: BorderRadius.circular(5),
         child: Container(
           width: double.infinity,

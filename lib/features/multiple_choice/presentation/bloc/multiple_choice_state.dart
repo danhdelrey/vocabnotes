@@ -9,12 +9,11 @@ sealed class MultipleChoiceState extends Equatable {
 
 final class MultipleChoiceInitial extends MultipleChoiceState {}
 
-final class QuestionsLoading extends MultipleChoiceState{
-
-}
+final class QuestionsLoading extends MultipleChoiceState {}
 
 final class QuestionsLoaded extends MultipleChoiceState {
   final String word;
+  final String correctAnswer;
   final String a;
   final String b;
   final String c;
@@ -22,10 +21,15 @@ final class QuestionsLoaded extends MultipleChoiceState {
 
   const QuestionsLoaded(
       {required this.word,
+      required this.correctAnswer,
       required this.a,
       required this.b,
       required this.c,
       required this.d});
 }
 
-final class QuestionsFailure extends MultipleChoiceState{}
+final class QuestionsFailure extends MultipleChoiceState {}
+
+final class CorrectAnswer extends MultipleChoiceState {}
+
+final class IncorrectAnswer extends MultipleChoiceState {}
