@@ -29,10 +29,16 @@ class TappableWord extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
-              border: Border.all(color: kColorScheme.outlineVariant)),
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            borderRadius: BorderRadius.circular(7),
+          ),
           padding: const EdgeInsets.all(4),
-          child: Text(word),
+          child: Text(
+            word,
+            style: const TextStyle().copyWith(
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
+          ),
         ),
       ),
     );

@@ -111,15 +111,13 @@ class WordInformation extends StatelessWidget {
               if (definition['definition'] != null)
                 Text(
                   '‣ ${definition['definition']}',
-                  style:
-                      const TextStyle().copyWith(fontWeight: FontWeight.bold),
+                  style: const TextStyle().copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               if (definition['example'] != null)
                 Text(
                   'E.g. ${definition['example']}',
-                  style: const TextStyle().copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
                 ),
               const SizedBox(
                 height: 15,
