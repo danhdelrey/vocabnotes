@@ -10,7 +10,6 @@ class MultipleChoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String word = '';
-    String correctAnswer = '';
     List<Map<String, String>> choices = [];
 
     return BlocProvider(
@@ -31,7 +30,6 @@ class MultipleChoiceScreen extends StatelessWidget {
                   listener: (context, state) {
                     if (state is QuestionsLoaded) {
                       word = state.word;
-                      correctAnswer = state.correctAnswer;
                       choices = state.choices;
                     }
                   },
