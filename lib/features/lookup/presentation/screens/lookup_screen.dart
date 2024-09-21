@@ -39,11 +39,6 @@ class _LookupScreenState extends State<LookupScreen> {
         builder: (context) {
           return Scaffold(
             appBar: _buildAppBar(context),
-            body: 
-              const Center(
-                child: Text('Look up word online'),
-              ),
-            
           );
         },
       ),
@@ -57,7 +52,7 @@ class _LookupScreenState extends State<LookupScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: SearchField(
           textEditingController: _textEditingController,
-          hintText: 'Look up word online',
+          hintText: 'Search for a word or phrase',
           onSubmit: (value) {
             navigateTo(
               appRoute: AppRoute.lookupWordInformation,

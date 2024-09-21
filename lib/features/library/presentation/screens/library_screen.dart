@@ -106,7 +106,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     );
                   } else if (state is LibraryEmpty) {
                     return const Center(
-                      child: Text('no words found'),
+                      child: Text('No words found in your library.'),
                     );
                   } else if (state is LibraryError) {
                     return const Center(

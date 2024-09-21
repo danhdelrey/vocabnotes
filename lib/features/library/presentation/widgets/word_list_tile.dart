@@ -46,7 +46,15 @@ class WordListTile extends StatelessWidget {
         onDismissed: (direction) {},
         background: Container(
           color: Colors.red,
-          child: const Center(child: Icon(HugeIcons.strokeRoundedRemove01)),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 25),
+                child: Icon(HugeIcons.strokeRoundedNoteRemove),
+              ),
+            ],
+          ),
         ),
         child: ListTile(
           onTap: () {
