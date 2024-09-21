@@ -106,7 +106,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                             Icon(
                               HugeIcons.strokeRoundedCancelCircle,
                               size: 50,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.error,
                             ),
                             Text(
                               'Incorrect',
@@ -114,8 +114,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                                   .textTheme
                                   .titleLarge!
                                   .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(context).colorScheme.error,
                                     fontSize: 40,
                                   ),
                             ),
