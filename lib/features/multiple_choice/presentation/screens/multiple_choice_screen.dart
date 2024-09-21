@@ -106,7 +106,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                             Icon(
                               HugeIcons.strokeRoundedCancelCircle,
                               size: 50,
-                              color: Theme.of(context).colorScheme.error,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             Text(
                               'Incorrect',
@@ -114,13 +114,16 @@ class MultipleChoiceScreen extends StatelessWidget {
                                   .textTheme
                                   .titleLarge!
                                   .copyWith(
-                                    color: Theme.of(context).colorScheme.error,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     fontSize: 40,
                                   ),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            _buildAnswers(
+                                choices: choices,
+                                context: context,
+                                correctAnswer: correctAnswer,
+                                word: word),
                             FilledButton.icon(
                               onPressed: () {
                                 context
