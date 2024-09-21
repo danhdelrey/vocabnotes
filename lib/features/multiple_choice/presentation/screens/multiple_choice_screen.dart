@@ -59,7 +59,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                             ),
                             _buildChoices(
                                 context: context,
-                                correctAnswer: state.correctAnswer,
+                                correctAnswer: state.word,
                                 choices: state.choices)
                           ],
                         );
@@ -200,7 +200,7 @@ class MultipleChoiceScreen extends StatelessWidget {
             ...choices.map((choices) => InkWell(
                   onTap: () {
                     context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
-                        answer: choices['definition']!,
+                        answer: choices['word']!,
                         correctAnswer: correctAnswer));
                   },
                   borderRadius: BorderRadius.circular(5),
