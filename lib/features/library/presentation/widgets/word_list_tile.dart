@@ -62,8 +62,10 @@ class WordListTile extends StatelessWidget {
               children: [
                 TextSpan(
                   text: '$word ',
-                  style:
-                      const TextStyle().copyWith(fontWeight: FontWeight.bold),
+                  style: const TextStyle().copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 if (phonetic != null) TextSpan(text: phonetic),
               ],

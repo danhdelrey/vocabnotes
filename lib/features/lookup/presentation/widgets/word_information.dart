@@ -50,6 +50,7 @@ class WordInformation extends StatelessWidget {
           word,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
         if (phonetic != null)
@@ -88,17 +89,11 @@ class WordInformation extends StatelessWidget {
           height: 10,
         ),
         if (partOfSpeech != null)
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.outlineVariant,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 1, bottom: 1, left: 4, right: 4),
-              child: Text(
-                partOfSpeech,
-              ),
+          Text(
+            partOfSpeech,
+            style: const TextStyle().copyWith(
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
             ),
           ),
         const SizedBox(
