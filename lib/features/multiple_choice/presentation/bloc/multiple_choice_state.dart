@@ -24,4 +24,8 @@ final class QuestionsFailure extends MultipleChoiceState {}
 
 final class CorrectAnswer extends MultipleChoiceState {}
 
-final class IncorrectAnswer extends MultipleChoiceState {}
+final class IncorrectAnswer extends MultipleChoiceState {
+  final String chosen;
+
+  const IncorrectAnswer({required this.chosen});
+}

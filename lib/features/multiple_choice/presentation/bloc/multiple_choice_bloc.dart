@@ -46,7 +46,7 @@ class MultipleChoiceBloc
       if (event.answer == event.correctAnswer) {
         emit(CorrectAnswer());
       } else {
-        emit(IncorrectAnswer());
+        emit(IncorrectAnswer(chosen: event.answer));
       }
     });
   }

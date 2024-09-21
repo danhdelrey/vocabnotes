@@ -118,11 +118,54 @@ class MultipleChoiceScreen extends StatelessWidget {
                                     fontSize: 40,
                                   ),
                             ),
-                            _buildAnswers(
-                                choices: choices,
-                                context: context,
-                                correctAnswer: correctAnswer,
-                                word: word),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...choices.map(
+                                  (choice) => ListTile(
+                                    shape: choice['word'] == word
+                                        ? RoundedRectangleBorder(
+                                            side: BorderSide(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              width: 2,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          )
+                                        : choice['word'] == state.chosen
+                                            ? RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .error,
+                                                  width: 2,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              )
+                                            : null,
+                                    onTap: () {
+                                      navigateTo(
+                                          appRoute:
+                                              AppRoute.libraryWordInformation,
+                                          context: context,
+                                          replacement: false,
+                                          data: {
+                                            'word': choice['word']!,
+                                            'firstMeaning':
+                                                choice['definition']!
+                                          });
+                                    },
+                                    title: Text(choice['word']!),
+                                    subtitle: Text(choice['definition']!),
+                                    trailing: const Icon(
+                                        HugeIcons.strokeRoundedArrowRight01),
+                                  ),
+                                )
+                              ],
+                            ),
                             FilledButton.icon(
                               onPressed: () {
                                 context
