@@ -92,6 +92,12 @@ class MultipleChoiceScreen extends StatelessWidget {
                                   (choice) => Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: ListTile(
+                                      titleTextStyle:
+                                          DefaultTextStyle.of(context)
+                                              .style
+                                              .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                       shape: choice['word'] == word
                                           ? RoundedRectangleBorder(
                                               side: BorderSide(
@@ -166,6 +172,12 @@ class MultipleChoiceScreen extends StatelessWidget {
                                   (choice) => Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: ListTile(
+                                      titleTextStyle:
+                                          DefaultTextStyle.of(context)
+                                              .style
+                                              .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                       shape: choice['word'] == word
                                           ? RoundedRectangleBorder(
                                               side: BorderSide(
