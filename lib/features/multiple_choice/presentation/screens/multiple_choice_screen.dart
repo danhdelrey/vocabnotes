@@ -8,9 +8,9 @@ class MultipleChoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String word;
-    String correctAnswer;
-    List<Map<String, String>> choices;
+    String word = '';
+    String correctAnswer = '';
+    List<Map<String, String>> choices = [];
 
     return BlocProvider(
       create: (context) => MultipleChoiceBloc()..add(GetQuestionsEvent()),
@@ -56,22 +56,10 @@ class MultipleChoiceScreen extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            _buildChoice(
+                            _buildChoices(
                                 context: context,
-                                definition: state.a,
-                                state: state),
-                            _buildChoice(
-                                context: context,
-                                definition: state.b,
-                                state: state),
-                            _buildChoice(
-                                context: context,
-                                definition: state.c,
-                                state: state),
-                            _buildChoice(
-                                context: context,
-                                definition: state.d,
-                                state: state),
+                                correctAnswer: state.correctAnswer,
+                                choices: state.choices)
                           ],
                         );
                       } else if (state is CorrectAnswer) {
@@ -93,7 +81,11 @@ class MultipleChoiceScreen extends StatelessWidget {
                                     fontSize: 40,
                                   ),
                             ),
-                            _buildAnswers(context: context),
+                            _buildAnswers(
+                                choices: choices,
+                                context: context,
+                                correctAnswer: correctAnswer,
+                                word: word),
                             FilledButton.icon(
                               onPressed: () {
                                 context
@@ -162,55 +154,59 @@ class MultipleChoiceScreen extends StatelessWidget {
       {required context,
       required word,
       required correctAnswer,
-      List<Map<String,String>> choices}) {
+      required List<Map<String, String>> choices}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...choices.map(
           (choice) => ListTile(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-              width: 2,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(5),
             ),
-            borderRadius: BorderRadius.circular(5),
+            onTap: () {},
+            title: Text(choice['word']!),
+            subtitle: Text(choice['definition']!),
+            trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
           ),
-          onTap: () {},
-          title: Text(choice['word']!),
-          subtitle: Text(choice['definition']!),
-          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
-        ),
         )
       ],
     );
   }
 
-  _buildChoice(
+  _buildChoices(
       {required BuildContext context,
-      required String definition,
-      required QuestionsLoaded state}) {
+      required correctAnswer,
+      required List<Map<String, String>> choices}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: InkWell(
-        onTap: () {
-          context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
-              answer: definition, correctAnswer: state.correctAnswer));
-        },
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outlineVariant,
-            ),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(definition),
-          ),
-        ),
-      ),
-    );
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Column(
+          children: [
+            ...choices.map((choices) => InkWell(
+                  onTap: () {
+                    context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
+                        answer: choices['definition']!,
+                        correctAnswer: correctAnswer));
+                  },
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                      ),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(choices['definition']!),
+                    ),
+                  ),
+                ))
+          ],
+        ));
   }
 }

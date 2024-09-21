@@ -12,42 +12,34 @@ class MultipleChoiceBloc
     extends Bloc<MultipleChoiceEvent, MultipleChoiceState> {
   MultipleChoiceBloc() : super(MultipleChoiceInitial()) {
     on<GetQuestionsEvent>((event, emit) async {
-      try {
-        emit(QuestionsLoading());
-        final database = await $FloorWordDatabase
-            .databaseBuilder('word_database.db')
-            .build();
-        final wordDao = database.wordDao;
+      emit(QuestionsLoading());
+      final database =
+          await $FloorWordDatabase.databaseBuilder('word_database.db').build();
+      final wordDao = database.wordDao;
 
-        final englishWordModelList = await wordDao.getAllWordsInDatabase();
-        englishWordModelList!.shuffle();
-        final fourRandomWords = englishWordModelList.take(4).toList();
+      final englishWordModelList = await wordDao.getAllWordsInDatabase();
+      englishWordModelList!.shuffle();
+      final fourRandomWords = englishWordModelList.take(4).toList();
 
-        List<Map<String, String>> wordWithDefinitionMapList = [];
+      List<Map<String, String>> wordWithDefinitionMapList = [];
 
-        fourRandomWords.map(
-          (word) {
-            Map<String, String> wordWithDefinition = {
-              'word': _getRandomWordWithDefinition(word)['word']!,
-              'definition': _getRandomWordWithDefinition(word)['definition']!
-            };
-            wordWithDefinitionMapList.add(wordWithDefinition);
-          },
-        );
-
-        String word = wordWithDefinitionMapList[0]['word']!;
-        String correctAnswer = wordWithDefinitionMapList[0]['definition']!;
-
-        wordWithDefinitionMapList.shuffle();
-
-        emit(QuestionsLoaded(
-            word: word,
-            correctAnswer: correctAnswer,
-           choices: wordWithDefinitionMapList
-           ));
-      } catch (e) {
-        emit(QuestionsFailure());
+      for (var word in fourRandomWords) {
+        Map<String, String> wordWithDefinition = {
+          'word': _getRandomWordWithDefinition(word)['word']!,
+          'definition': _getRandomWordWithDefinition(word)['definition']!
+        };
+        wordWithDefinitionMapList.add(wordWithDefinition);
       }
+
+      String word = wordWithDefinitionMapList[0]['word']!;
+      String correctAnswer = wordWithDefinitionMapList[0]['definition']!;
+
+      wordWithDefinitionMapList.shuffle();
+
+      emit(QuestionsLoaded(
+          word: word,
+          correctAnswer: correctAnswer,
+          choices: wordWithDefinitionMapList));
     });
 
     on<ChooseAnswerEvent>((event, emit) {
@@ -62,7 +54,7 @@ class MultipleChoiceBloc
 
 Map<String, String> _getRandomWordWithDefinition(EnglishWordModel word) {
   Random random = Random();
-  Map<String, String> wordAndDefinition = {};
+  Map<String, String> wordAndDefinition;
 
   final randomMeaning =
       word.decodedMeanings[random.nextInt(word.decodedMeanings.length)];
@@ -70,6 +62,6 @@ Map<String, String> _getRandomWordWithDefinition(EnglishWordModel word) {
   String randomDefinition =
       definitions[random.nextInt(definitions.length)]['definition'];
 
-  wordAndDefinition.addAll({'word': word.name, 'definition': randomDefinition});
+  wordAndDefinition = {'word': word.name, 'definition': randomDefinition};
   return wordAndDefinition;
 }
