@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
@@ -22,29 +21,30 @@ class MultipleChoiceBloc
 
         final englishWordModelList = await wordDao.getAllWordsInDatabase();
         englishWordModelList!.shuffle();
-        
-
         final fourRandomWords = englishWordModelList.take(4).toList();
 
-        String word = fourRandomWords[0].name;
+        List<Map<String, String>> wordWithDefinitionMapList = [];
 
-        List<String> answers = [];
-        answers.add(_getRandomDefinition(fourRandomWords[0]));
-        String correctAnswer = answers[0];
+        fourRandomWords.map(
+          (word) {
+            Map<String, String> wordWithDefinition = {
+              'word': _getRandomWordWithDefinition(word)['word']!,
+              'definition': _getRandomWordWithDefinition(word)['definition']!
+            };
+            wordWithDefinitionMapList.add(wordWithDefinition);
+          },
+        );
 
-        answers.add(_getRandomDefinition(fourRandomWords[1]));
-        answers.add(_getRandomDefinition(fourRandomWords[2]));
-        answers.add(_getRandomDefinition(fourRandomWords[3]));
+        String word = wordWithDefinitionMapList[0]['word']!;
+        String correctAnswer = wordWithDefinitionMapList[0]['definition']!;
 
-        answers.shuffle();
+        wordWithDefinitionMapList.shuffle();
 
         emit(QuestionsLoaded(
             word: word,
             correctAnswer: correctAnswer,
-            a: answers[0],
-            b: answers[1],
-            c: answers[2],
-            d: answers[3]));
+           choices: wordWithDefinitionMapList
+           ));
       } catch (e) {
         emit(QuestionsFailure());
       }
@@ -60,12 +60,16 @@ class MultipleChoiceBloc
   }
 }
 
-String _getRandomDefinition(EnglishWordModel word) {
+Map<String, String> _getRandomWordWithDefinition(EnglishWordModel word) {
   Random random = Random();
+  Map<String, String> wordAndDefinition = {};
+
   final randomMeaning =
       word.decodedMeanings[random.nextInt(word.decodedMeanings.length)];
   List<dynamic> definitions = randomMeaning['definitions'];
   String randomDefinition =
       definitions[random.nextInt(definitions.length)]['definition'];
-  return randomDefinition;
+
+  wordAndDefinition.addAll({'word': word.name, 'definition': randomDefinition});
+  return wordAndDefinition;
 }

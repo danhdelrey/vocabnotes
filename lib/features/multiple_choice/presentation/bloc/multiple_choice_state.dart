@@ -14,18 +14,10 @@ final class QuestionsLoading extends MultipleChoiceState {}
 final class QuestionsLoaded extends MultipleChoiceState {
   final String word;
   final String correctAnswer;
-  final String a;
-  final String b;
-  final String c;
-  final String d;
+  final List<Map<String, String>> choices;
 
   const QuestionsLoaded(
-      {required this.word,
-      required this.correctAnswer,
-      required this.a,
-      required this.b,
-      required this.c,
-      required this.d});
+      {required this.word, required this.correctAnswer, required this.choices});
 }
 
 final class QuestionsFailure extends MultipleChoiceState {}

@@ -9,11 +9,8 @@ class MultipleChoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String word;
-    String wordDefinition;
-    String choiceA;
-    String choiceB;
-    String choiceC;
-    String choiceD;
+    String correctAnswer;
+    List<Map<String, String>> choices;
 
     return BlocProvider(
       create: (context) => MultipleChoiceBloc()..add(GetQuestionsEvent()),
@@ -33,11 +30,8 @@ class MultipleChoiceScreen extends StatelessWidget {
                   listener: (context, state) {
                     if (state is QuestionsLoaded) {
                       word = state.word;
-                      wordDefinition = state.correctAnswer;
-                      choiceA = state.a;
-                      choiceB = state.b;
-                      choiceC = state.c;
-                      choiceD = state.d;
+                      correctAnswer = state.correctAnswer;
+                      choices = state.choices;
                     }
                   },
                   child: BlocBuilder<MultipleChoiceBloc, MultipleChoiceState>(
@@ -164,11 +158,16 @@ class MultipleChoiceScreen extends StatelessWidget {
     );
   }
 
-  Column _buildAnswers({required context, required word, required correctAnswer, required a, required b, required c, required d}) {
+  Column _buildAnswers(
+      {required context,
+      required word,
+      required correctAnswer,
+      List<Map<String,String>> choices}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTile(
+        ...choices.map(
+          (choice) => ListTile(
           shape: RoundedRectangleBorder(
             side: BorderSide(
               color: Theme.of(context).colorScheme.primary,
@@ -177,31 +176,10 @@ class MultipleChoiceScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           onTap: () {},
-          title:  Text('Many'),
-          subtitle:  Text(
-              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
+          title: Text(choice['word']!),
+          subtitle: Text(choice['definition']!),
           trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
         ),
-        ListTile(
-          onTap: () {},
-          title: const Text('Many'),
-          subtitle: const Text(
-              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
-          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
-        ),
-        ListTile(
-          onTap: () {},
-          title: const Text('Many'),
-          subtitle: const Text(
-              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
-          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
-        ),
-        ListTile(
-          onTap: () {},
-          title: const Text('Many'),
-          subtitle: const Text(
-              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
-          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
         )
       ],
     );
