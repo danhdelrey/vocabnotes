@@ -79,9 +79,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                                   fontSize: 40,
                                 ),
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
+                          _buildAnswers(context: context),
                           FilledButton.icon(
                             onPressed: () {
                               context
@@ -142,6 +140,47 @@ class MultipleChoiceScreen extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+
+  Column _buildAnswers({required context}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+                color: Theme.of(context).colorScheme.primary, width: 2,),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          onTap: () {},
+          title: const Text('Many'),
+          subtitle: const Text(
+              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
+          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
+        ),
+        ListTile(
+          onTap: () {},
+          title: const Text('Many'),
+          subtitle: const Text(
+              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
+          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
+        ),
+        ListTile(
+          onTap: () {},
+          title: const Text('Many'),
+          subtitle: const Text(
+              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
+          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
+        ),
+        ListTile(
+          onTap: () {},
+          title: const Text('Many'),
+          subtitle: const Text(
+              'The dThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionThe definitionefinition'),
+          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
+        )
+      ],
     );
   }
 
