@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:vocabnotes/config/routes.dart';
 import 'package:vocabnotes/features/multiple_choice/presentation/bloc/multiple_choice_bloc.dart';
 
 class MultipleChoiceScreen extends StatelessWidget {
@@ -160,14 +161,25 @@ class MultipleChoiceScreen extends StatelessWidget {
       children: [
         ...choices.map(
           (choice) => ListTile(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            onTap: () {},
+            shape: choice['word'] == word
+                ? RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  )
+                : null,
+            onTap: () {
+              navigateTo(
+                  appRoute: AppRoute.libraryWordInformation,
+                  context: context,
+                  replacement: false,
+                  data: {
+                    'word': choice['word']!,
+                    'firstMeaning': choice['definition']!
+                  });
+            },
             title: Text(choice['word']!),
             subtitle: Text(choice['definition']!),
             trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
