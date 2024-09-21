@@ -8,6 +8,8 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: theme,
       routes: routes,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.dark,
     ),
   );
 }

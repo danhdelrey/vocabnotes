@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 
 var kColorScheme = ColorScheme.fromSeed(seedColor: const Color(0xFF02b3a4));
+var kDarkColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color(0xFF02b3a4),
+  brightness: Brightness.dark,
+);
 
 final theme = ThemeData().copyWith(
   colorScheme: kColorScheme,
   appBarTheme: appBarTheme,
   textTheme: textTheme,
 );
+
+final darkTheme = ThemeData.dark().copyWith(
+    colorScheme: kDarkColorScheme,
+    appBarTheme: appBarTheme,
+    textTheme: textThemeDark);
 
 var appBarTheme = const AppBarTheme().copyWith(
   centerTitle: true,
@@ -43,4 +52,22 @@ var textTheme = const TextTheme().copyWith(
       .copyWith(fontFamily: 'LTSaeada', color: kColorScheme.onSurface),
   titleSmall: const TextStyle()
       .copyWith(fontFamily: 'LTSaeada', color: kColorScheme.onSurface),
+);
+
+var textThemeDark = const TextTheme().copyWith(
+  bodyLarge: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  bodyMedium: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  bodySmall: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  displayLarge: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  displayMedium: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  displaySmall: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  headlineLarge: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  headlineMedium: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  headlineSmall: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  labelLarge: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  labelMedium: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  labelSmall: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  titleLarge: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  titleMedium: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
+  titleSmall: const TextStyle().copyWith(fontFamily: 'LTSaeada'),
 );
