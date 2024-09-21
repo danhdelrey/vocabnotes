@@ -69,7 +69,6 @@ class WordInformation extends StatelessWidget {
         if (wordList != null && wordList.isNotEmpty)
           Text(
             title,
-            style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
           ),
         if (wordList != null && wordList.isNotEmpty)
           Wrap(
@@ -95,7 +94,6 @@ class WordInformation extends StatelessWidget {
           Text(
             partOfSpeech,
             style: const TextStyle().copyWith(
-              fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
             ),
           ),

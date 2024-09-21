@@ -50,7 +50,7 @@ class LearningScreen extends StatelessWidget {
                 ),
               ),
               subtitle: const Text(
-                'Create multiple-choice quizzes from your saved word list.',
+                'Create multiple-choice quizzes from your library.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
