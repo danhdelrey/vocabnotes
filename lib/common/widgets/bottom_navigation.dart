@@ -23,6 +23,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
+      
       onTap: (value) {
         setState(() {
           _currentIndex = value;

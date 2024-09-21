@@ -54,7 +54,10 @@ class WordInformation extends StatelessWidget {
               ),
         ),
         if (phonetic != null)
-          Text(phonetic!, style: Theme.of(context).textTheme.bodyLarge),
+          Text(phonetic!,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontFamily: "Roboto",
+                  )),
       ],
     );
   }
@@ -105,7 +108,7 @@ class WordInformation extends StatelessWidget {
             children: [
               if (definition['definition'] != null)
                 Text(
-                  '‣ ${definition['definition']}',
+                  '> ${definition['definition']}',
                   style: const TextStyle().copyWith(
                     color: Theme.of(context).colorScheme.primary,
                   ),

@@ -67,7 +67,12 @@ class WordListTile extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                if (phonetic != null) TextSpan(text: phonetic),
+                if (phonetic != null)
+                  TextSpan(
+                      text: phonetic,
+                      style: const TextStyle().copyWith(
+                        fontFamily: "Roboto",
+                      )),
               ],
             ),
           ),
