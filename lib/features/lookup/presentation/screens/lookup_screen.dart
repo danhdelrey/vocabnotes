@@ -52,7 +52,7 @@ class _LookupScreenState extends State<LookupScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: SearchField(
           textEditingController: _textEditingController,
-          hintText: 'Search for a word or phrase',
+          hintText: 'Look up a word or phrase online',
           onSubmit: (value) {
             navigateTo(
               appRoute: AppRoute.lookupWordInformation,

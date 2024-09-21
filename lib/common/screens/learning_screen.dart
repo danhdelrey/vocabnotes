@@ -25,7 +25,7 @@ class LearningScreen extends StatelessWidget {
                 ),
               ),
               subtitle: const Text(
-                'Learning vocabulary by AI-generated short stories.',
+                'Expand your vocabulary with AI-generated short stories.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -50,7 +50,7 @@ class LearningScreen extends StatelessWidget {
                 ),
               ),
               subtitle: const Text(
-                'Choose the correct definition of a word',
+                'Create multiple-choice quizzes from your saved word list.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
