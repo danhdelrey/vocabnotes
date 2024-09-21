@@ -234,8 +234,7 @@ class MultipleChoiceScreen extends StatelessWidget {
                           ],
                         );
                       } else if (state is QuestionsFailure) {
-                        return const Text(
-                            'Library must have at least 4 words to start!');
+                        return const Text('The library is empty!');
                       } else {
                         return Container();
                       }
