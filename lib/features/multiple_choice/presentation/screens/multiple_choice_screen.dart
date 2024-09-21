@@ -26,7 +26,7 @@ class MultipleChoiceScreen extends StatelessWidget {
           body: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: BlocListener<MultipleChoiceBloc, MultipleChoiceState>(
                   listener: (context, state) {
                     if (state is QuestionsLoaded) {
