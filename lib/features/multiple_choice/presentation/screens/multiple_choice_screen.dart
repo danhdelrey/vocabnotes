@@ -43,13 +43,6 @@ class MultipleChoiceScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            'Choose the correct definition:',
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           _buildChoice(
                               context: context,
                               definition: state.a,
@@ -69,11 +62,76 @@ class MultipleChoiceScreen extends StatelessWidget {
                         ],
                       );
                     } else if (state is CorrectAnswer) {
-                      return const Text('correct');
+                      return Column(
+                        children: [
+                          Icon(
+                            HugeIcons.strokeRoundedCheckmarkCircle02,
+                            size: 50,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          Text(
+                            'Correct!',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 40,
+                                ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          FilledButton.icon(
+                            onPressed: () {
+                              context
+                                  .read<MultipleChoiceBloc>()
+                                  .add(GetQuestionsEvent());
+                            },
+                            label: const Text('Continue'),
+                            iconAlignment: IconAlignment.end,
+                            icon: const Icon(
+                                HugeIcons.strokeRoundedCircleArrowRight01),
+                          )
+                        ],
+                      );
                     } else if (state is IncorrectAnswer) {
-                      return const Text('incorrect');
+                      return Column(
+                        children: [
+                          Icon(
+                            HugeIcons.strokeRoundedCancelCircle,
+                            size: 50,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          Text(
+                            'Incorrect',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                  fontSize: 40,
+                                ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          FilledButton.icon(
+                            onPressed: () {
+                              context
+                                  .read<MultipleChoiceBloc>()
+                                  .add(GetQuestionsEvent());
+                            },
+                            label: const Text('Continue'),
+                            iconAlignment: IconAlignment.end,
+                            icon: const Icon(
+                                HugeIcons.strokeRoundedCircleArrowRight01),
+                          )
+                        ],
+                      );
                     } else if (state is QuestionsFailure) {
-                      return const Text('something went wrong');
+                      return const Text(
+                          'Library must have at least 4 words to start!');
                     } else {
                       return Container();
                     }
