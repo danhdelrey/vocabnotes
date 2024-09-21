@@ -82,11 +82,49 @@ class MultipleChoiceScreen extends StatelessWidget {
                                     fontSize: 40,
                                   ),
                             ),
-                            _buildAnswers(
-                                choices: choices,
-                                context: context,
-                                correctAnswer: correctAnswer,
-                                word: word),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...choices.map(
+                                  (choice) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: ListTile(
+                                      shape: choice['word'] == word
+                                          ? RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )
+                                          : null,
+                                      onTap: () {
+                                        navigateTo(
+                                            appRoute:
+                                                AppRoute.libraryWordInformation,
+                                            context: context,
+                                            replacement: false,
+                                            data: {
+                                              'word': choice['word']!,
+                                              'firstMeaning':
+                                                  choice['definition']!
+                                            });
+                                      },
+                                      title: Text(choice['word']!),
+                                      subtitle: Text(choice['definition']!),
+                                      trailing: const Icon(
+                                          HugeIcons.strokeRoundedArrowRight01),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                             FilledButton.icon(
                               onPressed: () {
                                 context
@@ -118,50 +156,56 @@ class MultipleChoiceScreen extends StatelessWidget {
                                     fontSize: 40,
                                   ),
                             ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ...choices.map(
-                                  (choice) => ListTile(
-                                    shape: choice['word'] == word
-                                        ? RoundedRectangleBorder(
-                                            side: BorderSide(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary,
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          )
-                                        : choice['word'] == state.chosen
-                                            ? RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .error,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              )
-                                            : null,
-                                    onTap: () {
-                                      navigateTo(
-                                          appRoute:
-                                              AppRoute.libraryWordInformation,
-                                          context: context,
-                                          replacement: false,
-                                          data: {
-                                            'word': choice['word']!,
-                                            'firstMeaning':
-                                                choice['definition']!
-                                          });
-                                    },
-                                    title: Text(choice['word']!),
-                                    subtitle: Text(choice['definition']!),
-                                    trailing: const Icon(
-                                        HugeIcons.strokeRoundedArrowRight01),
+                                  (choice) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: ListTile(
+                                      shape: choice['word'] == word
+                                          ? RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )
+                                          : choice['word'] == state.chosen
+                                              ? RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .error,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                )
+                                              : null,
+                                      onTap: () {
+                                        navigateTo(
+                                            appRoute:
+                                                AppRoute.libraryWordInformation,
+                                            context: context,
+                                            replacement: false,
+                                            data: {
+                                              'word': choice['word']!,
+                                              'firstMeaning':
+                                                  choice['definition']!
+                                            });
+                                      },
+                                      title: Text(choice['word']!),
+                                      subtitle: Text(choice['definition']!),
+                                      trailing: const Icon(
+                                          HugeIcons.strokeRoundedArrowRight01),
+                                    ),
                                   ),
                                 )
                               ],
@@ -193,44 +237,6 @@ class MultipleChoiceScreen extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-
-  Column _buildAnswers(
-      {required context,
-      required word,
-      required correctAnswer,
-      required List<Map<String, String>> choices}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...choices.map(
-          (choice) => ListTile(
-            shape: choice['word'] == word
-                ? RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  )
-                : null,
-            onTap: () {
-              navigateTo(
-                  appRoute: AppRoute.libraryWordInformation,
-                  context: context,
-                  replacement: false,
-                  data: {
-                    'word': choice['word']!,
-                    'firstMeaning': choice['definition']!
-                  });
-            },
-            title: Text(choice['word']!),
-            subtitle: Text(choice['definition']!),
-            trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
-          ),
-        )
-      ],
     );
   }
 
