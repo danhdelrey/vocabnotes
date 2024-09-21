@@ -19,7 +19,10 @@ class LearningScreen extends StatelessWidget {
                 'Short stories',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+                style: const TextStyle().copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               subtitle: const Text(
                 'Learning vocabulary by AI-generated short stories.',
@@ -41,7 +44,10 @@ class LearningScreen extends StatelessWidget {
                 'Multiple choice',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle().copyWith(fontWeight: FontWeight.bold),
+                style: const TextStyle().copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               subtitle: const Text(
                 'Choose the correct definition of a word',
