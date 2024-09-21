@@ -244,32 +244,32 @@ class MultipleChoiceScreen extends StatelessWidget {
       {required BuildContext context,
       required correctAnswer,
       required List<Map<String, String>> choices}) {
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Column(
-          children: [
-            ...choices.map((choices) => InkWell(
-                  onTap: () {
-                    context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
-                        answer: choices['word']!,
-                        correctAnswer: correctAnswer));
-                  },
-                  borderRadius: BorderRadius.circular(5),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.outlineVariant,
-                      ),
-                      borderRadius: BorderRadius.circular(5),
+    return Column(
+      children: [
+        ...choices.map((choices) => Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: InkWell(
+                onTap: () {
+                  context.read<MultipleChoiceBloc>().add(ChooseAnswerEvent(
+                      answer: choices['word']!, correctAnswer: correctAnswer));
+                },
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outlineVariant,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(choices['definition']!),
-                    ),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                ))
-          ],
-        ));
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(choices['definition']!),
+                  ),
+                ),
+              ),
+            ))
+      ],
+    );
   }
 }
