@@ -16,9 +16,6 @@ class ShortStoriesScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: ThemeData().scaffoldBackgroundColor,
-            elevation: 0,
-            surfaceTintColor: ThemeData().scaffoldBackgroundColor,
             title: const Text('Short stories'),
             actions: [
               IconButton(
@@ -172,7 +169,9 @@ class ShortStoriesScreen extends StatelessWidget {
                                       .textTheme
                                       .titleLarge!
                                       .copyWith(
-                                        color: kColorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                 )
                               : Text(

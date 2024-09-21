@@ -24,6 +24,7 @@ class WordInformation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildDefinitions(
+                        context: context,
                         definitions: meanings['definitions'],
                         partOfSpeech: meanings['partOfSpeech'],
                       ),
@@ -40,6 +41,7 @@ class WordInformation extends StatelessWidget {
       ),
     );
   }
+
   Column _buildWordTitle({required context, required word, phonetic}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +79,8 @@ class WordInformation extends StatelessWidget {
     );
   }
 
-  Column _buildDefinitions({required List<dynamic> definitions, partOfSpeech}) {
+  Column _buildDefinitions(
+      {required List<dynamic> definitions, partOfSpeech, required context}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -87,7 +90,7 @@ class WordInformation extends StatelessWidget {
         if (partOfSpeech != null)
           Container(
             decoration: BoxDecoration(
-              color: ThemeData().colorScheme.outlineVariant,
+              color: Theme.of(context).colorScheme.outlineVariant,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
