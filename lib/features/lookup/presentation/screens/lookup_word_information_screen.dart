@@ -86,8 +86,43 @@ class _LookupWordInformationScreenState
                         englishWordModelList: englishWordModelList),
                   );
                 } else if (state is WordInformationError) {
-                  return const Center(
-                    child: Text('something went wrong'),
+                  return Scaffold(
+                    appBar: AppBar(
+                      centerTitle: false,
+                      title: Text(
+                          ModalRoute.of(context)!.settings.arguments as String),
+                      bottom: PreferredSize(
+                        preferredSize: const Size.fromHeight(kToolbarHeight),
+                        child: SearchField(
+                          textEditingController: _textEditingController,
+                          hintText: '',
+                          onSubmit: (value) {
+                            navigateTo(
+                              appRoute: AppRoute.lookupWordInformation,
+                              context: context,
+                              replacement: false,
+                              data: value,
+                            );
+                          },
+                        ),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.popUntil(
+                                context, (route) => route.isFirst);
+                          },
+                          icon: const Icon(HugeIcons.strokeRoundedHome09),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+                        ),
+                      ],
+                    ),
+                    body: const Center(
+                      child: Text('Failed to look up :(('),
+                    ),
                   );
                 }
                 return WordInformation(
