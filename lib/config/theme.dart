@@ -13,13 +13,24 @@ final theme = ThemeData().copyWith(
 );
 
 final darkTheme = ThemeData.dark().copyWith(
-    colorScheme: kDarkColorScheme,
-    appBarTheme: appBarTheme,
-    textTheme: textThemeDark);
+  colorScheme: kDarkColorScheme,
+  appBarTheme: appBarDarkTheme,
+  textTheme: textThemeDark,
+);
 
 var appBarTheme = const AppBarTheme().copyWith(
   centerTitle: true,
+  elevation: 0,
+  backgroundColor: ThemeData().scaffoldBackgroundColor,
+  surfaceTintColor: ThemeData().scaffoldBackgroundColor,
 );
+var appBarDarkTheme = const AppBarTheme().copyWith(
+  centerTitle: true,
+  elevation: 0,
+  backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
+  surfaceTintColor: ThemeData.dark().scaffoldBackgroundColor,
+);
+
 
 var textTheme = const TextTheme().copyWith(
   bodyLarge: const TextStyle()
