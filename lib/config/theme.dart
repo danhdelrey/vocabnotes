@@ -10,27 +10,35 @@ final theme = ThemeData().copyWith(
   colorScheme: kColorScheme,
   appBarTheme: appBarTheme,
   textTheme: textTheme,
+  scaffoldBackgroundColor: kColorScheme.surface,
+  bottomNavigationBarTheme: bottomNavigationBarTheme,
 );
 
 final darkTheme = ThemeData.dark().copyWith(
   colorScheme: kDarkColorScheme,
   appBarTheme: appBarDarkTheme,
   textTheme: textThemeDark,
+  scaffoldBackgroundColor: kDarkColorScheme.surface,
+  bottomNavigationBarTheme: bottomNavigationBarDarkTheme,
 );
+
+var bottomNavigationBarTheme = const BottomNavigationBarThemeData()
+    .copyWith(backgroundColor: kColorScheme.surface);
+var bottomNavigationBarDarkTheme = const BottomNavigationBarThemeData()
+    .copyWith(backgroundColor: kDarkColorScheme.surface);
 
 var appBarTheme = const AppBarTheme().copyWith(
   centerTitle: true,
   elevation: 0,
-  backgroundColor: ThemeData().scaffoldBackgroundColor,
-  surfaceTintColor: ThemeData().scaffoldBackgroundColor,
+  backgroundColor: kColorScheme.surface,
+  surfaceTintColor: kColorScheme.surface,
 );
 var appBarDarkTheme = const AppBarTheme().copyWith(
   centerTitle: true,
   elevation: 0,
-  backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
-  surfaceTintColor: ThemeData.dark().scaffoldBackgroundColor,
+  backgroundColor: kDarkColorScheme.surface,
+  surfaceTintColor: kDarkColorScheme.surface,
 );
-
 
 var textTheme = const TextTheme().copyWith(
   bodyLarge: const TextStyle()

@@ -17,9 +17,6 @@ class MultipleChoiceScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Theme.of(context).canvasColor,
-            surfaceTintColor: Theme.of(context).canvasColor,
             title: const Text('Multiple choice'),
           ),
           body: Center(
