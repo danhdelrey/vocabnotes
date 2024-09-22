@@ -85,7 +85,7 @@ class ShortStoriesScreen extends StatelessWidget {
                             ],
                           );
                         } else if (state is ShortStoriesGeneratedFailure) {
-                          return const Text('Something went wrong');
+                          return const Text('Something went wrong.');
                         } else {
                           return Container();
                         }
@@ -100,7 +100,8 @@ class ShortStoriesScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: BlocBuilder<ShortStoriesBloc, ShortStoriesState>(
                     builder: (context, state) {
-                      if (state is ShortStoriesGeneratedSuccess) {
+                      if (state is ShortStoriesGeneratedSuccess ||
+                          state is ShortStoriesGeneratedFailure) {
                         return FilledButton.icon(
                           onPressed: () {
                             context
