@@ -29,9 +29,13 @@ class WordInformation extends StatelessWidget {
                         partOfSpeech: meanings['partOfSpeech'],
                       ),
                       _buildRelatedWords(
-                          title: 'synonyms:', wordList: meanings['synonyms']),
+                          title: 'synonyms:',
+                          wordList: meanings['synonyms'],
+                          context: context),
                       _buildRelatedWords(
-                          title: 'antonyms:', wordList: meanings['antonyms']),
+                          title: 'antonyms:',
+                          wordList: meanings['antonyms'],
+                          context: context),
                       const Divider(),
                     ],
                   ),
@@ -62,13 +66,18 @@ class WordInformation extends StatelessWidget {
     );
   }
 
-  Column _buildRelatedWords({List<dynamic>? wordList, required title}) {
+  Column _buildRelatedWords(
+      {List<dynamic>? wordList, required title, required context}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (wordList != null && wordList.isNotEmpty)
           Text(
             title,
+            style: const TextStyle().copyWith(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         if (wordList != null && wordList.isNotEmpty)
           Wrap(
@@ -109,6 +118,7 @@ class WordInformation extends StatelessWidget {
                   '> ${definition['definition']}',
                   style: const TextStyle().copyWith(
                     color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               if (definition['example'] != null)
