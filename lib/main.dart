@@ -9,7 +9,7 @@ void main() {
       theme: theme,
       routes: routes,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
     ),
   );
 }

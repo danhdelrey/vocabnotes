@@ -100,9 +100,13 @@ class ShortStoriesSettingScreen extends StatelessWidget {
                               DropdownMenuEntry(
                                   value: '100 words', label: '100 words'),
                               DropdownMenuEntry(
-                                  value: '150 words', label: '150 words'),
-                              DropdownMenuEntry(
                                   value: '200 words', label: '200 words'),
+                              DropdownMenuEntry(
+                                  value: '300 words', label: '300 words'),
+                              DropdownMenuEntry(
+                                  value: '400 words', label: '400 words'),
+                              DropdownMenuEntry(
+                                  value: '500 words', label: '500 words'),
                             ],
                           ),
                         ],
