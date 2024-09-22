@@ -16,7 +16,7 @@ class ShortStoriesSettingScreen extends StatelessWidget {
             title: const Text('Customize'),
           ),
           body: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
             child:
                 BlocBuilder<ShortStoriesSettingBloc, ShortStoriesSettingState>(
               builder: (context, state) {
