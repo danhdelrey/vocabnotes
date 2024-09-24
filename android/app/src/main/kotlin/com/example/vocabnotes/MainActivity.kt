@@ -1,4 +1,4 @@
-package com.example.vocabnotes
+package  com.brighttorchstudio.vocabnotes
 
 import io.flutter.embedding.android.FlutterActivity
 

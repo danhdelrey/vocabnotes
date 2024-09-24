@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "vocabnotes" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "vocabnotes" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024  com.brighttorchstudio. All rights reserved." "\0"
             VALUE "OriginalFilename", "vocabnotes.exe" "\0"
             VALUE "ProductName", "vocabnotes" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

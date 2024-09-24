@@ -8,7 +8,7 @@
 PRODUCT_NAME = vocabnotes
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.vocabnotes
+PRODUCT_BUNDLE_IDENTIFIER =  com.brighttorchstudio.vocabnotes
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024  com.brighttorchstudio. All rights reserved.

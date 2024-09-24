@@ -14,7 +14,7 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    namespace = "com.example.vocabnotes"
+    namespace = " com.brighttorchstudio.vocabnotes"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
