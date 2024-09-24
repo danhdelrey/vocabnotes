@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vocabnotes/features/lookup/presentation/blocs/translate_definitions/translate_definitions_bloc.dart';
 
 class DefinitionWithExample extends StatelessWidget {
   const DefinitionWithExample({
@@ -12,28 +14,37 @@ class DefinitionWithExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '> $definition',
-              style: const TextStyle().copyWith(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
+    return BlocProvider(
+      create: (context) => TranslateDefinitionsBloc(),
+      child: Builder(builder: (context) {
+        return InkWell(
+          onTap: () {
+            context.read<TranslateDefinitionsBloc>().add(
+                TranslateDefinitionsPressed(
+                    definition: definition, example: example));
+          },
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '> $definition',
+                  style: const TextStyle().copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (example != null)
+                  Text(
+                    'E.g. $example',
+                  ),
+              ],
             ),
-            if (example != null)
-              Text(
-                'E.g. $example',
-              ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 }
