@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/config/routes.dart';
@@ -197,10 +198,7 @@ class ShortStoriesScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4, right: 4),
           child: Text(
             translation,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(fontFamily: 'Roboto'),
+            style: GoogleFonts.inter(),
           ),
         ),
         const SizedBox(
