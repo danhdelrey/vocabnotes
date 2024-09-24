@@ -27,9 +27,10 @@ class DefinitionWithExample extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: BlocBuilder<TranslateDefinitionsBloc, TranslateDefinitionsState>(
+            child: BlocBuilder<TranslateDefinitionsBloc,
+                TranslateDefinitionsState>(
               builder: (context, state) {
-                if(state is TranslateDefinitionsInitial){
+                if (state is TranslateDefinitionsInitial) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -46,7 +47,7 @@ class DefinitionWithExample extends StatelessWidget {
                         ),
                     ],
                   );
-                }else if(state is TranslateDefinitionsInProgress){
+                } else if (state is TranslateDefinitionsInProgress) {
                   return Skeletonizer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,24 +66,28 @@ class DefinitionWithExample extends StatelessWidget {
                       ],
                     ),
                   );
-                }else if(state is TranslateDefinitionsSuccess){
+                } else if (state is TranslateDefinitionsSuccess) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '> ${state.translatedDefinition}',
                         style: const TextStyle().copyWith(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: const Color(0xffff66b3),
                           fontWeight: FontWeight.bold,
+                          fontFamily: "Roboto",
                         ),
                       ),
                       if (example != null)
                         Text(
                           'E.g. ${state.translatedExample}',
+                          style: const TextStyle().copyWith(
+                            fontFamily: "Roboto",
+                          ),
                         ),
                     ],
                   );
-                }else {
+                } else {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,7 +105,6 @@ class DefinitionWithExample extends StatelessWidget {
                     ],
                   );
                 }
-                
               },
             ),
           ),
