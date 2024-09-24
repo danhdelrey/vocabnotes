@@ -105,8 +105,23 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                     );
                   } else if (state is LibraryEmpty) {
-                    return const Center(
-                      child: Text('No words found in your library.'),
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            HugeIcons.strokeRoundedStickyNote02,
+                            size: 40,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          Text(
+                            'No words found.',
+                            style: const TextStyle().copyWith(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   } else if (state is LibraryError) {
                     return const Center(
