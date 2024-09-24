@@ -15,6 +15,7 @@ class DefinitionWithExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (context) => TranslateDefinitionsBloc(),
       child: Builder(builder: (context) {
@@ -71,19 +72,26 @@ class DefinitionWithExample extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        '> $definition',
+                        style: const TextStyle().copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      if (example != null)
+                        Text(
+                          'E.g. $example',
+                        ),
+                      Text(
                         '> ${state.translatedDefinition}',
                         style: const TextStyle().copyWith(
                           color: const Color(0xffff66b3),
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto",
                         ),
                       ),
                       if (example != null)
                         Text(
                           'E.g. ${state.translatedExample}',
-                          style: const TextStyle().copyWith(
-                            fontFamily: "Roboto",
-                          ),
                         ),
                     ],
                   );
