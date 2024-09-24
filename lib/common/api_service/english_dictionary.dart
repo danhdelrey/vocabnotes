@@ -125,4 +125,27 @@ class GeminiDictionary implements EnglishDictionary {
     List<dynamic> data = jsonDecode(response.text!);
     return data;
   }
+
+  Future<Map<String, dynamic>> translateDefinitionsIntoVietnamese(
+      {required String definition, required String? example}) async {
+    final schema = Schema.object(requiredProperties: [
+      'translatedDefinition'
+    ], properties: {
+      'translatedDefinition': Schema.string(nullable: false),
+      'translatedExample': Schema.string(nullable: true),
+    });
+
+    final model = GenerativeModel(
+        model: 'gemini-1.5-flash',
+        apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        generationConfig: GenerationConfig(
+            responseMimeType: 'application/json', responseSchema: schema));
+
+    final prompt =
+        'Translate the following definition and example of a word into Vietnamse: definition: $definition, example: $example';
+
+    final response = await model.generateContent([Content.text(prompt)]);
+
+    return jsonDecode(response.text!);
+  }
 }
