@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
+import 'package:vocabnotes/features/lookup/presentation/widgets/definition_with_example.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
 
 class WordInformation extends StatelessWidget {
@@ -110,26 +111,9 @@ class WordInformation extends StatelessWidget {
           height: 15,
         ),
         ...definitions.map(
-          (definition) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (definition['definition'] != null)
-                Text(
-                  '> ${definition['definition']}',
-                  style: const TextStyle().copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              if (definition['example'] != null)
-                Text(
-                  'E.g. ${definition['example']}',
-                ),
-              const SizedBox(
-                height: 15,
-              )
-            ],
-          ),
+          (definition) => DefinitionWithExample(
+              definition: definition['definition'],
+              example: definition['example']),
         ),
       ],
     );
