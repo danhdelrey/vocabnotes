@@ -24,12 +24,20 @@ class WordTitle extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    word,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                  InkWell(
+                    onTap: () {
+                      context.read<TranslateDefinitionsBloc>().add(
+                          TranslateDefinitionsPressed(
+                              definition: word, example: null));
+                    },
+                    borderRadius: BorderRadius.circular(4),
+                    child: Text(
+                      word,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                    ),
                   ),
                   if (phonetic != null)
                     Text(phonetic!,
@@ -39,25 +47,24 @@ class WordTitle extends StatelessWidget {
                 ],
               );
             } else if (state is TranslateDefinitionsInProgress) {
-              return Skeletonizer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Skeletonizer(
+                    child: Text(
                       word,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,
                           ),
                     ),
-                    if (phonetic != null)
-                      Text(phonetic!,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontFamily: "Roboto",
-                                  )),
-                  ],
-                ),
+                  ),
+                  if (phonetic != null)
+                    Text(phonetic!,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontFamily: "Roboto",
+                            )),
+                ],
               );
             } else if (state is TranslateDefinitionsSuccess) {
               return Column(

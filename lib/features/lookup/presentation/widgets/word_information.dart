@@ -16,7 +16,7 @@ class WordInformation extends StatelessWidget {
         itemBuilder: (context, index) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WordTitle(context: context, word: englishWordModelList[index].name, phonetic: englishWordModelList[index].phonetic),
+            WordTitle(word: englishWordModelList[index].name, phonetic: englishWordModelList[index].phonetic),
             ...englishWordModelList[index].decodedMeanings.map(
                   (meanings) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
