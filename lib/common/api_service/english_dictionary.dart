@@ -71,9 +71,17 @@ class GeminiDictionary implements EnglishDictionary {
       ),
     );
 
+    final safetySettings = [
+      SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.none),
+    ];
+
     final model = GenerativeModel(
         model: 'gemini-1.5-flash',
         apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        safetySettings: safetySettings,
         generationConfig: GenerationConfig(
             responseMimeType: 'application/json', responseSchema: schema));
 
@@ -111,10 +119,16 @@ class GeminiDictionary implements EnglishDictionary {
         },
       ),
     );
-
+    final safetySettings = [
+      SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.none),
+    ];
     final model = GenerativeModel(
         model: 'gemini-1.5-flash',
         apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        safetySettings: safetySettings,
         generationConfig: GenerationConfig(
             responseMimeType: 'application/json', responseSchema: schema));
 
@@ -134,10 +148,16 @@ class GeminiDictionary implements EnglishDictionary {
       'translatedDefinition': Schema.string(nullable: false),
       'translatedExample': Schema.string(nullable: true),
     });
-
+    final safetySettings = [
+      SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.none),
+    ];
     final model = GenerativeModel(
         model: 'gemini-1.5-flash',
         apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        safetySettings: safetySettings,
         generationConfig: GenerationConfig(
             responseMimeType: 'application/json', responseSchema: schema));
 
