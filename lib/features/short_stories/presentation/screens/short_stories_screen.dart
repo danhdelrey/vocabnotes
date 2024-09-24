@@ -170,7 +170,9 @@ class ShortStoriesScreen extends StatelessWidget {
                                       .textTheme
                                       .titleLarge!
                                       .copyWith(
-                                        color: const Color(0xffff66b3),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                       ),
                                 )
                               : Text(
