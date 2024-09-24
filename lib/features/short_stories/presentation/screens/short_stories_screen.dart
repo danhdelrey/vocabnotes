@@ -198,7 +198,7 @@ class ShortStoriesScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4, right: 4),
           child: Text(
             translation,
-            style: GoogleFonts.inter(),
+            style: GoogleFonts.roboto(),
           ),
         ),
         const SizedBox(

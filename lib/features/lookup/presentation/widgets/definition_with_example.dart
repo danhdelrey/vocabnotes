@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/features/lookup/presentation/blocs/translate_definitions/translate_definitions_bloc.dart';
 
@@ -98,18 +99,14 @@ class DefinitionWithExample extends StatelessWidget {
                       Text(
                         'E.g. $example',
                       ),
-                    Text(
-                      state.translatedDefinition,
-                      style: const TextStyle().copyWith(
+                    Text(state.translatedDefinition,
+                        style: GoogleFonts.roboto(
                           color: const Color(0xffff66b3),
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto"),
-                    ),
+                        )),
                     if (example != null)
-                      Text(
-                        'E.g. ${state.translatedExample}',
-                        style: const TextStyle().copyWith(fontFamily: "Roboto"),
-                      ),
+                      Text('E.g. ${state.translatedExample}',
+                          style: GoogleFonts.roboto()),
                   ],
                 );
               } else {

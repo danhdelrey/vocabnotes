@@ -96,15 +96,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                     );
                   } else if (state is Libraryloaded) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: ListView.builder(
-                        itemCount: state.wordListTiles.length,
-                        itemBuilder: (context, index) => WordListTile(
-                          word: state.wordListTiles[index].word,
-                          firstMeaning: state.wordListTiles[index].firstMeaning,
-                          phonetic: state.wordListTiles[index].phonetic,
-                        ),
+                    return ListView.builder(
+                      itemCount: state.wordListTiles.length,
+                      itemBuilder: (context, index) => WordListTile(
+                        word: state.wordListTiles[index].word,
+                        firstMeaning: state.wordListTiles[index].firstMeaning,
+                        phonetic: state.wordListTiles[index].phonetic,
                       ),
                     );
                   } else if (state is LibraryEmpty) {
