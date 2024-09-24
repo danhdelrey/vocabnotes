@@ -15,11 +15,23 @@ class TranslateDefinitionsBloc
     );
 
     on<TranslateDefinitionsPressed>((event, emit) async {
-      emit(TranslateDefinitionsInProgress());
-      final translatedDefinitions = await wordLookupService.geminiDictionary
-          .translateDefinitionsIntoVietnamese(
-              definition: event.definition, example: event.example);
-      emit(TranslateDefinitionsSuccess(translatedDefinition: translatedDefinitions['translatedDefinition'], translatedExample: translatedDefinitions['translatedExample']));
+      if (state is! TranslateDefinitionsSuccess) {
+        try {
+          emit(TranslateDefinitionsInProgress());
+          final translatedDefinitions = await wordLookupService.geminiDictionary
+              .translateDefinitionsIntoVietnamese(
+                  definition: event.definition, example: event.example);
+
+          emit(TranslateDefinitionsSuccess(
+              translatedDefinition:
+                  translatedDefinitions['translatedDefinition'],
+              translatedExample: translatedDefinitions['translatedExample']));
+        } catch (e) {
+          emit(TranslateDefinitionsFailure());
+        }
+      } else {
+        emit(TranslateDefinitionsInitial());
+      }
     });
   }
 }
