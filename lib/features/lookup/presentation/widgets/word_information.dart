@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabnotes/data_models/english_word_model.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/definition_with_example.dart';
 import 'package:vocabnotes/features/lookup/presentation/widgets/tappable_word.dart';
+import 'package:vocabnotes/features/lookup/presentation/widgets/word_title.dart';
 
 class WordInformation extends StatelessWidget {
   const WordInformation({super.key, required this.englishWordModelList});
@@ -15,11 +16,7 @@ class WordInformation extends StatelessWidget {
         itemBuilder: (context, index) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildWordTitle(
-              context: context,
-              word: englishWordModelList[index].name,
-              phonetic: englishWordModelList[index].phonetic,
-            ),
+            WordTitle(context: context, word: englishWordModelList[index].name, phonetic: englishWordModelList[index].phonetic),
             ...englishWordModelList[index].decodedMeanings.map(
                   (meanings) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,26 +41,6 @@ class WordInformation extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Column _buildWordTitle({required context, required word, phonetic}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          word,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-        ),
-        if (phonetic != null)
-          Text(phonetic!,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontFamily: "Roboto",
-                  )),
-      ],
     );
   }
 
