@@ -111,9 +111,16 @@ class WordInformation extends StatelessWidget {
           height: 15,
         ),
         ...definitions.map(
-          (definition) => DefinitionWithExample(
-              definition: definition['definition'],
-              example: definition['example']),
+          (definition) => Column(
+            children: [
+              DefinitionWithExample(
+                  definition: definition['definition'],
+                  example: definition['example']),
+              const SizedBox(
+                height: 15,
+              )
+            ],
+          ),
         ),
       ],
     );

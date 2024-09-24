@@ -12,24 +12,27 @@ class DefinitionWithExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '> $definition',
-          style: const TextStyle().copyWith(
-            color: Theme.of(context).colorScheme.primary,
-            fontWeight: FontWeight.bold,
-          ),
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '> $definition',
+              style: const TextStyle().copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (example != null)
+              Text(
+                'E.g. $example',
+              ),
+          ],
         ),
-        if(example != null)
-        Text(
-          'E.g. $example',
-        ),
-        const SizedBox(
-          height: 15,
-        )
-      ],
+      ),
     );
   }
 }
