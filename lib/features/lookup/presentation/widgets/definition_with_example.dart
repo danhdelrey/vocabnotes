@@ -18,20 +18,20 @@ class DefinitionWithExample extends StatelessWidget {
     return BlocProvider(
       create: (context) => TranslateDefinitionsBloc(),
       child: Builder(builder: (context) {
-        return InkWell(
-          onTap: () {
-            context.read<TranslateDefinitionsBloc>().add(
-                TranslateDefinitionsPressed(
-                    definition: definition, example: example));
-          },
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: BlocBuilder<TranslateDefinitionsBloc,
-                TranslateDefinitionsState>(
-              builder: (context, state) {
-                if (state is TranslateDefinitionsInitial) {
-                  return Column(
+        return Padding(
+          padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
+          child:
+              BlocBuilder<TranslateDefinitionsBloc, TranslateDefinitionsState>(
+            builder: (context, state) {
+              if (state is TranslateDefinitionsInitial) {
+                return InkWell(
+                  onTap: () {
+                    context.read<TranslateDefinitionsBloc>().add(
+                        TranslateDefinitionsPressed(
+                            definition: definition, example: example));
+                  },
+                  borderRadius: BorderRadius.circular(4),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -46,76 +46,91 @@ class DefinitionWithExample extends StatelessWidget {
                           'E.g. $example',
                         ),
                     ],
-                  );
-                } else if (state is TranslateDefinitionsInProgress) {
-                  return Skeletonizer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          definition,
-                          style: const TextStyle().copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        if (example != null)
-                          Text(
-                            'E.g. $example',
-                          ),
-                      ],
+                  ),
+                );
+              } else if (state is TranslateDefinitionsInProgress) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      definition,
+                      style: const TextStyle().copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  );
-                } else if (state is TranslateDefinitionsSuccess) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    if (example != null)
                       Text(
-                        definition,
-                        style: const TextStyle().copyWith(
-                          color: Theme.of(context).colorScheme.primary,
+                        'E.g. $example',
+                      ),
+                    Skeletonizer(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            definition,
+                            style: const TextStyle().copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (example != null)
+                            Text(
+                              'E.g. $example',
+                            ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              } else if (state is TranslateDefinitionsSuccess) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      definition,
+                      style: const TextStyle().copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (example != null)
+                      Text(
+                        'E.g. $example',
+                      ),
+                    Text(
+                      state.translatedDefinition,
+                      style: const TextStyle().copyWith(
+                          color: const Color(0xffff66b3),
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      if (example != null)
-                        Text(
-                          'E.g. $example',
-                        ),
+                          fontFamily: "Roboto"),
+                    ),
+                    if (example != null)
                       Text(
-                        state.translatedDefinition,
-                        style: const TextStyle().copyWith(
-                            color: const Color(0xffff66b3),
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Roboto"),
+                        'E.g. ${state.translatedExample}',
+                        style: const TextStyle().copyWith(fontFamily: "Roboto"),
                       ),
-                      if (example != null)
-                        Text(
-                          'E.g. ${state.translatedExample}',
-                          style:
-                              const TextStyle().copyWith(fontFamily: "Roboto"),
-                        ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                  ],
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      definition,
+                      style: const TextStyle().copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (example != null)
                       Text(
-                        definition,
-                        style: const TextStyle().copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'E.g. $example',
                       ),
-                      if (example != null)
-                        Text(
-                          'E.g. $example',
-                        ),
-                    ],
-                  );
-                }
-              },
-            ),
+                  ],
+                );
+              }
+            },
           ),
         );
       }),
