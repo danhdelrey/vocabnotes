@@ -85,38 +85,6 @@ class ShortStoriesSettingScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Length',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          const Spacer(),
-                          DropdownMenu(
-                            initialSelection: state.length,
-                            onSelected: (value) {
-                              context.read<ShortStoriesSettingBloc>().add(
-                                  ShortStoryChangeSetting(
-                                      value: value!, key: 'length'));
-                            },
-                            dropdownMenuEntries: const [
-                              DropdownMenuEntry(
-                                  value: '100 words', label: '100 words'),
-                              DropdownMenuEntry(
-                                  value: '200 words', label: '200 words'),
-                              DropdownMenuEntry(
-                                  value: '300 words', label: '300 words'),
-                              DropdownMenuEntry(
-                                  value: '400 words', label: '400 words'),
-                              DropdownMenuEntry(
-                                  value: '500 words', label: '500 words'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          Text(
                             'Words used',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),

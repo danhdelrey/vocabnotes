@@ -104,7 +104,6 @@ class GeminiDictionary implements EnglishDictionary {
 
   Future<List<dynamic>> generateShortStory(
       {required String genre,
-      required String length,
       required String level,
       required List<String> wordList}) async {
     final schema = Schema.array(
@@ -133,7 +132,7 @@ class GeminiDictionary implements EnglishDictionary {
             responseMimeType: 'application/json', responseSchema: schema));
 
     final prompt =
-        'Write a $genre short story in English using $level-level vocabulary, about $length long. The story should be broken down into multiple sentences. Each sentence should be followed by a Vietnamese translation of that sentence. The story must include the following words or phrases: $wordList';
+        'Write a $genre story in English using $level-level vocabulary. The story should be broken down into multiple sentences. Each sentence should be followed by a Vietnamese translation of that sentence. The story must include the following words or phrases: $wordList';
     final response = await model.generateContent([Content.text(prompt)]);
 
     List<dynamic> data = jsonDecode(response.text!);

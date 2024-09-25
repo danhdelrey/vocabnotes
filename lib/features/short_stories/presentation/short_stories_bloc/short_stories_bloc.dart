@@ -35,12 +35,10 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
 
         final genreFetched = prefs.getString('genre');
         final levelFetched = prefs.getString('level');
-        final lengthFetched = prefs.getString('length');
         final wordsUsedFetched = prefs.getString('wordsUsed');
 
         String genre;
         String level;
-        String length;
         int wordsUsed;
 
         if (genreFetched != null) {
@@ -55,11 +53,7 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
           level = 'B1';
         }
 
-        if (lengthFetched != null) {
-          length = lengthFetched;
-        } else {
-          length = '100 words';
-        }
+       
 
         if (wordsUsedFetched != null) {
           wordsUsed = int.tryParse(wordsUsedFetched)!;
@@ -73,7 +67,6 @@ class ShortStoriesBloc extends Bloc<ShortStoriesEvent, ShortStoriesState> {
             .generateShortStory(
                 wordList: randomWordList,
                 genre: genre,
-                length: length,
                 level: level);
 
         emit(ShortStoriesGeneratedSuccess(
