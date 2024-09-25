@@ -50,12 +50,8 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        RegExp regExp = RegExp(r'\"(.*?)\"');
-        String firstMeaningReplacedQuotedWithUnderscore =
-            event.firstMeaning.replaceAllMapped(regExp, (match) => '_');
-
         EnglishWordModel? englishWordModel = await wordDao.getWordInformation(
-            event.wordName, firstMeaningReplacedQuotedWithUnderscore);
+            event.wordName, event.firstMeaning.replaceAll('"', '\\"'));
 
         emit(GetWordSucess(englishWordModel: englishWordModel!));
       } catch (e) {
@@ -72,12 +68,8 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
 
         final wordDao = database.wordDao;
 
-        RegExp regExp = RegExp(r'\"(.*?)\"');
-        String firstMeaningReplacedQuotedWithUnderscore =
-            event.firstMeaning.replaceAllMapped(regExp, (match) => '_');
-
         await wordDao.deleteWord(
-            event.wordName, firstMeaningReplacedQuotedWithUnderscore);
+            event.wordName, event.firstMeaning.replaceAll('"', '\\"'));
         final wordCount = await wordDao.countAllWords();
         if (wordCount == 0) {
           emit(LibraryEmpty());
