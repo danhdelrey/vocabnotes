@@ -1,0 +1,115 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:vocabnotes/data/english_word_model.dart';
+import 'package:vocabnotes/data/word_database.dart';
+import 'package:vocabnotes/view/widgets/word_list_tile.dart';
+
+part 'library_event.dart';
+part 'library_state.dart';
+
+class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
+  LibraryBloc() : super(LibraryInitial()) {
+    on<GetAllWordsFromDatabaseEvent>((event, emit) async {
+      emit(LibraryLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        List<WordListTile> wordListTiles = [];
+
+        final listOfWords = await wordDao.getAllWordsInDatabase();
+        if (listOfWords!.isNotEmpty) {
+          for (var word in listOfWords) {
+            WordListTile wordListTile = WordListTile(
+              word: word.name,
+              firstMeaning: word.decodedMeanings[0]['definitions'][0]
+                  ['definition'],
+              phonetic: word.phonetic,
+            );
+            wordListTiles.add(wordListTile);
+          }
+          final reversedList = wordListTiles.reversed.toList();
+          emit(Libraryloaded(wordListTiles: reversedList));
+        } else {
+          emit(LibraryEmpty());
+        }
+      } catch (e) {
+        emit(LibraryError());
+      }
+    });
+
+    on<GetWordFromDatabaseEvent>((event, emit) async {
+      emit(GetWordLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        EnglishWordModel? englishWordModel = await wordDao.getWordInformation(
+            event.wordName, event.firstMeaning.replaceAll('"', '\\"'));
+
+        emit(GetWordSucess(englishWordModel: englishWordModel!));
+      } catch (e) {
+        emit(GetWordFailure());
+      }
+    });
+
+    on<DeleteWordFromDatabase>((event, emit) async {
+      emit(LibraryLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        await wordDao.deleteWord(
+            event.wordName, event.firstMeaning.replaceAll('"', '\\"'));
+        final wordCount = await wordDao.countAllWords();
+        if (wordCount == 0) {
+          emit(LibraryEmpty());
+        }
+        emit(WordDeleteSuccess());
+      } catch (e) {
+        emit(WordDeleteFailure());
+      }
+    });
+
+    on<SearchInLibrary>((event, emit) async {
+      emit(LibraryLoading());
+      try {
+        final database = await $FloorWordDatabase
+            .databaseBuilder('word_database.db')
+            .build();
+
+        final wordDao = database.wordDao;
+
+        List<WordListTile> wordListTiles = [];
+
+        final listOfWords = await wordDao.findWordInDatabase(event.word);
+        if (listOfWords!.isNotEmpty) {
+          for (var word in listOfWords) {
+            WordListTile wordListTile = WordListTile(
+              word: word.name,
+              firstMeaning: word.decodedMeanings[0]['definitions'][0]
+                  ['definition'],
+              phonetic: word.phonetic,
+            );
+            wordListTiles.add(wordListTile);
+          }
+          final reversedList = wordListTiles.reversed.toList();
+          emit(Libraryloaded(wordListTiles: reversedList));
+        } else {
+          emit(LibraryEmpty());
+        }
+      } catch (e) {
+        emit(LibraryError());
+      }
+    });
+  }
+}
