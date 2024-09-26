@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:vocabnotes/routes.dart';
-import 'package:vocabnotes/theme.dart';
+import 'package:vocabnotes/app/routes.dart';
+import 'package:vocabnotes/app/theme.dart';
 import 'package:vocabnotes/bloc/short_stories/short_stories_bloc.dart';
 
 class ShortStoriesScreen extends StatelessWidget {

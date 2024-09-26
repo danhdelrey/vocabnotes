@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
-import 'package:vocabnotes/routes.dart';
+import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/data/english_word_model.dart';
 import 'package:vocabnotes/bloc/library/library_bloc.dart';
 import 'package:vocabnotes/bloc/save_to_library/save_to_library_bloc.dart';

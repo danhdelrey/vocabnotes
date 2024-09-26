@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocabnotes/routes.dart';
-import 'package:vocabnotes/theme.dart';
+import 'package:vocabnotes/app/routes.dart';
+import 'package:vocabnotes/app/theme.dart';
 
 void main() {
   runApp(

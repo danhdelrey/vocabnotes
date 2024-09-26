@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:vocabnotes/routes.dart';
+import 'package:vocabnotes/app/routes.dart';
 
 class LearningScreen extends StatelessWidget {
   const LearningScreen({super.key});

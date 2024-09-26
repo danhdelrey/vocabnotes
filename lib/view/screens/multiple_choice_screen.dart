@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:vocabnotes/routes.dart';
+import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/multiple_choice/multiple_choice_bloc.dart';
 
 class MultipleChoiceScreen extends StatelessWidget {

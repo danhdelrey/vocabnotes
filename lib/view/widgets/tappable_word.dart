@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vocabnotes/routes.dart';
-import 'package:vocabnotes/theme.dart';
+import 'package:vocabnotes/app/routes.dart';
+import 'package:vocabnotes/app/theme.dart';
 import 'package:vocabnotes/bloc/word_information/word_information_bloc.dart';
 import 'package:vocabnotes/view/screens/lookup_screen.dart';
 
