@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:vocabnotes/app/main.dart';
+import 'package:vocabnotes/main.dart';
 import 'package:vocabnotes/view/widgets/bottom_navigation.dart';
 
 void main() {
