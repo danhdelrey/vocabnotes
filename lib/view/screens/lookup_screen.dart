@@ -52,7 +52,7 @@ class _LookupScreenState extends State<LookupScreen> {
                                   context: context,
                                   replacement: false);
                             },
-                            child: const Text('Login')),
+                            child: const Text('Login with Google')),
                       ],
                     ),
                   ),
