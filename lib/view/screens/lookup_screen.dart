@@ -40,12 +40,19 @@ class _LookupScreenState extends State<LookupScreen> {
           return Scaffold(
             appBar: _buildAppBar(context),
             drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
+              child: Column(
                 children: [
-                  const DrawerHeader(
-                    child: Text('header'),
+                  DrawerHeader(
+                    child: Column(
+                      children: [
+                        FilledButton(
+                          onPressed: () {},
+                          child: const Text('Login'),
+                        ),
+                      ],
+                    ),
                   ),
+                  const Spacer(),
                   ListTile(
                     leading: const Icon(HugeIcons.strokeRoundedMoon02),
                     title: const Text('Dark mode'),
@@ -53,6 +60,9 @@ class _LookupScreenState extends State<LookupScreen> {
                       value: false,
                       onChanged: (value) {},
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
