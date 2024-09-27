@@ -42,14 +42,20 @@ class _LookupScreenState extends State<LookupScreen> {
             drawer: Drawer(
               child: Column(
                 children: [
-                  FilledButton(
-                      onPressed: () {
-                        navigateTo(
-                            appRoute: AppRoute.login,
-                            context: context,
-                            replacement: false);
-                      },
-                      child: const Text('Login')),
+                  DrawerHeader(
+                    child: Column(
+                      children: [
+                        FilledButton(
+                            onPressed: () {
+                              navigateTo(
+                                  appRoute: AppRoute.login,
+                                  context: context,
+                                  replacement: false);
+                            },
+                            child: const Text('Login')),
+                      ],
+                    ),
+                  ),
                   const Spacer(),
                   ListTile(
                     leading: const Icon(HugeIcons.strokeRoundedMoon02),
