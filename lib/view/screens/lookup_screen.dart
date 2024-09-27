@@ -46,7 +46,12 @@ class _LookupScreenState extends State<LookupScreen> {
                     child: Column(
                       children: [
                         FilledButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            navigateTo(
+                                appRoute: AppRoute.login,
+                                context: context,
+                                replacement: false);
+                          },
                           child: const Text('Login'),
                         ),
                       ],

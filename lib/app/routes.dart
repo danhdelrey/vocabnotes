@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocabnotes/view/screens/login_screen.dart';
 import 'package:vocabnotes/view/widgets/bottom_navigation.dart';
 import 'package:vocabnotes/view/screens/library_word_information_screen.dart';
 import 'package:vocabnotes/view/screens/lookup_word_information_screen.dart';
@@ -16,10 +17,12 @@ final routes = {
   AppRoute.shortStoriesSetting.routeName: (context) =>
       const ShortStoriesSettingScreen(),
   AppRoute.multipleChoice.routeName: (context) => const MultipleChoiceScreen(),
+  AppRoute.login.routeName: (context) => const LoginScreen(),
 };
 
 enum AppRoute {
   lookup,
+  login,
   lookupWordInformation,
   libraryWordInformation,
   shortStories,
@@ -32,6 +35,9 @@ extension AppRouteExtension on AppRoute {
     switch (this) {
       case AppRoute.lookup:
         return '/';
+      case AppRoute.login:
+        return '/login';
+
       case AppRoute.lookupWordInformation:
         return '/lookup/lookup_word_information';
       case AppRoute.libraryWordInformation:
