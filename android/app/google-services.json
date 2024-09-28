@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432956449363",
+    "project_id": "vocabnotes-v1",
+    "storage_bucket": "vocabnotes-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432956449363:android:9d6a0e5fce9403a1ac1ca6",
+        "android_client_info": {
+          "package_name": "com.brighttorchstudio.vocabnotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtjSZjjgFBjvVzH2Rq8RlROHEjOq8iq_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

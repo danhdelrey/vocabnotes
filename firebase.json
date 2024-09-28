@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"vocabnotes-v1","appId":"1:432956449363:android:9d6a0e5fce9403a1ac1ca6","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"vocabnotes-v1","configurations":{"android":"1:432956449363:android:9d6a0e5fce9403a1ac1ca6","ios":"1:432956449363:ios:3d4024db55cb775eac1ca6"}}}}}}
