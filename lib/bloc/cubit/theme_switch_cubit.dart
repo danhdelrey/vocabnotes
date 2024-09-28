@@ -12,8 +12,8 @@ class ThemeSwitchCubit extends Cubit<ThemeMode> {
 
   void themeSwitching() async {
     bool hasThemeDark = state == ThemeMode.dark;
-    emit(hasThemeDark ? ThemeMode.light : ThemeMode.dark);
     await setTheme(!hasThemeDark);
+    emit(hasThemeDark ? ThemeMode.light : ThemeMode.dark);
   }
 }
 

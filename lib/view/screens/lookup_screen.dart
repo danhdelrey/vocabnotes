@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:vocabnotes/bloc/cubit/theme_switch_cubit.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
 import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/save_to_library/save_to_library_bloc.dart';
@@ -57,13 +58,19 @@ class _LookupScreenState extends State<LookupScreen> {
                     ),
                   ),
                   const Spacer(),
-                  ListTile(
-                    leading: const Icon(HugeIcons.strokeRoundedMoon02),
-                    title: const Text('Dark mode'),
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
+                  BlocBuilder<ThemeSwitchCubit, ThemeMode>(
+                    builder: (context, state) {
+                      return ListTile(
+                        leading: const Icon(HugeIcons.strokeRoundedMoon02),
+                        title: const Text('Dark mode'),
+                        trailing: Switch(
+                          value: state == ThemeMode.dark,
+                          onChanged: (value) {
+                            context.read<ThemeSwitchCubit>().themeSwitching();
+                          },
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 20,
