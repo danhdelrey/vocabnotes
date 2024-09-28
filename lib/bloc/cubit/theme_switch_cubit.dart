@@ -2,17 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeSwitchCubit extends Cubit<ThemeData> {
-  ThemeSwitchCubit() : super(ThemeData.light());
+class ThemeSwitchCubit extends Cubit<ThemeMode> {
+  ThemeSwitchCubit() : super(ThemeMode.light);
 
   void setInitialTheme() async {
     bool hasThemeDark = await isDark();
-    emit(hasThemeDark ? ThemeData.dark() : ThemeData.light());
+    emit(hasThemeDark ? ThemeMode.dark : ThemeMode.light);
   }
 
   void themeSwitching() async {
-    bool hasThemeDark = state == ThemeData.dark();
-    emit(hasThemeDark ? ThemeData.light() : ThemeData.dark());
+    bool hasThemeDark = state == ThemeMode.dark;
+    emit(hasThemeDark ? ThemeMode.light : ThemeMode.dark);
     await setTheme(!hasThemeDark);
   }
 }
