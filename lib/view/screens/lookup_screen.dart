@@ -1,6 +1,9 @@
 import 'dart:collection';
+import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/bloc/cubit/theme_switch_cubit.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
@@ -47,11 +50,8 @@ class _LookupScreenState extends State<LookupScreen> {
                     child: Column(
                       children: [
                         FilledButton(
-                            onPressed: () {
-                              navigateTo(
-                                  appRoute: AppRoute.login,
-                                  context: context,
-                                  replacement: false);
+                            onPressed: () async {
+                              await _signinWithGoogle();
                             },
                             child: const Text('Login with Google')),
                       ],
@@ -82,6 +82,22 @@ class _LookupScreenState extends State<LookupScreen> {
         },
       ),
     );
+  }
+
+  _signinWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    print(userCredential.user?.displayName);
   }
 
   AppBar _buildAppBar(BuildContext context) {
