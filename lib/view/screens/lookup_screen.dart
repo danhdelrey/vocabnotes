@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:vocabnotes/bloc/cubit/theme_switch_cubit.dart';
+import 'package:vocabnotes/bloc/theme_switch_cubit/theme_switch_cubit.dart';
 import 'package:vocabnotes/data/authentication_service.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
 import 'package:vocabnotes/app/routes.dart';
