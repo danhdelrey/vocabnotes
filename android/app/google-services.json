@@ -12,7 +12,20 @@
           "package_name": "com.brighttorchstudio.vocabnotes"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "432956449363-gi8co7b4urf5qn9ev9b1igu51rkcpl1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brighttorchstudio.vocabnotes",
+            "certificate_hash": "13167aa8e3b230ba6195fcd4aea1665b7499bfd1"
+          }
+        },
+        {
+          "client_id": "432956449363-ksir8vrhisb145pr5bu8ntmec8mj4uov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBtjSZjjgFBjvVzH2Rq8RlROHEjOq8iq_Q"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432956449363-ksir8vrhisb145pr5bu8ntmec8mj4uov.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "432956449363-j7s78534ckpeqiuaothpdhmvnub6239m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vocabnotes"
+              }
+            }
+          ]
         }
       }
     }

@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '432956449363',
     projectId: 'vocabnotes-v1',
     storageBucket: 'vocabnotes-v1.appspot.com',
+    androidClientId: '432956449363-gi8co7b4urf5qn9ev9b1igu51rkcpl1g.apps.googleusercontent.com',
+    iosClientId: '432956449363-j7s78534ckpeqiuaothpdhmvnub6239m.apps.googleusercontent.com',
     iosBundleId: 'com.example.vocabnotes',
   );
 
