@@ -22,4 +22,16 @@ class AuthenticationService {
     // Đăng nhập vào Firebase với thông tin đăng nhập Google
     return await _auth.signInWithCredential(credential);
   }
+
+  Future<void> signOut() async {
+    try {
+      await _googleSignIn.signOut(); // Đăng xuất khỏi Google Sign-In
+      await FirebaseAuth.instance
+          .signOut(); // Đăng xuất khỏi Firebase Authentication
+      // Xử lý thành công (ví dụ: điều hướng đến màn hình đăng nhập)
+    } catch (e) {
+      // Xử lý lỗi đăng xuất
+      print('Lỗi đăng xuất: $e');
+    }
+  }
 }

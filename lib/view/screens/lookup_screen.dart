@@ -48,27 +48,50 @@ class _LookupScreenState extends State<LookupScreen> {
               child: Column(
                 children: [
                   DrawerHeader(
-                    child: Column(
-                      children: [
-                        FilledButton(
-                            onPressed: () async {
-                              try {
-                                UserCredential? userCredential =
-                                    await AuthenticationService()
-                                        .signInWithGoogle();
-                                if (userCredential!.user != null) {
-                                  // Đăng nhập thành công, chuyển hướng người dùng đến màn hình chính
-                                  print(
-                                      'Đăng nhập thành công: ${userCredential.user!.displayName}');
-                                }
-                              } catch (e) {
-                                // Xử lý lỗi đăng nhập
-                                print('Lỗi đăng nhập: $e');
-                              }
-                            },
-                            child: const Text('Login with Google')),
-                      ],
-                    ),
+                    child: StreamBuilder(
+                        stream: FirebaseAuth.instance.authStateChanges(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          if (snapshot.hasData) {
+                            return Column(
+                              children: [
+                                FilledButton(
+                                    onPressed: () async {
+                                      await AuthenticationService().signOut();
+                                    },
+                                    child: const Text('Log out')),
+                              ],
+                            );
+                          }
+
+                          return Column(
+                            children: [
+                              FilledButton(
+                                  onPressed: () async {
+                                    try {
+                                      UserCredential? userCredential =
+                                          await AuthenticationService()
+                                              .signInWithGoogle();
+                                      if (userCredential!.user != null) {
+                                        // Đăng nhập thành công, chuyển hướng người dùng đến màn hình chính
+                                        print(
+                                            'Đăng nhập thành công: ${userCredential.user!.displayName}');
+                                      }
+                                    } catch (e) {
+                                      // Xử lý lỗi đăng nhập
+                                      print('Lỗi đăng nhập: $e');
+                                    }
+                                  },
+                                  child: const Text('Login with Google')),
+                            ],
+                          );
+                        }),
                   ),
                   const Spacer(),
                   BlocBuilder<ThemeSwitchCubit, ThemeMode>(
