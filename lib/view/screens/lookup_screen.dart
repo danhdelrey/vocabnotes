@@ -56,41 +56,62 @@ class _LookupScreenState extends State<LookupScreen> {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
-                          }
-
-                          if (snapshot.hasData) {
+                          } else if (snapshot.hasData) {
+                            final user = FirebaseAuth.instance.currentUser!;
                             return Column(
                               children: [
-                                FilledButton(
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      foregroundImage:
+                                          NetworkImage(user.photoURL!),
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                      user.email!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    )),
+                                  ],
+                                ),
+                                OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      foregroundColor:
+                                          Theme.of(context).colorScheme.error,
+                                    ),
                                     onPressed: () async {
                                       await AuthenticationService().signOut();
                                     },
                                     child: const Text('Log out')),
                               ],
                             );
-                          }
-
-                          return Column(
-                            children: [
-                              FilledButton(
-                                  onPressed: () async {
-                                    try {
-                                      UserCredential? userCredential =
-                                          await AuthenticationService()
-                                              .signInWithGoogle();
-                                      if (userCredential!.user != null) {
-                                        // Đăng nhập thành công, chuyển hướng người dùng đến màn hình chính
-                                        print(
-                                            'Đăng nhập thành công: ${userCredential.user!.displayName}');
+                          } else {
+                            return Column(
+                              children: [
+                                FilledButton(
+                                    onPressed: () async {
+                                      try {
+                                        UserCredential? userCredential =
+                                            await AuthenticationService()
+                                                .signInWithGoogle();
+                                        if (userCredential!.user != null) {
+                                          // Đăng nhập thành công, chuyển hướng người dùng đến màn hình chính
+                                          print(
+                                              'Đăng nhập thành công: ${userCredential.user!.displayName}');
+                                        }
+                                      } catch (e) {
+                                        // Xử lý lỗi đăng nhập
+                                        print('Lỗi đăng nhập: $e');
                                       }
-                                    } catch (e) {
-                                      // Xử lý lỗi đăng nhập
-                                      print('Lỗi đăng nhập: $e');
-                                    }
-                                  },
-                                  child: const Text('Login with Google')),
-                            ],
-                          );
+                                    },
+                                    child: const Text('Login with Google')),
+                              ],
+                            );
+                          }
                         }),
                   ),
                   const Spacer(),
