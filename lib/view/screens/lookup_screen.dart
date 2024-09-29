@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:vocabnotes/bloc/cubit/theme_switch_cubit.dart';
+import 'package:vocabnotes/data/authentication_service.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
 import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/save_to_library/save_to_library_bloc.dart';
@@ -51,7 +52,19 @@ class _LookupScreenState extends State<LookupScreen> {
                       children: [
                         FilledButton(
                             onPressed: () async {
-                              await _signinWithGoogle();
+                              try {
+                                UserCredential? userCredential =
+                                    await AuthenticationService()
+                                        .signInWithGoogle();
+                                if (userCredential!.user != null) {
+                                  // Đăng nhập thành công, chuyển hướng người dùng đến màn hình chính
+                                  print(
+                                      'Đăng nhập thành công: ${userCredential.user!.displayName}');
+                                }
+                              } catch (e) {
+                                // Xử lý lỗi đăng nhập
+                                print('Lỗi đăng nhập: $e');
+                              }
                             },
                             child: const Text('Login with Google')),
                       ],
@@ -82,22 +95,6 @@ class _LookupScreenState extends State<LookupScreen> {
         },
       ),
     );
-  }
-
-  _signinWithGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    print(userCredential.user?.displayName);
   }
 
   AppBar _buildAppBar(BuildContext context) {
