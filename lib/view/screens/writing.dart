@@ -41,121 +41,82 @@ class _WritingState extends State<Writing> {
       ],
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Writing'),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    navigateTo(
-                        appRoute: AppRoute.writingSetting,
-                        context: context,
-                        replacement: false);
-                  },
-                  icon: const Icon(HugeIcons.strokeRoundedEdit02))
-            ],
-          ),
-          body: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: SingleChildScrollView(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(
-                            child: Text(
-                              'Write a sentence using all of these words:',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
+            appBar: AppBar(
+              title: const Text('Writing'),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      navigateTo(
+                          appRoute: AppRoute.writingSetting,
+                          context: context,
+                          replacement: false);
+                    },
+                    icon: const Icon(HugeIcons.strokeRoundedEdit02))
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  BlocBuilder<WritingCheckCubit, WritingCheckState>(
+                    builder: (context, state) {
+                      if (state is WritingCheckInProgress) {
+                        return const CircularProgressIndicator();
+                      } else if (state is WritingCheckSuccess) {
+                        return Center(
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: [
+                              ...state.randomWordList.map(
+                                (word) =>
+                                    _buildTappableWord(context, word: word),
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          BlocBuilder<WritingCheckCubit, WritingCheckState>(
-                            builder: (context, state) {
-                              if (state is WritingCheckInProgress) {
-                                return const CircularProgressIndicator();
-                              } else if (state is WritingCheckSuccess) {
-                                return Center(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    spacing: 5,
-                                    runSpacing: 5,
-                                    children: [
-                                      ...state.randomWordList.map(
-                                        (word) => _buildTappableWord(context,
-                                            word: word),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              } else if (state is WritingCheckFailure) {
-                                return const Text('Library is empty');
-                              } else {
-                                return const SizedBox();
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          BlocBuilder<WritingCubit, String>(
-                            builder: (context, state) {
-                              return Text(
-                                state,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary,
-                                    ),
-                              );
-                            },
-                          ),
-                        ],
+                        );
+                      } else if (state is WritingCheckFailure) {
+                        return const Text('Library is empty');
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    child: TextField(
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                      //keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      focusNode: _focusNode,
+                      controller: _textEditingController,
+                      onSubmitted: null,
+                      onChanged: (value) {
+                        context.read<WritingCubit>().startWriting(value);
+                      },
+                      decoration: InputDecoration(
+                        hintStyle: const TextStyle().copyWith(fontSize: 15),
+                        hintText:
+                            'Write a sentence/passage with these words...',
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  child: TextField(
-                    onTapOutside: (event) {
-                      FocusScope.of(context).unfocus();
-                    },
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    focusNode: _focusNode,
-                    controller: _textEditingController,
-                    onSubmitted: null,
-                    onChanged: (value) {
-                      context.read<WritingCubit>().startWriting(value);
-                    },
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(HugeIcons.strokeRoundedSent),
-                      hintText: 'hint text',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 16.0),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
+            ));
       }),
     );
   }
