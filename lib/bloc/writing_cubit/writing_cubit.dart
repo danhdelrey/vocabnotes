@@ -22,4 +22,8 @@ class WritingCubit extends Cubit<WritingState> {
       emit(WritingFailure());
     }
   }
+
+  void tryAgain() {
+    emit(WritingInitial());
+  }
 }

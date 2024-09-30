@@ -138,15 +138,25 @@ class _WritingState extends State<Writing> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is WritingSuccess) {
-                  return  SingleChildScrollView(
+                  return SingleChildScrollView(
                     child: Column(
                       children: [
-                        Text('Grammatical Accuracy: ${state.evaluation['Grammatical Accuracy']}'),
+                        Text('Your answer: ${_textEditingController.text}'),
+                        Text(
+                            'Grammatical Accuracy: ${state.evaluation['Grammatical Accuracy']}'),
                         Text('Fluency: ${state.evaluation['Fluency']}'),
                         Text('Originality: ${state.evaluation['Originality']}'),
                         Text('Coherence: ${state.evaluation['Coherence']}'),
                         Text('Word Usage: ${state.evaluation['Word Usage']}'),
-                        Text('Example Sentence: ${state.evaluation['Example Sentence']}'),
+                        Text(
+                            'Example Sentence: ${state.evaluation['Example Sentence']}'),
+                        FilledButton(
+                            onPressed: () {
+                              _textEditingController.clear();
+                              context.read<WritingCheckCubit>().generateWords();
+                              context.read<WritingCubit>().tryAgain();
+                            },
+                            child: const Text('Continue')),
                       ],
                     ),
                   );
