@@ -64,6 +64,31 @@ class LearningScreen extends StatelessWidget {
                 child: const Text('Start'),
               ),
             ),
+            ListTile(
+              title: Text(
+                'Writing',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle().copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              subtitle: const Text(
+                'Write a sentence with the given words.',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              trailing: FilledButton(
+                onPressed: () {
+                  navigateTo(
+                      appRoute: AppRoute.writing,
+                      context: context,
+                      replacement: false);
+                },
+                child: const Text('Start'),
+              ),
+            ),
           ],
         ),
       ),
