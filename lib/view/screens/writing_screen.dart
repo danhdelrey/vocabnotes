@@ -5,14 +5,14 @@ import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/writing_check_cubit/writing_check_cubit.dart';
 import 'package:vocabnotes/bloc/writing_cubit/writing_cubit.dart';
 
-class Writing extends StatefulWidget {
-  const Writing({super.key});
+class WritingScreen extends StatefulWidget {
+  const WritingScreen({super.key});
 
   @override
-  State<Writing> createState() => _WritingState();
+  State<WritingScreen> createState() => _WritingScreenState();
 }
 
-class _WritingState extends State<Writing> {
+class _WritingScreenState extends State<WritingScreen> {
   late TextEditingController _textEditingController;
   final FocusNode _focusNode = FocusNode();
   List<String> wordList = [];

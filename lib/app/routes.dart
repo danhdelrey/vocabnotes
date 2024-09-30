@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocabnotes/view/screens/login_screen.dart';
-import 'package:vocabnotes/view/screens/writing.dart';
-import 'package:vocabnotes/view/screens/writing_setting.dart';
+import 'package:vocabnotes/view/screens/writing_screen.dart';
+import 'package:vocabnotes/view/screens/writing_setting_screen.dart';
 import 'package:vocabnotes/view/widgets/bottom_navigation.dart';
 import 'package:vocabnotes/view/screens/library_word_information_screen.dart';
 import 'package:vocabnotes/view/screens/lookup_word_information_screen.dart';
@@ -20,8 +20,8 @@ final routes = {
       const ShortStoriesSettingScreen(),
   AppRoute.multipleChoice.routeName: (context) => const MultipleChoiceScreen(),
   AppRoute.login.routeName: (context) => const LoginScreen(),
-  AppRoute.writing.routeName: (context) => const Writing(),
-  AppRoute.writingSetting.routeName: (context) => const WritingSetting(),
+  AppRoute.writing.routeName: (context) => const WritingScreen(),
+  AppRoute.writingSetting.routeName: (context) => const WritingSettingScreen(),
 };
 
 enum AppRoute {
