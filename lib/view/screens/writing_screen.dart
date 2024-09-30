@@ -172,7 +172,12 @@ class _WritingScreenState extends State<WritingScreen> {
                           ),
                           Text(
                             _textEditingController.text,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                           ),
                           const Divider(),
                           _buildEvaluation(
@@ -204,8 +209,15 @@ class _WritingScreenState extends State<WritingScreen> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Text(state.evaluation['Example Sentence'],
-                              style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                            state.evaluation['Example Sentence'],
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -243,58 +255,18 @@ class _WritingScreenState extends State<WritingScreen> {
       children: [
         Row(
           children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-            ),
+            Text(title, style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(
               width: 10,
             ),
             Expanded(
-                child: int.tryParse(evaluation[0])! >= 0 &&
-                        int.tryParse(evaluation[0])! <= 5
-                    ? Text(
-                        evaluation,
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
-                      )
-                    : int.tryParse(evaluation[0])! >= 6 &&
-                            int.tryParse(evaluation[0])! <= 8
-                        ? Text(
-                            evaluation,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          )
-                        : int.tryParse(evaluation[0])! >= 9 &&
-                                int.tryParse(evaluation[0])! <= 10
-                            ? Text(
-                                evaluation,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                      color: const Color.fromARGB(
-                                          255, 6, 192, 248),
-                                    ),
-                              )
-                            : Text(
-                                evaluation,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                      color: const Color.fromARGB(
-                                          255, 240, 224, 0),
-                                    ),
-                              )),
+              child: Text(
+                evaluation,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
           ],
         ),
         const SizedBox(
