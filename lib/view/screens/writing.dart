@@ -90,6 +90,7 @@ class _WritingState extends State<Writing> {
                   const SizedBox(
                     height: 25,
                   ),
+                  FilledButton(onPressed: () {}, child: const Text('Submit')),
                   Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
@@ -104,12 +105,12 @@ class _WritingState extends State<Writing> {
                       focusNode: _focusNode,
                       controller: _textEditingController,
                       onSubmitted: null,
-                    
+
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintStyle: const TextStyle().copyWith(fontSize: 15),
                         hintText:
-                            'Write a sentence/passage with these words...',
+                            'Write a sentence/passage with the given words...',
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 16.0),
                       ),
