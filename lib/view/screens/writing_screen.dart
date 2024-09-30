@@ -111,7 +111,7 @@ class _WritingScreenState extends State<WritingScreen> {
                             border: InputBorder.none,
                             hintStyle: const TextStyle().copyWith(fontSize: 15),
                             hintText:
-                                'Write a sentence/passage with the given words...',
+                                'Write a sentence/paragraph using the provided words...',
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                           ),

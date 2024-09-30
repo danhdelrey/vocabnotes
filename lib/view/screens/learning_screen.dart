@@ -75,7 +75,7 @@ class LearningScreen extends StatelessWidget {
                 ),
               ),
               subtitle: const Text(
-                'Write a sentence with the given words.',
+                'Write a sentence/paragraph using the provided words.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
