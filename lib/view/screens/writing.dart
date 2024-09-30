@@ -42,83 +42,112 @@ class _WritingState extends State<Writing> {
       ],
       child: Builder(builder: (context) {
         return Scaffold(
-            appBar: AppBar(
-              title: const Text('Writing'),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      navigateTo(
-                          appRoute: AppRoute.writingSetting,
-                          context: context,
-                          replacement: false);
-                    },
-                    icon: const Icon(HugeIcons.strokeRoundedEdit02))
-              ],
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  BlocBuilder<WritingCheckCubit, WritingCheckState>(
-                    builder: (context, state) {
-                      if (state is WritingCheckInProgress) {
-                        return const CircularProgressIndicator();
-                      } else if (state is WritingCheckSuccess) {
-                        wordList = state.randomWordList;
-                        return Center(
-                          child: Wrap(
-                            alignment: WrapAlignment.center,
-                            spacing: 5,
-                            runSpacing: 5,
-                            children: [
-                              ...state.randomWordList.map(
-                                (word) =>
-                                    _buildTappableWord(context, word: word),
-                              )
-                            ],
-                          ),
-                        );
-                      } else if (state is WritingCheckFailure) {
-                        return const Text('Library is empty');
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  FilledButton(onPressed: () {}, child: const Text('Submit')),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    child: TextField(
-                      onTapOutside: (event) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      //keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      focusNode: _focusNode,
-                      controller: _textEditingController,
-                      onSubmitted: null,
-
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintStyle: const TextStyle().copyWith(fontSize: 15),
-                        hintText:
-                            'Write a sentence/passage with the given words...',
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 16.0),
+          appBar: AppBar(
+            title: const Text('Writing'),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    navigateTo(
+                        appRoute: AppRoute.writingSetting,
+                        context: context,
+                        replacement: false);
+                  },
+                  icon: const Icon(HugeIcons.strokeRoundedEdit02))
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: BlocBuilder<WritingCubit, WritingState>(
+              builder: (context, state) {
+                if (state is WritingInitial || state is WritingFailure) {
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
+                      BlocBuilder<WritingCheckCubit, WritingCheckState>(
+                        builder: (context, state) {
+                          if (state is WritingCheckInProgress) {
+                            return const CircularProgressIndicator();
+                          } else if (state is WritingCheckSuccess) {
+                            wordList = state.randomWordList;
+                            return Center(
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 5,
+                                runSpacing: 5,
+                                children: [
+                                  ...state.randomWordList.map(
+                                    (word) =>
+                                        _buildTappableWord(context, word: word),
+                                  )
+                                ],
+                              ),
+                            );
+                          } else if (state is WritingCheckFailure) {
+                            return const Text('Library is empty');
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      FilledButton(
+                          onPressed: () {
+                            if (_textEditingController.text.isNotEmpty) {
+                              context.read<WritingCubit>().evaluateSentence(
+                                  sentence: _textEditingController.text,
+                                  wordList: wordList);
+                            }
+                          },
+                          child: const Text('Submit')),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        child: TextField(
+                          onTapOutside: (event) {
+                            FocusScope.of(context).unfocus();
+                          },
+                          //keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          focusNode: _focusNode,
+                          controller: _textEditingController,
+                          onSubmitted: null,
+
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintStyle: const TextStyle().copyWith(fontSize: 15),
+                            hintText:
+                                'Write a sentence/passage with the given words...',
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (state is WritingInProgress) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is WritingSuccess) {
+                  return const SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text('loaded'),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ));
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+          ),
+        );
       }),
     );
   }
