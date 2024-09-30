@@ -22,7 +22,7 @@ class WritingCheckCubit extends Cubit<WritingCheckState> {
       if(allWordsFromDatabase!.isEmpty){
         emit(WritingCheckFailure());
       }else{
-        Set<String> uniqueWordSet = allWordsFromDatabase!.toSet();
+        Set<String> uniqueWordSet = allWordsFromDatabase.toSet();
         List<String> uniqueWordList = uniqueWordSet.toList();
 
         uniqueWordList.shuffle();

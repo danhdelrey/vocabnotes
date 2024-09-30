@@ -93,20 +93,6 @@ class _WritingScreenState extends State<WritingScreen> {
                       const SizedBox(
                         height: 25,
                       ),
-                      FilledButton(
-                          onPressed: () {
-                            if (_textEditingController.text.isNotEmpty) {
-                              context.read<WritingCubit>().evaluateSentence(
-                                  sentence: _textEditingController.text,
-                                  wordList: wordList);
-                            } else {
-                              ScaffoldMessenger.of(context).clearSnackBars();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('The sentence is empty')));
-                            }
-                          },
-                          child: const Text('Submit')),
                       Container(
                         decoration: BoxDecoration(
                           color: Theme.of(context).scaffoldBackgroundColor,
@@ -131,6 +117,23 @@ class _WritingScreenState extends State<WritingScreen> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      FilledButton(
+                          onPressed: () {
+                            if (_textEditingController.text.isNotEmpty) {
+                              context.read<WritingCubit>().evaluateSentence(
+                                  sentence: _textEditingController.text,
+                                  wordList: wordList);
+                            } else {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('The sentence is empty')));
+                            }
+                          },
+                          child: const Text('Submit')),
                     ],
                   );
                 } else if (state is WritingInProgress) {
