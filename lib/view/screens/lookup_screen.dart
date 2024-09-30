@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:vocabnotes/bloc/cubit/theme_switch_cubit.dart';
+import 'package:vocabnotes/bloc/theme_switch_cubit/theme_switch_cubit.dart';
 import 'package:vocabnotes/view/widgets/search_field.dart';
 import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/save_to_library/save_to_library_bloc.dart';
