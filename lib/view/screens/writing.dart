@@ -99,6 +99,11 @@ class _WritingState extends State<Writing> {
                               context.read<WritingCubit>().evaluateSentence(
                                   sentence: _textEditingController.text,
                                   wordList: wordList);
+                            } else {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('The sentence is empty')));
                             }
                           },
                           child: const Text('Submit')),
@@ -115,7 +120,6 @@ class _WritingState extends State<Writing> {
                           style: Theme.of(context).textTheme.titleLarge,
                           focusNode: _focusNode,
                           controller: _textEditingController,
-                          onSubmitted: null,
 
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -134,10 +138,15 @@ class _WritingState extends State<Writing> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is WritingSuccess) {
-                  return const SingleChildScrollView(
+                  return  SingleChildScrollView(
                     child: Column(
                       children: [
-                        Text('loaded'),
+                        Text('Grammatical Accuracy: ${state.evaluation['Grammatical Accuracy']}'),
+                        Text('Fluency: ${state.evaluation['Fluency']}'),
+                        Text('Originality: ${state.evaluation['Originality']}'),
+                        Text('Coherence: ${state.evaluation['Coherence']}'),
+                        Text('Word Usage: ${state.evaluation['Word Usage']}'),
+                        Text('Example Sentence: ${state.evaluation['Example Sentence']}'),
                       ],
                     ),
                   );
