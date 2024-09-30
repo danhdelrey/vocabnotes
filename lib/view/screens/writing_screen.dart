@@ -142,25 +142,86 @@ class _WritingScreenState extends State<WritingScreen> {
                   );
                 } else if (state is WritingSuccess) {
                   return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text('Your answer: ${_textEditingController.text}'),
-                        Text(
-                            'Grammatical Accuracy: ${state.evaluation['Grammatical Accuracy']}'),
-                        Text('Fluency: ${state.evaluation['Fluency']}'),
-                        Text('Originality: ${state.evaluation['Originality']}'),
-                        Text('Coherence: ${state.evaluation['Coherence']}'),
-                        Text('Word Usage: ${state.evaluation['Word Usage']}'),
-                        Text(
-                            'Example Sentence: ${state.evaluation['Example Sentence']}'),
-                        FilledButton(
-                            onPressed: () {
-                              _textEditingController.clear();
-                              context.read<WritingCheckCubit>().generateWords();
-                              context.read<WritingCubit>().tryAgain();
-                            },
-                            child: const Text('Continue')),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: 5,
+                              runSpacing: 5,
+                              children: [
+                                ...wordList.map(
+                                  (word) =>
+                                      _buildTappableWord(context, word: word),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Your answer:',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            _textEditingController.text,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Divider(),
+                          _buildEvaluation(
+                              context: context,
+                              title: 'Grammatical Accuracy:',
+                              evaluation:
+                                  state.evaluation['Grammatical Accuracy']),
+                          _buildEvaluation(
+                              context: context,
+                              title: 'Fluency:',
+                              evaluation: state.evaluation['Fluency']),
+                          _buildEvaluation(
+                              context: context,
+                              title: 'Originality:',
+                              evaluation: state.evaluation['Originality']),
+                          _buildEvaluation(
+                              context: context,
+                              title: 'Coherence:',
+                              evaluation: state.evaluation['Coherence']),
+                          _buildEvaluation(
+                              context: context,
+                              title: 'Word Usage:',
+                              evaluation: state.evaluation['Word Usage']),
+                          const Divider(),
+                          Text(
+                            'Example Sentence:',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(state.evaluation['Example Sentence'],
+                              style: Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: FilledButton(
+                                onPressed: () {
+                                  _textEditingController.clear();
+                                  context
+                                      .read<WritingCheckCubit>()
+                                      .generateWords();
+                                  context.read<WritingCubit>().tryAgain();
+                                },
+                                child: const Text('Continue')),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 } else {
@@ -171,6 +232,75 @@ class _WritingScreenState extends State<WritingScreen> {
           ),
         );
       }),
+    );
+  }
+
+  _buildEvaluation(
+      {required BuildContext context,
+      required String title,
+      required String evaluation}) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                child: int.tryParse(evaluation[0])! >= 0 &&
+                        int.tryParse(evaluation[0])! <= 5
+                    ? Text(
+                        evaluation,
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                      )
+                    : int.tryParse(evaluation[0])! >= 6 &&
+                            int.tryParse(evaluation[0])! <= 8
+                        ? Text(
+                            evaluation,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          )
+                        : int.tryParse(evaluation[0])! >= 9 &&
+                                int.tryParse(evaluation[0])! <= 10
+                            ? Text(
+                                evaluation,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      color: const Color.fromARGB(
+                                          255, 6, 192, 248),
+                                    ),
+                              )
+                            : Text(
+                                evaluation,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      color: const Color.fromARGB(
+                                          255, 240, 224, 0),
+                                    ),
+                              )),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+      ],
     );
   }
 
