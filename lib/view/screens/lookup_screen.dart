@@ -43,20 +43,6 @@ class _LookupScreenState extends State<LookupScreen> {
             drawer: Drawer(
               child: Column(
                 children: [
-                  DrawerHeader(
-                    child: Column(
-                      children: [
-                        FilledButton(
-                            onPressed: () {
-                              navigateTo(
-                                  appRoute: AppRoute.login,
-                                  context: context,
-                                  replacement: false);
-                            },
-                            child: const Text('Login with Google')),
-                      ],
-                    ),
-                  ),
                   const Spacer(),
                   BlocBuilder<ThemeSwitchCubit, ThemeMode>(
                     builder: (context, state) {

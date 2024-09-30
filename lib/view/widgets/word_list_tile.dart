@@ -25,7 +25,7 @@ class WordListTile extends StatelessWidget {
           return await showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: const Text('Delete from library?'),
+              title: const Text('Delete from library?'), 
               actions: [
                 TextButton(
                     onPressed: () {
