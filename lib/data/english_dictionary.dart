@@ -167,4 +167,77 @@ class GeminiDictionary implements EnglishDictionary {
 
     return jsonDecode(response.text!);
   }
+
+  Future<Map<String, dynamic>> evaluateTheSentence(
+      {required String sentence, required List<String> wordList}) async {
+    final schema = Schema.object(
+      requiredProperties: [
+        'Grammatical Accuracy',
+        'Fluency',
+        'Originality',
+        'Coherence',
+        'Word Usage',
+        'Example Sentence'
+      ],
+      properties: {
+        'Grammatical Accuracy': Schema.string(nullable: false),
+        'Fluency': Schema.string(nullable: false),
+        'Originality': Schema.string(nullable: false),
+        'Coherence': Schema.string(nullable: false),
+        'Word Usage': Schema.string(nullable: false),
+        'Example Sentence': Schema.string(nullable: false),
+      },
+    );
+    final safetySettings = [
+      SafetySetting(HarmCategory.harassment, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.none),
+      SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.none),
+    ];
+    final model = GenerativeModel(
+        model: 'gemini-1.5-flash',
+        apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        safetySettings: safetySettings,
+        generationConfig: GenerationConfig(
+            responseMimeType: 'application/json', responseSchema: schema));
+
+    final prompt =
+        """Task: You will be provided with a list of English words and a sentence/paragraph. Your task is to evaluate how well the sentence/paragraph utilizes the words from the list.
+
+Input:
+
+1. Word List: $wordList
+2. Sentence/Paragraph: $sentence
+
+Evaluation Criteria:
+
+* Grammatical Accuracy: Is the sentence/paragraph grammatically correct? (Score out of 5)
+* Fluency:  Does the sentence/paragraph sound natural and easy to understand? (Score out of 5)
+* Originality: Is the use of language creative and engaging? (Score out of 5)
+* Coherence: Are the words connected in a logical and meaningful way? (Score out of 5)
+* Word Usage:  Does the sentence/paragraph use ALL the words from the list? (Score out of the total number of words). If any words are missing, please list them.
+* Example Sentence:  Provide an example sentence/paragraph using the ideas in the input sentence that utilizes ALL the words in a grammatically correct, fluent, and creative way.
+
+Output:
+
+Provide a detailed evaluation of the sentence/paragraph based on the criteria listed above. 
+
+Example:
+
+Word List: [apple, red, eat, delicious, tree, sun]
+Sentence: The red apple I ate from the tree was delicious.
+
+Output:
+
+* Grammatical Accuracy: 5/5
+* Fluency: 4/5
+* Originality: 3/5 
+* Coherence: 5/5
+* Word Usage: 5/6 (Missing word: "sun")
+* Example Sentence: The sun warmed the tree as I picked a red apple. It was so delicious to eat, I knew I’d be back for more.""";
+
+    final response = await model.generateContent([Content.text(prompt)]);
+
+    return jsonDecode(response.text!);
+  }
 }

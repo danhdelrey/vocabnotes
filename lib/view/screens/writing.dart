@@ -15,6 +15,7 @@ class Writing extends StatefulWidget {
 class _WritingState extends State<Writing> {
   late TextEditingController _textEditingController;
   final FocusNode _focusNode = FocusNode();
+  List<String> wordList = [];
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _WritingState extends State<Writing> {
                       if (state is WritingCheckInProgress) {
                         return const CircularProgressIndicator();
                       } else if (state is WritingCheckSuccess) {
+                        wordList = state.randomWordList;
                         return Center(
                           child: Wrap(
                             alignment: WrapAlignment.center,
@@ -102,10 +104,9 @@ class _WritingState extends State<Writing> {
                       focusNode: _focusNode,
                       controller: _textEditingController,
                       onSubmitted: null,
-                      onChanged: (value) {
-                        context.read<WritingCubit>().startWriting(value);
-                      },
+                    
                       decoration: InputDecoration(
+                        border: InputBorder.none,
                         hintStyle: const TextStyle().copyWith(fontSize: 15),
                         hintText:
                             'Write a sentence/passage with these words...',
