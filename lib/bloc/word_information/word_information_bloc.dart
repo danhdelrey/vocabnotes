@@ -30,15 +30,17 @@ class WordInformationBloc
         try {
           englishWordModelList =
               await wordLookupService.lookupWordFromGemini(event.word);
-          emit(WordInformationLoaded(
-              englishWordModelList: englishWordModelList,
-              searchedWord: event.word));
+          if (englishWordModelList.isNotEmpty) {
+            emit(WordInformationLoaded(
+                englishWordModelList: englishWordModelList,
+                searchedWord: event.word));
+          } else {
+            emit(WordInformationError());
+          }
         } catch (e) {
           emit(WordInformationError());
         }
       }
     });
-
-    
   }
 }

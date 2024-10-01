@@ -42,8 +42,9 @@ class GeminiDictionary implements EnglishDictionary {
   Future<List<EnglishWordModel>> getWordInformation(String word) async {
     final schema = Schema.array(
       items: Schema.object(
-        requiredProperties: ['word', 'meanings', 'phonetic'],
+        requiredProperties: ['isRealWord', 'word', 'meanings', 'phonetic'],
         properties: {
+          'isRealWord': Schema.boolean(nullable: false),
           'word': Schema.string(nullable: false),
           'phonetic': Schema.string(nullable: false),
           'meanings': Schema.array(
@@ -88,19 +89,19 @@ class GeminiDictionary implements EnglishDictionary {
             responseMimeType: 'application/json', responseSchema: schema));
 
     final prompt =
-        'Find the meaning of this english word/phrase, correct it if it is mispelled or incorrect: $word';
+        'Check if this word or phrase exists in English (is a real word/phrase). If it does, find its meaning, correct any misspellings: $word';
     final response = await model.generateContent([Content.text(prompt)]);
-
+    List<dynamic> wordList = jsonDecode(response.text!);
     List<EnglishWordModel> englishWordModelList = [];
 
-    List<dynamic> wordList = jsonDecode(response.text!);
-
-    for (var word in wordList) {
-      EnglishWordModel englishWordModel = EnglishWordModel(
-          phonetic: '/${word['phonetic']}/',
-          name: word['word'],
-          meanings: jsonEncode(word['meanings']));
-      englishWordModelList.add(englishWordModel);
+    if (wordList[0]['isRealWord'] == true) {
+      for (var word in wordList) {
+        EnglishWordModel englishWordModel = EnglishWordModel(
+            phonetic: '/${word['phonetic']}/',
+            name: word['word'],
+            meanings: jsonEncode(word['meanings']));
+        englishWordModelList.add(englishWordModel);
+      }
     }
 
     return englishWordModelList;
