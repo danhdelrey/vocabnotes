@@ -42,13 +42,15 @@ class GeminiDictionary implements EnglishDictionary {
   Future<List<EnglishWordModel>> getWordInformation(String word) async {
     final schema = Schema.array(
       items: Schema.object(
-        requiredProperties: ['word', 'meanings'],
+        requiredProperties: ['word', 'meanings', 'phonetic'],
         properties: {
           'word': Schema.string(nullable: false),
+          'phonetic': Schema.string(nullable: false),
           'meanings': Schema.array(
             items: Schema.object(
-              requiredProperties: ['definitions'],
+              requiredProperties: ['partOfSpeech', 'definitions'],
               properties: {
+                'partOfSpeech': Schema.string(nullable: false),
                 'definitions': Schema.array(
                   items: Schema.object(requiredProperties: [
                     'definition',
@@ -95,7 +97,9 @@ class GeminiDictionary implements EnglishDictionary {
 
     for (var word in wordList) {
       EnglishWordModel englishWordModel = EnglishWordModel(
-          name: word['word'], meanings: jsonEncode(word['meanings']));
+          phonetic: '/${word['phonetic']}/',
+          name: word['word'],
+          meanings: jsonEncode(word['meanings']));
       englishWordModelList.add(englishWordModel);
     }
 
