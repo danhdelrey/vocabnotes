@@ -211,10 +211,10 @@ Input:
 
 Evaluation Criteria:
 
-* Grammatical Accuracy: Is the sentence/paragraph grammatically correct? (Score out of 10)
-* Fluency:  Does the sentence/paragraph sound natural and easy to understand? (Score out of 10)
-* Originality: Is the use of language creative and engaging? (Score out of 10)
-* Coherence: Are the words connected in a logical and meaningful way? (Score out of 105)
+* Grammatical Accuracy: Is the sentence/paragraph grammatically correct? (Score out of 100)
+* Fluency:  Does the sentence/paragraph sound natural and easy to understand? (Score out of 100)
+* Originality: Is the use of language creative and engaging? (Score out of 100)
+* Coherence: Are the words connected in a logical and meaningful way? (Score out of 100)
 * Word Usage:  Does the sentence/paragraph use ALL the words from the list? (Score out of the total number of words). If any words are missing, please list them.
 * Example Sentence:  Provide an example sentence/paragraph using the ideas in the input sentence that utilizes ALL the words in a grammatically correct, fluent, and creative way.
 
@@ -229,10 +229,10 @@ Sentence: The red apple I ate from the tree was delicious.
 
 Output:
 
-* Grammatical Accuracy: 10/10
-* Fluency: 8/10
-* Originality: 6/10 
-* Coherence: 10/10
+* Grammatical Accuracy: 100/100
+* Fluency: 80/100
+* Originality: 60/100
+* Coherence: 100/100
 * Word Usage: 5/6 (Missing word: "sun")
 * Example Sentence: The sun warmed the tree as I picked a red apple. It was so delicious to eat, I knew I’d be back for more.""";
 
