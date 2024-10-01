@@ -216,7 +216,7 @@ Evaluation Criteria:
 * Originality: Is the use of language creative and engaging? (Score out of 100)
 * Coherence: Are the words connected in a logical and meaningful way? (Score out of 100)
 * Word Usage:  Does the sentence/paragraph use ALL the words from the list? (Score out of the total number of words). If any words are missing, please list them.
-* Example Sentence:  Provide an example sentence/paragraph using the ideas in the input sentence that utilizes ALL the words in a grammatically correct, fluent, and creative way.
+* Example Sentence:  Provide an example sentence/paragraph using the ideas in the input sentence that utilizes ALL the words in the word list in a grammatically correct, fluent, and creative way.
 
 Output:
 
