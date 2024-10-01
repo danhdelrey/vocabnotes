@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vocabnotes/app/routes.dart';
 import 'package:vocabnotes/bloc/writing_check_cubit/writing_check_cubit.dart';
 import 'package:vocabnotes/bloc/writing_cubit/writing_cubit.dart';
@@ -62,7 +63,9 @@ class _WritingScreenState extends State<WritingScreen> {
                   return BlocBuilder<WritingCheckCubit, WritingCheckState>(
                     builder: (context, state) {
                       if (state is WritingCheckInProgress) {
-                        return const CircularProgressIndicator();
+                        return const Skeletonizer(
+                            child:
+                                Center(child: Text('fhsudhfoshdifnidfdfdfdf')));
                       } else if (state is WritingCheckSuccess) {
                         wordList = state.randomWordList;
                         return Column(
@@ -145,8 +148,97 @@ class _WritingScreenState extends State<WritingScreen> {
                     },
                   );
                 } else if (state is WritingInProgress) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return SingleChildScrollView(
+                    child: Skeletonizer(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Center(
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 5,
+                                runSpacing: 5,
+                                children: [
+                                  ...wordList.map(
+                                    (word) =>
+                                        _buildTappableWord(context, word: word),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Your answer:',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              _textEditingController.text,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                            const Divider(),
+                            _buildEvaluation(
+                                context: context,
+                                title: 'Grammatical Accuracy:',
+                                evaluation: '10/10'),
+                            _buildEvaluation(
+                                context: context,
+                                title: 'Fluency:',
+                                evaluation: '10/10'),
+                            _buildEvaluation(
+                                context: context,
+                                title: 'Originality:',
+                                evaluation: '10/10'),
+                            _buildEvaluation(
+                                context: context,
+                                title: 'Coherence:',
+                                evaluation: '10/10'),
+                            _buildEvaluation(
+                                context: context,
+                                title: 'Word Usage:',
+                                evaluation: '10/10'),
+                            const Divider(),
+                            Text(
+                              'Example Sentence:',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'This is an example sentence This is an example sentence',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: FilledButton(
+                                  onPressed: () {},
+                                  child: const Text('Continue')),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   );
                 } else if (state is WritingSuccess) {
                   return SingleChildScrollView(
