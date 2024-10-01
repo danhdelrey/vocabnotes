@@ -17,10 +17,10 @@ class FreeEnglishDictionary implements EnglishDictionary {
 
     for (var wordMeaning in wordMeaningList) {
       String name = wordMeaning.word!;
-      String phonetic;
+      String? phonetic;
       if (wordMeaning.phonetic != null) {
         phonetic = wordMeaning.phonetic!;
-      } else {
+      } else if (wordMeaning.phonetics!.isNotEmpty) {
         phonetic = wordMeaning.phonetics!
             .firstWhere((phonetic) => phonetic.text != null)
             .text!;
