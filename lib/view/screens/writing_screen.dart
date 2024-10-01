@@ -59,18 +59,18 @@ class _WritingScreenState extends State<WritingScreen> {
             child: BlocBuilder<WritingCubit, WritingState>(
               builder: (context, state) {
                 if (state is WritingInitial || state is WritingFailure) {
-                  return Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      BlocBuilder<WritingCheckCubit, WritingCheckState>(
-                        builder: (context, state) {
-                          if (state is WritingCheckInProgress) {
-                            return const CircularProgressIndicator();
-                          } else if (state is WritingCheckSuccess) {
-                            wordList = state.randomWordList;
-                            return Center(
+                  return BlocBuilder<WritingCheckCubit, WritingCheckState>(
+                    builder: (context, state) {
+                      if (state is WritingCheckInProgress) {
+                        return const CircularProgressIndicator();
+                      } else if (state is WritingCheckSuccess) {
+                        wordList = state.randomWordList;
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
                               child: Wrap(
                                 alignment: WrapAlignment.center,
                                 spacing: 5,
@@ -82,59 +82,67 @@ class _WritingScreenState extends State<WritingScreen> {
                                   )
                                 ],
                               ),
-                            );
-                          } else if (state is WritingCheckFailure) {
-                            return const Text('Library is empty');
-                          } else {
-                            return const SizedBox();
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        child: TextField(
-                          onTapOutside: (event) {
-                            FocusScope.of(context).unfocus();
-                          },
-                          //keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          focusNode: _focusNode,
-                          controller: _textEditingController,
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                              child: TextField(
+                                onTapOutside: (event) {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                //keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                style: Theme.of(context).textTheme.titleLarge,
+                                focusNode: _focusNode,
+                                controller: _textEditingController,
 
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: const TextStyle().copyWith(fontSize: 15),
-                            hintText:
-                                'Write a sentence/paragraph using the provided words...',
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      FilledButton(
-                          onPressed: () {
-                            if (_textEditingController.text.isNotEmpty) {
-                              context.read<WritingCubit>().evaluateSentence(
-                                  sentence: _textEditingController.text,
-                                  wordList: wordList);
-                            } else {
-                              ScaffoldMessenger.of(context).clearSnackBars();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('The sentence is empty')));
-                            }
-                          },
-                          child: const Text('Submit')),
-                    ],
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintStyle:
+                                      const TextStyle().copyWith(fontSize: 15),
+                                  hintText:
+                                      'Write a sentence/paragraph using the provided words...',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            FilledButton(
+                                onPressed: () {
+                                  if (_textEditingController.text.isNotEmpty) {
+                                    context
+                                        .read<WritingCubit>()
+                                        .evaluateSentence(
+                                            sentence:
+                                                _textEditingController.text,
+                                            wordList: wordList);
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text('The sentence is empty')));
+                                  }
+                                },
+                                child: const Text('Submit')),
+                          ],
+                        );
+                      } else if (state is WritingCheckFailure) {
+                        return const Center(
+                            child: Text('The library is empty'));
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   );
                 } else if (state is WritingInProgress) {
                   return const Center(
