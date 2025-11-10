@@ -33,7 +33,7 @@ class SearchField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
-          prefixIcon: const Icon(HugeIcons.strokeRoundedSearch02),
+          prefixIcon: const HugeIcon(icon: HugeIcons.strokeRoundedSearch02),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28.0),
           ),

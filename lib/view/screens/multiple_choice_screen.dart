@@ -61,10 +61,10 @@ class MultipleChoiceScreen extends StatelessWidget {
                       } else if (state is CorrectAnswer) {
                         return Column(
                           children: [
-                            Icon(
-                              HugeIcons.strokeRoundedCheckmarkCircle02,
+                            const HugeIcon(
+                              icon: HugeIcons.strokeRoundedCheckmarkCircle02,
                               size: 50,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: null, // color will be set by Theme below
                             ),
                             Text(
                               'Correct!',
@@ -119,8 +119,9 @@ class MultipleChoiceScreen extends StatelessWidget {
                                       },
                                       title: Text(choice['word']!),
                                       subtitle: Text(choice['definition']!),
-                                      trailing: const Icon(
-                                          HugeIcons.strokeRoundedArrowRight01),
+                                      trailing: const HugeIcon(
+                                          icon: HugeIcons
+                                              .strokeRoundedArrowRight01),
                                     ),
                                   ),
                                 )
@@ -134,18 +135,19 @@ class MultipleChoiceScreen extends StatelessWidget {
                               },
                               label: const Text('Continue'),
                               iconAlignment: IconAlignment.end,
-                              icon: const Icon(
-                                  HugeIcons.strokeRoundedCircleArrowRight01),
+                              icon: const HugeIcon(
+                                  icon: HugeIcons
+                                      .strokeRoundedCircleArrowRight01),
                             )
                           ],
                         );
                       } else if (state is IncorrectAnswer) {
                         return Column(
                           children: [
-                            Icon(
-                              HugeIcons.strokeRoundedCancelCircle,
+                            const HugeIcon(
+                              icon: HugeIcons.strokeRoundedCancelCircle,
                               size: 50,
-                              color: Theme.of(context).colorScheme.error,
+                              color: null, // color will be set by Theme below
                             ),
                             Text(
                               'Incorrect',
@@ -210,8 +212,9 @@ class MultipleChoiceScreen extends StatelessWidget {
                                       },
                                       title: Text(choice['word']!),
                                       subtitle: Text(choice['definition']!),
-                                      trailing: const Icon(
-                                          HugeIcons.strokeRoundedArrowRight01),
+                                      trailing: const HugeIcon(
+                                          icon: HugeIcons
+                                              .strokeRoundedArrowRight01),
                                     ),
                                   ),
                                 )
@@ -225,8 +228,9 @@ class MultipleChoiceScreen extends StatelessWidget {
                               },
                               label: const Text('Continue'),
                               iconAlignment: IconAlignment.end,
-                              icon: const Icon(
-                                  HugeIcons.strokeRoundedCircleArrowRight01),
+                              icon: const HugeIcon(
+                                  icon: HugeIcons
+                                      .strokeRoundedCircleArrowRight01),
                             )
                           ],
                         );

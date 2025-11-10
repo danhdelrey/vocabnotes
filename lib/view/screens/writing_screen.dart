@@ -53,7 +53,7 @@ class _WritingScreenState extends State<WritingScreen> {
                         context: context,
                         replacement: false);
                   },
-                  icon: const Icon(HugeIcons.strokeRoundedEdit02))
+                  icon: const HugeIcon(icon: HugeIcons.strokeRoundedEdit02))
             ],
           ),
           body: SingleChildScrollView(

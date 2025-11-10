@@ -112,11 +112,12 @@ class _LookupWordInformationScreenState
                             Navigator.popUntil(
                                 context, (route) => route.isFirst);
                           },
-                          icon: const Icon(HugeIcons.strokeRoundedHome09),
+                          icon: HugeIcon(icon: HugeIcons.strokeRoundedHome09),
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+                          icon:
+                              HugeIcon(icon: HugeIcons.strokeRoundedNoteAdd),
                         ),
                       ],
                     ),
@@ -151,11 +152,11 @@ class _LookupWordInformationScreenState
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(HugeIcons.strokeRoundedHome09),
+            icon: HugeIcon(icon: HugeIcons.strokeRoundedHome09),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+            icon: HugeIcon(icon: HugeIcons.strokeRoundedNoteAdd),
           ),
         ],
       ),
@@ -231,7 +232,7 @@ class _LookupWordInformationScreenState
           onPressed: () {
             Navigator.popUntil(context, (route) => route.isFirst);
           },
-          icon: const Icon(HugeIcons.strokeRoundedHome09),
+          icon: HugeIcon(icon: HugeIcons.strokeRoundedHome09),
         ),
         IconButton(
           onPressed: () {
@@ -257,7 +258,7 @@ class _LookupWordInformationScreenState
               ),
             );
           },
-          icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+          icon: HugeIcon(icon: HugeIcons.strokeRoundedNoteAdd),
         ),
       ],
     );

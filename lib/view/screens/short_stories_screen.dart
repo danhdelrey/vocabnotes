@@ -26,7 +26,7 @@ class ShortStoriesScreen extends StatelessWidget {
                         context: context,
                         replacement: false);
                   },
-                  icon: const Icon(HugeIcons.strokeRoundedEdit02))
+                  icon: const HugeIcon(icon: HugeIcons.strokeRoundedEdit02))
             ],
           ),
           body: Stack(
@@ -107,13 +107,13 @@ class ShortStoriesScreen extends StatelessWidget {
                                 .add(GenerateShortStory());
                           },
                           label: const Text('Generate'),
-                          icon: const Icon(HugeIcons.strokeRoundedReload),
+                          icon: const HugeIcon(icon: HugeIcons.strokeRoundedReload),
                         );
                       } else {
                         return FilledButton.icon(
                           onPressed: null,
                           label: const Text('Generate'),
-                          icon: const Icon(HugeIcons.strokeRoundedReload),
+                          icon: const HugeIcon(icon: HugeIcons.strokeRoundedReload),
                         );
                       }
                     },

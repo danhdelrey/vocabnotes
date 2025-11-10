@@ -51,7 +51,7 @@ class WordListTile extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(right: 25),
-                child: Icon(HugeIcons.strokeRoundedNoteRemove),
+                child: HugeIcon(icon: HugeIcons.strokeRoundedNoteRemove),
               ),
             ],
           ),
@@ -89,7 +89,7 @@ class WordListTile extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          trailing: const Icon(HugeIcons.strokeRoundedArrowRight01),
+          trailing: const HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01),
         ),
       ),
     );

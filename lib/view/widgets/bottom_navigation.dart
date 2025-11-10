@@ -62,15 +62,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
       currentIndex: _currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(HugeIcons.strokeRoundedSearch02),
+          icon: HugeIcon(icon: HugeIcons.strokeRoundedSearch02),
           label: 'Look up',
         ),
         BottomNavigationBarItem(
-          icon: Icon(HugeIcons.strokeRoundedNote),
+          icon: HugeIcon(icon: HugeIcons.strokeRoundedNote),
           label: 'Library',
         ),
         BottomNavigationBarItem(
-          icon: Icon(HugeIcons.strokeRoundedStudyLamp),
+          icon: HugeIcon(icon: HugeIcons.strokeRoundedStudyLamp),
           label: 'Learning',
         ),
       ],

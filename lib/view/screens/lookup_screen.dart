@@ -47,7 +47,7 @@ class _LookupScreenState extends State<LookupScreen> {
                   BlocBuilder<ThemeSwitchCubit, ThemeMode>(
                     builder: (context, state) {
                       return ListTile(
-                        leading: const Icon(HugeIcons.strokeRoundedMoon02),
+                        leading: const HugeIcon(icon: HugeIcons.strokeRoundedMoon02),
                         title: const Text('Dark mode'),
                         trailing: Switch(
                           value: state == ThemeMode.dark,

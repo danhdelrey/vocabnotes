@@ -112,8 +112,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            HugeIcons.strokeRoundedStickyNote02,
+                          HugeIcon(
+                            icon: HugeIcons.strokeRoundedStickyNote02,
                             size: 40,
                             color: Theme.of(context).colorScheme.outline,
                           ),
