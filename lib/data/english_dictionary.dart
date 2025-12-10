@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:free_english_dictionary/free_english_dictionary.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:vocabnotes/data/english_word_model.dart';
@@ -83,7 +84,7 @@ class GeminiDictionary implements EnglishDictionary {
 
     final model = GenerativeModel(
         model: 'gemini-1.5-flash',
-        apiKey: 'AIzaSyB4O0xvcgzvkoqbDi2VXtKUaRsTbTLTznA',
+        apiKey: dotenv.env['GEMINI_API_KEY']!,
         safetySettings: safetySettings,
         generationConfig: GenerationConfig(
             responseMimeType: 'application/json', responseSchema: schema));
