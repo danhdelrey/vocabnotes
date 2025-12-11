@@ -18,6 +18,7 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -33,7 +34,7 @@ class SearchField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
-          prefixIcon: const HugeIcon(icon: HugeIcons.strokeRoundedSearch02, size: 16,),
+          prefixIcon: Icon(Icons.search),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28.0),
           ),
